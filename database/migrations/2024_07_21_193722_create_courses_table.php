@@ -1,0 +1,76 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('representing_institution_id')
+                ->constrained('representing_institutions');
+            $table->string('title');
+            $table->string('level');
+            $table->json('duration');
+            $table->date('start_date')
+                ->nullable();
+            $table->date('end_date')
+                ->nullable();
+
+            $table->string('campus');
+
+            $table->string('awarding_body')
+                ->nullable();
+
+            $table->decimal('fee', places: 2);
+            $table->decimal('application_fee', places: 2)
+                ->nullable();
+            $table->foreignId('currency_id')
+                ->constrained('currencies');
+            $table->unsignedInteger('monthly_living_cost')
+                ->nullable();
+            $table->text('part_time_work_details')
+                ->nullable();
+            $table->text('course_benefits')
+                ->nullable();
+            $table->text('general_eligibility')
+                ->nullable();
+            $table->enum('quality_of_applicant', ['excellent', 'good', 'average', 'below average'])->nullable();
+            $table->boolean('is_language')
+                ->default(false);
+            $table->text('language_requirements')
+                ->nullable();
+            $table->text('additional_information')
+                ->nullable();
+            $table->json('course_category')->nullable();
+            $table->string('document_1_title')->nullable();
+            $table->string('document_1')->nullable();
+            $table->string('document_2_title')->nullable();
+            $table->string('document_2')->nullable();
+            $table->string('document_3_title')->nullable();
+            $table->string('document_3')->nullable();
+            $table->string('document_4_title')->nullable();
+            $table->string('document_4')->nullable();
+            $table->string('document_5_title')->nullable();
+            $table->string('document_5')->nullable();
+            $table->json('modules')->nullable();
+            $table->json('intake')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('courses');
+    }
+};

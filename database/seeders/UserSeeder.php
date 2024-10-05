@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $user1 = User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@example.com',
+        ]);
+
+        $user2 = User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+        ]);
+        $user3 = User::factory()->create([
+            'name' => 'Counsellor',
+            'email' => 'counsellor@example.com',
+        ]);
+        $user1->assignRole('super admin');
+        $user2->assignRole('admin');
+        $user3->assignRole('counsellor');
+    }
+}
