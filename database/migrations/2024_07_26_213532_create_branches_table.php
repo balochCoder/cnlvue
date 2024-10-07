@@ -20,13 +20,6 @@ return new class extends Migration {
             $table->string('branch_email')->nullable();
             $table->string('branch_phone')->nullable();
             $table->string('branch_website')->nullable();
-            $table->enum('download_csv', ['Y', 'W', 'N'])->nullable();
-            $table->string('contact_person_name');
-            $table->string('contact_person_designation');
-            $table->string('contact_person_phone')->nullable();
-            $table->string('contact_person_mobile');
-            $table->string('contact_person_whatsapp')->nullable();
-            $table->string('contact_person_skype')->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->softDeletes();

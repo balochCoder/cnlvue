@@ -22,26 +22,26 @@ class RepresentingInstitutionFactory extends Factory
     public function definition(): array
     {
         $countries = RepresentingCountry::all()->pluck('id')->toArray();
-        $currency = Currency::query()->where('id', 49)->first();
+        $currency = Currency::query()->where('id', 49)->firstOrFail();
         return [
-            'representing_country_id' => $this->faker->randomElement($countries),
-            'institution_name' => $this->faker->words(3, true),
-            'type' => $this->faker->randomElement(InstituteType::cases()),
-            'campus'=> $this->faker->city(),
-            'website' => $this->faker->url(),
-            'monthly_living_cost'=> $this->faker->randomFloat(2, 10, 100),
-            'funds_required'=> $this->faker->randomFloat(2, 10, 100),
-            'application_fee'=> $this->faker->randomFloat(2, 10, 100),
+            'representing_country_id' => fake()->randomElement($countries),
+            'name' => fake()->words(3, true),
+            'type' => fake()->randomElement(InstituteType::cases()),
+            'campus'=> fake()->city(),
+            'website' => fake()->url(),
+            'monthly_living_cost'=> fake()->randomFloat(2, 10, 100),
+            'funds_required'=> fake()->randomFloat(2, 10, 100),
+            'application_fee'=> fake()->randomFloat(2, 10, 100),
             'currency_id'=> $currency->id,
             'contract_term' => 2,
-            'quality_of_applicant' => $this->faker->randomElement(ApplicantDesired::cases()),
-            'contact_person_name' => $this->faker->name(),
-            'contact_person_email'=> $this->faker->email(),
-            'contact_person_phone'=> $this->faker->phoneNumber(),
-            'contact_person_designation'=> $this->faker->jobTitle(),
+            'quality_of_applicant' => fake()->randomElement(ApplicantDesired::cases()),
+            'contact_person_name' => fake()->name(),
+            'contact_person_email'=> fake()->email(),
+            'contact_person_phone'=> fake()->phoneNumber(),
+            'contact_person_designation'=> fake()->jobTitle(),
             'contract_expiry'=> Carbon::now()->addYears(2),
-            'part_time_work_details' => $this->faker->paragraph(),
-            'logo' => $this->faker->imageUrl(),
+            'part_time_work_details' => fake()->paragraph(),
+            'logo' => fake()->imageUrl(),
         ];
     }
 }

@@ -23,23 +23,19 @@ class Branch extends Model
         'branch_email',
         'branch_phone',
         'branch_website',
-        'download_csv',
-        'contact_person_name',
-        'contact_person_designation',
-        'contact_person_phone',
-        'contact_person_mobile',
-        'contact_person_whatsapp',
-        'contact_person_skype',
         'is_active',
         'user_id',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-        'country_id' => 'integer',
-        'time_zone_id' => 'integer',
-        'user_id' => 'integer'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'country_id' => 'integer',
+            'time_zone_id' => 'integer',
+            'user_id' => 'integer'
+        ];
+    }
 
     public function country() : BelongsTo
     {

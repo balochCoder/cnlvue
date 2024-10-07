@@ -19,23 +19,20 @@ class ProcessingOffice extends Model
         'state',
         'country_id',
         'time_zone_id',
-        'processing_office_phone',
-        'download_csv',
-        'contact_person_name',
-        'contact_person_designation',
-        'contact_person_phone',
-        'contact_person_mobile',
-        'contact_person_skype',
+        'phone',
         'is_active',
         'user_id',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-        'country_id' => 'integer',
-        'time_zone_id' => 'integer',
-        'user_id' => 'integer'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'country_id' => 'integer',
+            'time_zone_id' => 'integer',
+            'user_id' => 'integer'
+        ];
+    }
 
     public function branch(): BelongsTo
     {

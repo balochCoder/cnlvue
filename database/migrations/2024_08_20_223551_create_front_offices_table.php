@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::create('front_offices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('branch_id')->constrained('branches');
-            $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('mobile')->nullable();
             $table->boolean('edit_leads')->default(false);
             $table->foreignId('user_id')->constrained('users');
             $table->boolean('is_active')->default(true);

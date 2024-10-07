@@ -20,9 +20,10 @@ class ApplicationProcessResource extends JsonResource
             'notes' => $this->resource->notes,
             'isActive' => !!$this->resource->is_active,
             'order' => $this->resource->order,
+            'subStatuses' => SubStatusResource::collection($this->whenLoaded('subStatuses')),
             'createdAt' => $this->resource->created_at,
             'updatedAt' => $this->resource->updated_at,
-            'subStatuses' => SubStatusResource::collection($this->resource->subStatuses),
+
         ];
     }
 }

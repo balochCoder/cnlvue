@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Currency;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CurrencySeeder extends Seeder
@@ -826,8 +825,8 @@ class CurrencySeeder extends Seeder
                 "symbol" => ""
             ]
         ];
-        foreach ($jayParsedAry as $key => $value) {
-            Currency::create([
+        foreach ($jayParsedAry as $value) {
+            Currency::query()->create([
                 'code' => $value['code'],
                 'name' => $value['name'],
                 'symbol' => $value['symbol'],

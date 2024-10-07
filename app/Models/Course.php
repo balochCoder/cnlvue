@@ -56,14 +56,14 @@ class Course extends Model
     {
         return [
             'level' => CourseLevel::class,
-            'duration' => 'array',
+            'duration' => 'object',
             'course_category' => 'array',
             'modules' => 'array',
             'intake' => 'array',
             'start_date' => 'date',
             'end_date' => 'date',
-            'fee' => 'float',
-            'application_fee' => 'float',
+            'fee' => 'decimal',
+            'application_fee' => 'decimal',
             'currency_id' => 'integer',
             'representing_institution_id' => 'integer',
             'is_active' => 'boolean'

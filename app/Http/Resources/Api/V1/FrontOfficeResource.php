@@ -13,9 +13,6 @@ class FrontOfficeResource extends JsonResource
         return[
             'id' => $this->resource->id,
             'branch'=>BranchResource::make($this->whenLoaded('branch')),
-            'name' => $this->resource->name,
-            'phone' => $this->resource->phone,
-            'mobile' => $this->resource->mobile,
             'edit_leads' => $this->resource->edit_leads,
             'user' => UserResource::make($this->whenLoaded('user')),
             'is_active' => $this->resource->is_active,

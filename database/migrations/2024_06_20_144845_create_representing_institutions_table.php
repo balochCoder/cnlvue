@@ -16,15 +16,15 @@ return new class extends Migration
             $table->foreignId('representing_country_id')
                 ->constrained('representing_countries')
                 ->cascadeOnDelete();
-            $table->string('institution_name');
+            $table->string('name');
             $table->enum('type', ['direct', 'indirect'])->nullable();
             $table->string('campus')->nullable();
             $table->string('website');
-            $table->integer('monthly_living_cost')->nullable();
-            $table->integer('funds_required')->nullable();
-            $table->integer('application_fee')->nullable();
+            $table->decimal('monthly_living_cost')->nullable();
+            $table->decimal('funds_required')->nullable();
+            $table->decimal('application_fee')->nullable();
             $table->foreignId('currency_id')->nullable();
-            $table->integer('contract_term')->nullable();
+            $table->unsignedInteger('contract_term')->nullable();
             $table->enum('quality_of_applicant',['excellent','good','average','below average'])->nullable();
             $table->string('contract_copy')->nullable();
             $table->dateTime('contract_expiry')->nullable();

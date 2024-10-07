@@ -279,7 +279,10 @@ class CountrySeeder extends Seeder
             ];
         });
 
-        Country::query()->insert($countries->toArray());
+        Country::query()
+            ->insert(
+                $countries->toArray()
+            );
 
     }
 }

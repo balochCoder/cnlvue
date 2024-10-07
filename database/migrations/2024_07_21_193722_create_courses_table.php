@@ -27,12 +27,12 @@ return new class extends Migration {
             $table->string('awarding_body')
                 ->nullable();
 
-            $table->decimal('fee', places: 2);
-            $table->decimal('application_fee', places: 2)
+            $table->decimal('fee');
+            $table->decimal('application_fee')
                 ->nullable();
             $table->foreignId('currency_id')
                 ->constrained('currencies');
-            $table->unsignedInteger('monthly_living_cost')
+            $table->decimal('monthly_living_cost')
                 ->nullable();
             $table->text('part_time_work_details')
                 ->nullable();

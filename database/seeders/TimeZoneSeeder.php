@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\TimeZone;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TimeZoneSeeder extends Seeder
@@ -107,16 +106,16 @@ class TimeZoneSeeder extends Seeder
         ];
 
 
-
-        $allTimeZones = collect($timeZones)->map(function ($timeZone , $key) {
+        $allTimeZones = collect($timeZones)->map(function ($timeZone, $key) {
             return [
                 'key' => $key,
                 'zone' => $timeZone,
-                'created_at' =>now(),
-                'updated_at' =>now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         });
 
-        TimeZone::insert($allTimeZones->toArray());
+        TimeZone::query()
+            ->insert($allTimeZones->toArray());
     }
 }

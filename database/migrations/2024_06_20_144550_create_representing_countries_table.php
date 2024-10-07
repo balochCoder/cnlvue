@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('representing_countries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id')->unique()->constrained('countries')
+
+            $table->foreignId('country_id')
+                ->unique()
+                ->constrained('countries')
                 ->onDelete('cascade');
+
             $table->string('monthly_living_cost')->nullable();
             $table->text('visa_requirements')->nullable();
             $table->text('part_time_work_details')->nullable();

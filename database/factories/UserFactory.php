@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\DownloadCSV;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
+
 class UserFactory extends Factory
 {
     /**
@@ -27,6 +26,12 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'designation'=> fake()->jobTitle(),
+            'mobile' => fake()->e164PhoneNumber(),
+            'phone' => fake()->phoneNumber(),
+            'whatsapp' => fake()->e164PhoneNumber(),
+            'skype' => fake()->userName(),
+            'download_csv' => fake()->randomElement(DownloadCSV::cases()),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

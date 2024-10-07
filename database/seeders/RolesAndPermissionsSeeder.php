@@ -102,7 +102,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $permissions = collect($arrayOfPermissionsNames)->map(function ($permission) {
             return [
                 'name' => $permission,
-                'guard_name' => 'web'
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
             ];
         });
 

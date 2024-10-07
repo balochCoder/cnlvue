@@ -17,7 +17,7 @@ class RepresentingInstitutionResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'institutionName' => $this->resource->institution_name,
+            'institutionName' => $this->resource->name,
             'isActive' => !!$this->resource->is_active,
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
                 'representing_country_id' => $this->resource->representing_country_id,
@@ -34,7 +34,7 @@ class RepresentingInstitutionResource extends JsonResource
                 'qualityOfApplicant' => $this->resource->quality_of_applicant,
                 'contractCopy' => $this->resource->contract_copy,
                 'contractExpiry' => $this->resource->contract_expiry,
-                'isLanguage' => (string)$this->resource->is_language,
+                'isLanguage' => !!$this->resource->is_language,
                 'languageRequirements' => $this->resource->language_requirements,
                 'institutionalBenefits' => $this->resource->institutional_benefits,
                 'partTimeWorkDetails' => $this->resource->part_time_work_details,

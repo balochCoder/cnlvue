@@ -16,15 +16,10 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('time_zone_id')->nullable()->constrained('time_zones');
-            $table->string('processing_office_phone')->nullable();
-            $table->enum('download_csv', ['Y', 'W', 'N'])->nullable();
-            $table->string('contact_person_name');
-            $table->string('contact_person_designation');
-            $table->string('contact_person_phone')->nullable();
-            $table->string('contact_person_mobile');
-            $table->string('contact_person_skype')->nullable();
+
             $table->boolean('is_active')->default(true);
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->softDeletes();

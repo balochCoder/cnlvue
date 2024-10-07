@@ -13,13 +13,7 @@ class Counsellor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'branch_id',
-        'name',
-        'phone',
-        'mobile',
-        'whatsapp',
-        'download_csv',
-        'is_processing_officer',
+        'branch_id',        'is_processing_officer',
         'user_id',
         'is_active',
     ];
@@ -31,7 +25,6 @@ class Counsellor extends Model
             'is_processing_officer' => 'boolean',
             'user_id' => 'integer',
             'branch_id' => 'integer',
-            'download_csv' => DownloadCSV::class
         ];
     }
 
@@ -48,6 +41,6 @@ class Counsellor extends Model
     public function institutions(): BelongsToMany
     {
         return $this->belongsToMany(RepresentingInstitution::class, foreignPivotKey: 'counsellor_id', relatedPivotKey: 'institution_id')
-            ->using(CounsellorRepresentingInstitution::class);
+            ->using(CounsellorRepresentingInstitution::class)->withTimestamps();
     }
 }

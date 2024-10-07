@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
+use App\Http\Controllers\Api\V1\Branch\BranchController;
 use App\Http\Controllers\Api\V1\ProcessingOffice\ProcessingOfficeController;
 use App\Http\Controllers\Api\V1\Counsellor\CounsellorController;
 use App\Http\Controllers\Api\V1\Country\CountryController;
@@ -16,7 +17,9 @@ use App\Http\Controllers\Api\V1\TimeZone\TimeZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::get('users', function () {
+        return \App\Http\Resources\Api\V1\UserResource::collection(\App\Models\User::all());
+    });
     //Representing Countries Routes
     Route::get('countries', CountryController::class)->name('countries.index');
     Route::apiResource('representing-countries', RepresentingCountryController::class)
@@ -64,8 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['index']);
     Route::patch('courses/{course}/status', [CourseController::class, 'status']);
     //Branch
-    Route::apiResource('branches', ProcessingOfficeController::class);
-    Route::patch('branches/{branch}/status', [ProcessingOfficeController::class, 'status']);
+    Route::apiResource('branches', BranchController::class);
+    Route::patch('branches/{branch}/status', [BranchController::class, 'status']);
     //Counsellor
     Route::apiResource('counsellors', CounsellorController::class);
     Route::patch('counsellors/{counsellor}/status', [CounsellorController::class, 'status']);

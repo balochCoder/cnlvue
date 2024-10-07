@@ -19,12 +19,11 @@ class RepresentingCountryFactory extends Factory
     {
         $countries = Country::all()->pluck('id')->toArray();
         return [
-            'country_id' => $this->faker->unique()->randomElement($countries),
-            'monthly_living_cost' => $this->faker->numberBetween(1000, 10000),
-            'visa_requirements'=> $this->faker->sentence(),
-            'part_time_work_details'=>$this->faker->sentence(),
-            'country_benefits'=>$this->faker->sentence(),
-            'is_active' => true
+            'country_id' => fake()->unique()->randomElement($countries),
+            'monthly_living_cost' => fake()->numberBetween(1000, 10000),
+            'visa_requirements'=> fake()->sentence(),
+            'part_time_work_details'=>fake()->sentence(),
+            'country_benefits'=>fake()->sentence(),
         ];
     }
 }

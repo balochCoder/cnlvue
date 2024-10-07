@@ -30,10 +30,14 @@ class RepresentingCountry extends Model
         'country_benefits',
         'is_active',
     ];
-    protected $casts = [
-        'country_id' => 'integer',
-        'is_active' => 'boolean'
-    ];
+
+    protected function casts(): array
+    {
+        return [
+            'country_id' => 'integer',
+            'is_active' => 'boolean'
+        ];
+    }
 
     public function country(): BelongsTo
     {

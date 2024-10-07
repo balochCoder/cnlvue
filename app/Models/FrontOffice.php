@@ -13,9 +13,6 @@ class FrontOffice extends Model
     use HasFactory;
     protected $fillable = [
         'branch_id',
-        'name',
-        'phone',
-        'mobile',
         'edit_leads',
         'user_id',
         'is_active',

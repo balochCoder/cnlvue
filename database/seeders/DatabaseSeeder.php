@@ -36,7 +36,11 @@ class DatabaseSeeder extends Seeder
         RepresentingInstitution::factory(10)->create();
         Course::factory(50)->create();
         Branch::factory(5)->create();
-        Counsellor::factory(5)->create();
+        Counsellor::factory(5)->hasAttached(
+            RepresentingInstitution::factory(3)->create(),
+            [],
+            'institutions'
+        )->create();
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)->create();
     }

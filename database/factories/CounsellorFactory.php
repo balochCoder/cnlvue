@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\DownloadCSV;
 use App\Models\Branch;
 use App\Models\Counsellor;
 use App\Models\User;
@@ -17,13 +16,13 @@ class CounsellorFactory extends Factory
         $branches = Branch::all()->pluck('id')->toArray();
         $user= User::factory()->create();
         $user->assignRole('counsellor');
+        $isProcessingOfficer = fake()->randomElement([true, false]);
+       if ($isProcessingOfficer) {
+           $user->assignRole('processing_officer');
+       }
         return [
-            'branch_id' => $this->faker->randomElement($branches),
-            'name' => $this->faker->name(),
-            'phone' => $this->faker->phoneNumber(),
-            'mobile' => $this->faker->phoneNumber(),
-            'whatsapp' =>$this->faker->e164PhoneNumber,
-            'download_csv' => $this->faker->randomElement(DownloadCSV::cases()),
+            'branch_id' => fake()->randomElement($branches),
+            'is_processing_officer' => $isProcessingOfficer,
             'user_id' => $user->id,
         ];
     }

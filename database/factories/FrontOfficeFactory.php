@@ -16,9 +16,8 @@ class FrontOfficeFactory extends Factory
         $user = User::factory()->create();
         $user->assignRole('front_office');
         return [
-            'branch_id' => $this->faker->randomElement($branches),
-            'name' => $this->faker->city,
-            'edit_leads' => $this->faker->randomElement([true, false]),
+            'branch_id' => fake()->randomElement($branches),
+            'edit_leads' => fake()->randomElement([true, false]),
             'user_id' => $user->id,
         ];
     }
