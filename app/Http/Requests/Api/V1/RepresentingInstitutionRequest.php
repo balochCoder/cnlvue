@@ -19,16 +19,11 @@ class RepresentingInstitutionRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
             'representing_country_id' => ['required', Rule::exists('representing_countries', 'id')->where('is_active', true)],
-            'institution_name' => ['required', Rule::unique('representing_institutions', 'institution_name')],
+            'name' => ['required', Rule::unique('representing_institutions', 'name')],
             'type' => ['required', Rule::enum(InstituteType::class)],
             'campus' => ['nullable', 'string'],
             'website' => ['required', 'url'],

@@ -23,12 +23,12 @@ class BranchResource extends JsonResource
                 'state'=> $this->resource->state,
                 'country' => CountryResource::make($this->whenLoaded('country')),
                 'timeZone'=> TimeZoneResource::make($this->whenLoaded('timeZone')),
-                'branch_email'=> $this->resource->branch_email,
-                'branch_phone'=> $this->resource->branch_phone,
-                'branch_website'=> $this->resource->branch_website,
-                'is_active'=> $this->resource->is_active,
+                'branchEmail'=> $this->resource->branch_email,
+                'branchPhone'=> $this->resource->branch_phone,
+                'branchWebsite'=> $this->resource->branch_website,
+                'isActive'=> $this->resource->is_active,
                 'user' => UserResource::make($this->whenLoaded('user')),
-                'created_at' => $this->resource->created_at,
+                'createdAt' => $this->resource->created_at,
             ])
         ];
     }

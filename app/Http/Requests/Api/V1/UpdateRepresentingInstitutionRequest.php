@@ -23,7 +23,7 @@ class UpdateRepresentingInstitutionRequest extends FormRequest
     {
         return [
             'representing_country_id' => ['required', Rule::exists('representing_countries', 'id')->where('is_active', true)],
-            'institution_name' => ['required', Rule::unique('representing_institutions', 'institution_name')->ignore($this->representing_institution->id)],
+            'name' => ['required', Rule::unique('representing_institutions', 'name')->ignore($this->representing_institution->id)],
             'type' => ['required', Rule::enum(InstituteType::class)],
             'campus' => ['nullable', 'string'],
             'website' => ['required', 'url'],

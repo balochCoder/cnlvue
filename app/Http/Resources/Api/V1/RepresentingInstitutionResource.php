@@ -17,7 +17,7 @@ class RepresentingInstitutionResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'institutionName' => $this->resource->name,
+            'name' => $this->resource->name,
             'isActive' => !!$this->resource->is_active,
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
                 'representing_country_id' => $this->resource->representing_country_id,
@@ -28,7 +28,7 @@ class RepresentingInstitutionResource extends JsonResource
                 'monthlyLivingCost' => $this->resource->monthly_living_cost,
                 'fundsRequired' => $this->resource->funds_required,
                 'applicationFee' => $this->resource->application_fee,
-                'currency_id' => $this->resource->currency_id,
+                'currencyId' => $this->resource->currency_id,
                 'currency' => CurrencyResource::make($this->whenLoaded('currency')),
                 'contractTerm' => $this->resource->contract_term,
                 'qualityOfApplicant' => $this->resource->quality_of_applicant,

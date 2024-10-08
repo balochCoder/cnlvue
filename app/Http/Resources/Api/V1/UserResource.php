@@ -24,11 +24,11 @@ class UserResource extends JsonResource
             'phone'=>$this->resource->phone,
             'skype'=>$this->resource->skype,
             'whatsapp'=>$this->resource->whatsapp,
-            'download_csv'=>$this->resource->download_csv,
+            'downloadCsv'=>$this->resource->download_csv,
             'createdAt'=>$this->resource->created_at,
             'updatedAt'=>$this->resource->updated_at,
             'role' => $this->resource->getRoleNames(),
-            'last_login' => $this->resource->last_login,
+            'lastLogin' => $this->resource->last_login,
         ];
     }
 }

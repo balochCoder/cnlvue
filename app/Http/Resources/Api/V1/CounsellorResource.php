@@ -17,10 +17,10 @@ class CounsellorResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'branch' => BranchResource::make($this->whenLoaded('branch')),
-            'is_processing_officer' => $this->resource->is_processing_officer,
+            'isProcessingOfficer' => $this->resource->is_processing_officer,
             'user' => UserResource::make($this->whenLoaded('user')),
-            'is_active' => $this->resource->is_active,
-            'created_at' => $this->resource->created_at,
+            'isActive' => $this->resource->is_active,
+            'createdAt' => $this->resource->created_at,
         ];
     }
 }

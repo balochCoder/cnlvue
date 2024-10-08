@@ -13,10 +13,10 @@ class FrontOfficeResource extends JsonResource
         return[
             'id' => $this->resource->id,
             'branch'=>BranchResource::make($this->whenLoaded('branch')),
-            'edit_leads' => $this->resource->edit_leads,
+            'editLeads' => $this->resource->edit_leads,
             'user' => UserResource::make($this->whenLoaded('user')),
-            'is_active' => $this->resource->is_active,
-            'created_at' => $this->resource->created_at,
+            'isActive' => $this->resource->is_active,
+            'createdAt' => $this->resource->created_at,
         ];
     }
 }

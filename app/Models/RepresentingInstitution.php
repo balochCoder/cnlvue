@@ -18,7 +18,7 @@ class RepresentingInstitution extends Model
 
     protected $fillable = [
         'representing_country_id',
-        'institution_name',
+        'name',
         'type',
         'campus',
         'website',

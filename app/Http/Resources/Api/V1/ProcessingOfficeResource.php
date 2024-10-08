@@ -25,10 +25,10 @@ class ProcessingOfficeResource extends JsonResource
                 'timeZone'=> TimeZoneResource::make($this->whenLoaded('timeZone')),
                 'phone'=> $this->resource->phone,
 
-                'is_active'=> $this->resource->is_active,
+                'isActive'=> $this->resource->is_active,
 
                 'user' => UserResource::make($this->whenLoaded('user')),
-                'created_at' => $this->resource->created_at,
+                'createdAt' => $this->resource->created_at,
             ])
         ];
     }
