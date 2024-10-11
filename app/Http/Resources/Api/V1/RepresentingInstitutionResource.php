@@ -4,7 +4,6 @@ namespace App\Http\Resources\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class RepresentingInstitutionResource extends JsonResource
 {
@@ -19,8 +18,8 @@ class RepresentingInstitutionResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'isActive' => !!$this->resource->is_active,
+            'courses' => CourseResource::collection($this->whenLoaded('courses')),
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
-                'representing_country_id' => $this->resource->representing_country_id,
                 'representingCountry' => RepresentingCountryResource::make($this->whenLoaded('representingCountry')),
                 'type' => $this->resource->type,
                 'campus' => $this->resource->campus,
@@ -28,7 +27,6 @@ class RepresentingInstitutionResource extends JsonResource
                 'monthlyLivingCost' => $this->resource->monthly_living_cost,
                 'fundsRequired' => $this->resource->funds_required,
                 'applicationFee' => $this->resource->application_fee,
-                'currencyId' => $this->resource->currency_id,
                 'currency' => CurrencyResource::make($this->whenLoaded('currency')),
                 'contractTerm' => $this->resource->contract_term,
                 'qualityOfApplicant' => $this->resource->quality_of_applicant,

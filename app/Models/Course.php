@@ -62,8 +62,8 @@ class Course extends Model
             'intake' => 'array',
             'start_date' => 'date',
             'end_date' => 'date',
-            'fee' => 'decimal',
-            'application_fee' => 'decimal',
+            'fee' => 'float',
+            'application_fee' => 'float',
             'currency_id' => 'integer',
             'representing_institution_id' => 'integer',
             'is_active' => 'boolean'

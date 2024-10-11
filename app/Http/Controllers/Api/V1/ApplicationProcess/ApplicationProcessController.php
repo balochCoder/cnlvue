@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\ApplicationProcess;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Resources\Api\V1\ApplicationProcessResource;
 use App\Models\ApplicationProcess;
 use App\Models\RepresentingCountry;
@@ -10,16 +10,10 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class ApplicationProcessController extends Controller
+class ApplicationProcessController extends ApiController
 {
     use ApiResponse;
 
-    public function index(RepresentingCountry $representingCountry)
-    {
-        return ApplicationProcessResource::collection(
-            $representingCountry->applicationProcesses
-        );
-    }
 
     public function store(RepresentingCountry $representingCountry, Request $request)
     {
@@ -39,6 +33,10 @@ class ApplicationProcessController extends Controller
 
     public function show(ApplicationProcess $applicationProcess)
     {
+        if ($this->include('subStatuses'))
+        {
+            $applicationProcess->load('subStatuses');
+        }
         return ApplicationProcessResource::make($applicationProcess);
     }
 
@@ -54,7 +52,7 @@ class ApplicationProcessController extends Controller
             'name' => $request->name,
         ]);
 
-        return ApplicationProcessResource::make($applicationProcess);
+        return $this->ok('Application process updated successfully.');
     }
 
 
@@ -72,9 +70,9 @@ class ApplicationProcessController extends Controller
     public function status(ApplicationProcess $applicationProcess, Request $request)
     {
         $applicationProcess->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive,
         ]);
-        return ApplicationProcessResource::make($applicationProcess);
+        return $this->ok('Status updated successfully');
     }
 
     public function updateOrder(Request $request)
@@ -88,6 +86,6 @@ class ApplicationProcessController extends Controller
             $applicationProcesses->push($item);
         }
 
-        return ApplicationProcessResource::collection($applicationProcesses);
+        return $this->ok('Order Updated Successfull');
     }
 }

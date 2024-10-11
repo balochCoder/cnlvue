@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('time_zone_id')->nullable()->constrained('time_zones');
             $table->string('branch_email')->nullable();

@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1\Course;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\StoreCourseRequest;
-use App\Http\Requests\Api\V1\UpdateCourseRequest;
+use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
 use App\Http\Resources\Api\V1\CourseResource;
-use App\Models\Course;
-use App\Models\RepresentingInstitution;
+use App\Models\{Course};
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class CourseController extends ApiController
 {
     use ApiResponse;
-    public function index(RepresentingInstitution $representing_institution)
-    {
-        $data = $representing_institution->courses()->with(['currency'])->get();
-        return CourseResource::collection($data);
-    }
+
     public function store(StoreCourseRequest $request)
     {
+
+
         $course = Course::query()->create($request->getData());
         return CourseResource::make($course);
     }
@@ -39,8 +35,8 @@ class CourseController extends Controller
     public function status(Course $course, Request $request)
     {
         $course->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive
         ]);
-        return CourseResource::make($course);
+        return $this->ok('Course status updated successfully');
     }
 }

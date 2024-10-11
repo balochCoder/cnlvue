@@ -15,19 +15,26 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('designation')->nullable();
             $table->string('mobile');
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('skype')->nullable();
+            $table->string('profile_photo_path', 2048)
+                ->nullable();
+
             $table->enum('download_csv',['Y','W','N'])->nullable();
+
             $table->boolean('is_active')->default(true);
-            $table->timestamp('last_login')->default(Carbon\Carbon::now());
+
             $table->rememberToken();
+
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+
+            $table->timestamp('last_login')->default(Carbon\Carbon::now());
+            $table->timestamp('email_verified_at')
+                ->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

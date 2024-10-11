@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('sub_statuses', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name');
+
+            $table->boolean('is_active')->default(true);
+
             $table->foreignId('application_process_id')
                 ->constrained('application_processes')
                 ->cascadeOnDelete();
-            $table->boolean('is_active')->default(true);
 
-            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });

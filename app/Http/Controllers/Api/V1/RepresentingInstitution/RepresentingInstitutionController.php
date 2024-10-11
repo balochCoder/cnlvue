@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\RepresentingInstitution;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\RepresentingInstitutionRequest;
-use App\Http\Requests\Api\V1\UpdateRepresentingInstitutionRequest;
+use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Requests\Api\V1\RepresentingInstitution\StoreRepresentingInstitutionRequest;
+use App\Http\Requests\Api\V1\RepresentingInstitution\UpdateRepresentingInstituionRequest;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\RepresentingInstitution;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
-class RepresentingInstitutionController extends Controller
+class RepresentingInstitutionController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class RepresentingInstitutionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RepresentingInstitutionRequest $request)
+    public function store(StoreRepresentingInstitutionRequest $request)
     {
         RepresentingInstitution::query()->create($request->getData());
         return $this->ok('Representing Institution created.', code: 201);
@@ -37,16 +37,23 @@ class RepresentingInstitutionController extends Controller
      */
     public function show(RepresentingInstitution $representingInstitution)
     {
-        $representingInstitution->load(['representingCountry','currency']);
+
+        $representingInstitution
+            ->load(['representingCountry','currency']);
+        if ($this->include('courses'))
+        {
+            $representingInstitution->load('courses');
+        }
         return RepresentingInstitutionResource::make($representingInstitution);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(RepresentingInstitution $representingInstitution, UpdateRepresentingInstitutionRequest $request)
+    public function update(RepresentingInstitution $representingInstitution, UpdateRepresentingInstituionRequest $request)
     {
-        $representingInstitution->update($request->getData());
+        $representingInstitution
+            ->update($request->getData());
         return $this->ok('Representing Institution updated.');
 
 
@@ -56,7 +63,7 @@ class RepresentingInstitutionController extends Controller
     public function status(RepresentingInstitution $representingInstitution, Request $request)
     {
         $representingInstitution->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive
         ]);
        return $this->ok('Status updated');
     }

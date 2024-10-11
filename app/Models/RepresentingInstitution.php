@@ -55,7 +55,10 @@ class RepresentingInstitution extends Model
             'representing_country_id' => 'integer',
             'currency_id' => 'integer',
             'contract_expiry' => 'datetime',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'application_fee' => 'float',
+            'funds_required' => 'float',
+            'monthly_living_cost' => 'float',
         ];
     }
 

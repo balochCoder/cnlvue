@@ -12,13 +12,19 @@ return new class extends Migration {
     {
         Schema::create('application_processes', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name');
+
+            $table->text('notes')->nullable();
+
+            $table->integer('order')->default(0);
+
+            $table->boolean('is_active')->default(true);
+
             $table->foreignId('representing_country_id')
                 ->constrained('representing_countries')
                 ->cascadeOnDelete();
-            $table->string('name');
-            $table->boolean('is_active')->default(true);
-            $table->text('notes')->nullable();
-            $table->integer('order')->default(0);
+
             $table->softDeletes();
             $table->timestamps();
         });

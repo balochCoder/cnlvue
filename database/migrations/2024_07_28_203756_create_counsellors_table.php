@@ -12,12 +12,16 @@ return new class extends Migration {
     {
         Schema::create('counsellors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('branch_id')
-                ->constrained('branches');
+
             $table->boolean('is_processing_officer')
                 ->default(false);
-            $table->foreignId('user_id')->constrained('users');
             $table->boolean('is_active')->default(true);
+
+            $table->foreignId('branch_id')
+                ->constrained('branches');
+            $table->foreignId('user_id')
+                ->constrained('users');
+
             $table->softDeletes();
             $table->timestamps();
         });

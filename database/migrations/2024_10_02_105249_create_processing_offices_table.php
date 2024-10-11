@@ -11,17 +11,25 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('processing_offices', function (Blueprint $table) {
+
             $table->id();
+
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('phone')->nullable();
-            $table->foreignId('country_id')->constrained('countries');
-            $table->foreignId('time_zone_id')->nullable()->constrained('time_zones');
+
 
             $table->boolean('is_active')->default(true);
+
+            $table->foreignId('country_id')->constrained('countries');
+            $table->foreignId('time_zone_id')->nullable()->constrained('time_zones');
             $table->foreignId('user_id')->nullable()->constrained('users');
+
+
+
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -2,30 +2,26 @@
 
 namespace App\Http\Controllers\Api\V1\SubStatus;
 
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\ApplicationProcessResource;
 use App\Http\Resources\Api\V1\SubStatusResource;
 use App\Models\ApplicationProcess;
 use App\Models\SubStatus;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
-class SubStatusController extends Controller
+class SubStatusController extends ApiController
 {
-    public function index(ApplicationProcess $applicationProcess)
-    {
-        $applicationProcess = $applicationProcess->load('subStatuses');
-        return ApplicationProcessResource::make($applicationProcess);
-
-    }
+    use ApiResponse;
     public function update(Request $request, SubStatus $subStatus)
     {
-
         $request->validate([
-            'name' => 'required',
+            'title' => 'required',
         ]);
 
         $subStatus->update([
-            'name' => $request->name,
+            'name' => $request->title,
         ]);
 
         return SubStatusResource::make($subStatus);
@@ -34,11 +30,12 @@ class SubStatusController extends Controller
     public function store(Request $request, ApplicationProcess $applicationProcess)
     {
         $request->validate([
-            'sub_status' => 'required',
+            'title' => 'required',
         ]);
 
         $subStatus = $applicationProcess->subStatuses()->create([
-            'name' => $request->sub_status,
+            'name' => $request->title,
+            'is_active' => true,
         ]);
         return SubStatusResource::make($subStatus);
     }
@@ -46,8 +43,8 @@ class SubStatusController extends Controller
     public function status(SubStatus $subStatus, Request $request)
     {
         $subStatus->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive
         ]);
-        return SubStatusResource::make($subStatus);
+        return $this->ok('Status is changed');
     }
 }
