@@ -19,7 +19,7 @@ class ProcessingOffice extends Model
         'state',
         'country_id',
         'time_zone_id',
-        'phone',
+        'office_phone',
         'is_active',
         'user_id',
     ];

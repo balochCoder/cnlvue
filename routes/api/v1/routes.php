@@ -88,7 +88,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('front-offices/{front_office}/status', [FrontOfficeController::class, 'status']);
 
     //Processing Office
-    Route::apiResource('processing-offices', ProcessingOfficeController::class);
+    Route::apiResource('processing-offices', ProcessingOfficeController::class)
+        ->except(['destroy']);
     Route::patch('processing-offices/{processing_office}/status', [ProcessingOfficeController::class, 'status']);
 });
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\ProcessingOffice;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\StoreProcessingOfficeRequest;
-use App\Http\Requests\Api\V1\UpdateProcessingOfficeRequest;
+use App\Http\Requests\Api\V1\ProcessingOffice\StoreProcessingOfficeRequest;
+use App\Http\Requests\Api\V1\ProcessingOffice\UpdateProcessingOfficeRequest;
 use App\Http\Resources\Api\V1\ProcessingOfficeResource;
 use App\Models\ProcessingOffice;
 use App\Traits\ApiResponse;
@@ -25,7 +25,7 @@ class ProcessingOfficeController extends Controller
 
     public function store(StoreProcessingOfficeRequest $request)
     {
-        ProcessingOffice::query()->create($request->getData());
+        ProcessingOffice::query()->create($request->storeData());
         return $this->ok('Processing Office created successfully.', code: 201);
     }
 
@@ -40,7 +40,7 @@ class ProcessingOfficeController extends Controller
 
     public function update(UpdateProcessingOfficeRequest $request, ProcessingOffice $processingOffice)
     {
-        $processingOffice->update($request->getData());
+        $processingOffice->update($request->updateData());
         return $this->ok('Processing Office updated successfully.', code: 201);
     }
 
@@ -48,7 +48,7 @@ class ProcessingOfficeController extends Controller
     public function status(ProcessingOffice $processingOffice, Request $request)
     {
         $processingOffice->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');
     }

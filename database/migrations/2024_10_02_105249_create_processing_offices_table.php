@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('office_phone')->nullable();
 
 
             $table->boolean('is_active')->default(true);

@@ -23,7 +23,7 @@ class ProcessingOfficeResource extends JsonResource
                 'state'=> $this->resource->state,
                 'country' => CountryResource::make($this->whenLoaded('country')),
                 'timeZone'=> TimeZoneResource::make($this->whenLoaded('timeZone')),
-                'phone'=> $this->resource->phone,
+                'officePhone'=> $this->resource->office_phone,
 
                 'isActive'=> $this->resource->is_active,
 
