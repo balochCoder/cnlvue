@@ -25,7 +25,7 @@ class RepresentingCountryResource extends JsonResource
                     "visaRequirements" => $this->resource->visa_requirements,
                     "partTimeWorkDetails" => $this->resource->part_time_work_details,
                     "countryBenefits" => $this->resource->country_benefits,
-                    "isActive" => !!$this->resource->is_active,
+                    "isActive" => $this->resource->is_active,
                     'applicationProcesses' => ApplicationProcessResource::collection($this->whenLoaded('applicationProcesses')),
                     'representingInstitutions' => RepresentingInstitutionResource::collection($this->whenLoaded('representingInstitutions')),
                     'createdAt' => $this->resource->created_at,

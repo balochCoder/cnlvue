@@ -20,7 +20,7 @@ class CountryResource extends JsonResource
             'flag' => asset($this->resource->flag),
             $this->mergeWhen(
                 $request->routeIs('countries.*'), [
-                    'isActive' => !!$this->resource->is_active,
+                    'isActive' => $this->resource->is_active,
 
                     'createdAt' => $this->resource->created_at,
                     'updatedAt' => $this->resource->updated_at,

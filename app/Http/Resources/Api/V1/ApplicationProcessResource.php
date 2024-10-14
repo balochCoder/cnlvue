@@ -18,7 +18,7 @@ class ApplicationProcessResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'notes' => $this->resource->notes,
-            'isActive' => !!$this->resource->is_active,
+            'isActive' => $this->resource->is_active,
             'order' => $this->resource->order,
             'subStatuses' => SubStatusResource::collection($this->whenLoaded('subStatuses')),
             'createdAt' => $this->resource->created_at,

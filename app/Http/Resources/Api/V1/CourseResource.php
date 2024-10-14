@@ -17,7 +17,6 @@ class CourseResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'representingInstitutionId' => $this->resource->representing_institution_id,
             'title' => $this->resource->title,
             'level' => [
                 'key' => $this->resource->level,
@@ -36,7 +35,7 @@ class CourseResource extends JsonResource
             'courseBenefits' => $this->resource->course_benefits,
             'generalEligibility' => $this->resource->general_eligibility,
             'qualityOfApplicant' => $this->resource->quality_of_applicant,
-            'isLanguage' => (string)$this->resource->is_language,
+            'isLanguage' => $this->resource->is_language,
             'languageRequirements'=> $this->resource->language_requirements,
             'courseCategory'=> $this->resource->course_category,
             'document1Title' => $this->resource->document_1_title,

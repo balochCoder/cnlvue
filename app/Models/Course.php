@@ -66,7 +66,8 @@ class Course extends Model
             'application_fee' => 'float',
             'currency_id' => 'integer',
             'representing_institution_id' => 'integer',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'is_language' => 'boolean',
         ];
     }
 

@@ -17,7 +17,7 @@ class SubStatusResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'isActive' => !!$this->resource->is_active,
+            'isActive' => $this->resource->is_active,
             'applicationProcess' => ApplicationProcessResource::make($this->whenLoaded('applicationProcess')),
         ];
     }

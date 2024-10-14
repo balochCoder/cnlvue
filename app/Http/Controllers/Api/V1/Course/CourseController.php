@@ -15,8 +15,6 @@ class CourseController extends ApiController
 
     public function store(StoreCourseRequest $request)
     {
-
-
         $course = Course::query()->create($request->getData());
         return CourseResource::make($course);
     }
@@ -32,6 +30,7 @@ class CourseController extends ApiController
         $course->update($request->getData());
         return CourseResource::make($course);
     }
+
     public function status(Course $course, Request $request)
     {
         $course->update([

@@ -56,6 +56,7 @@ class RepresentingInstitution extends Model
             'currency_id' => 'integer',
             'contract_expiry' => 'datetime',
             'is_active' => 'boolean',
+            'is_language' => 'boolean',
             'application_fee' => 'float',
             'funds_required' => 'float',
             'monthly_living_cost' => 'float',

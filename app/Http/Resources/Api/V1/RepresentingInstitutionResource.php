@@ -32,7 +32,7 @@ class RepresentingInstitutionResource extends JsonResource
                 'qualityOfApplicant' => $this->resource->quality_of_applicant,
                 'contractCopy' => $this->resource->contract_copy,
                 'contractExpiry' => $this->resource->contract_expiry,
-                'isLanguage' => !!$this->resource->is_language,
+                'isLanguage' => $this->resource->is_language,
                 'languageRequirements' => $this->resource->language_requirements,
                 'institutionalBenefits' => $this->resource->institutional_benefits,
                 'partTimeWorkDetails' => $this->resource->part_time_work_details,

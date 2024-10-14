@@ -10,6 +10,7 @@ use App\Models\ProcessingOffice;
 use App\Models\RepresentingCountry;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\RepresentingInstitution;
+use App\Models\SubStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,9 +28,12 @@ class DatabaseSeeder extends Seeder
             TimeZoneSeeder::class,
         ]);
         RepresentingCountry::factory(10)->create()->each(function (RepresentingCountry $country) {
-            $country->applicationProcesses()->create([
+            $process = $country->applicationProcesses()->create([
                 'name' => 'New',
                 'notes' => 'This is new Status Note'
+            ]);
+            $process->subStatuses()->create([
+                'name' => 'The new',
             ]);
         });
 

@@ -13,7 +13,8 @@ class Counsellor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'branch_id',        'is_processing_officer',
+        'branch_id',
+        'is_processing_officer',
         'user_id',
         'is_active',
     ];
