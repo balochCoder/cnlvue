@@ -44,22 +44,4 @@ class UpdateBranchRequest extends BaseBranchRequest
         ];
     }
 
-    public function getData()
-    {
-        $data = $this->validated();
-        $user = User::find($data['user_id']);
-        $user->update([
-            'name' => $data['contact_person_name'],
-            'email' => $data['user_email']
-        ]);
-        if ($data['user_email'] && $data['password']) {
-            $user->update([
-                'email' => $data['user_email'],
-                'password' => Hash::make($data['password']),
-            ]);
-        }
-
-        return $data;
-
-    }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Resources\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Crypt;
 
 class UserResource extends JsonResource
 {
@@ -27,7 +26,7 @@ class UserResource extends JsonResource
             'downloadCsv'=>$this->resource->download_csv,
             'createdAt'=>$this->resource->created_at,
             'updatedAt'=>$this->resource->updated_at,
-            'role' => $this->resource->getRoleNames(),
+            'roles' => $this->resource->getRoleNames(),
             'lastLogin' => $this->resource->last_login,
         ];
     }

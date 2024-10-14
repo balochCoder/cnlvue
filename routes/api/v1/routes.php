@@ -18,23 +18,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('users', function () {
+        return \App\Http\Resources\Api\V1\UserResource::collection(\App\Models\User::all());
+    });
     //Representing Countries Routes
     Route::get('countries', CountryController::class)->name('countries.index');
     Route::apiResource('representing-countries', RepresentingCountryController::class)
-        ->only(['index', 'store','show']);
+        ->only(['index', 'store', 'show']);
     Route::patch('representing-countries/{representing_country}/status', [RepresentingCountryController::class, 'status'])->name('representing-countries.status');
 
     //Application Process Routes
     Route::apiResource('representing-countries.application-processes', ApplicationProcessController::class)
         ->shallow()
         ->only(['show', 'update', 'store']);
-
     Route::patch('representing-countries/{representing_country}/application-processes/notes', [ApplicationProcessController::class, 'updateNotes'])
         ->name('representing-countries.notes.update');
-
     Route::patch('application-processes/{application_process}/status', [ApplicationProcessController::class, 'status'])
         ->name('application-processes.status');
-
     Route::patch('application-processes/reorder/update', [ApplicationProcessController::class, 'updateOrder'])
         ->name('application-processes.reorder.update');
 
@@ -42,7 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('application-processes.sub-statuses', SubStatusController::class)
         ->shallow()
         ->only(['store', 'update']);
-
     Route::patch('sub-statuses/{sub_status}/status', [SubStatusController::class, 'status'])
         ->name('sub-statuses.status');
 
@@ -52,34 +51,40 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/course-levels', [EnumController::class, 'courseLevels']);
     Route::get('enums/course-categories', [EnumController::class, 'courseCategories']);
     Route::get('enums/download-csv', [EnumController::class, 'downloadCSV']);
+
     //Currency
     Route::get('currencies', CurrencyController::class);
-//    Time Zone
+    //Time Zone
     Route::get('time-zones', TimeZoneController::class);
 
     //Representing Institution
     Route::apiResource('representing-institutions', RepresentingInstitutionController::class)
-        ->only(['index', 'store','show','update']);
-
+        ->only(['index', 'store', 'show', 'update']);
     Route::patch('representing-institutions/{representing_institution}/status', [RepresentingInstitutionController::class, 'status'])
         ->name('representing-institutions.status');
 
     //Courses
     Route::apiResource('courses', CourseController::class)
-        ->except(['index','destroy']);
+        ->except(['index', 'destroy']);
     Route::patch('courses/{course}/status', [CourseController::class, 'status']);
+
     //Branch
     Route::apiResource('branches', BranchController::class)
-    ->except(['destroy']);
+        ->except(['destroy']);
     Route::patch('branches/{branch}/status', [BranchController::class, 'status']);
+
     //Counsellor
-    Route::apiResource('counsellors', CounsellorController::class);
+    Route::apiResource('counsellors', CounsellorController::class)
+        ->except(['destroy']);
     Route::patch('counsellors/{counsellor}/status', [CounsellorController::class, 'status']);
-    Route::post('counsellors/{counsellor}/assigned-institutions',[CounsellorController::class, 'assign']);
-    Route::get('counsellors/{counsellor}/assigned-institutions',[CounsellorController::class, 'getAssignedInstitutions']);
+
+    Route::post('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'assign']);
+
+    Route::get('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'getAssignedInstitutions']);
 
     //Front Office
-    Route::apiResource('front-offices', FrontOfficeController::class);
+    Route::apiResource('front-offices', FrontOfficeController::class)
+        ->except(['destroy']);
     Route::patch('front-offices/{front_office}/status', [FrontOfficeController::class, 'status']);
 
     //Processing Office

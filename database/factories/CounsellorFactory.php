@@ -11,15 +11,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CounsellorFactory extends Factory
 {
     protected $model = Counsellor::class;
+
     public function definition(): array
     {
         $branches = Branch::all()->pluck('id')->toArray();
-        $user= User::factory()->create();
+        $user = User::factory()->create();
         $user->assignRole('counsellor');
         $isProcessingOfficer = fake()->randomElement([true, false]);
-       if ($isProcessingOfficer) {
-           $user->assignRole('processing_officer');
-       }
+        if ($isProcessingOfficer) {
+            $user->assignRole('processing_officer');
+        }
         return [
             'branch_id' => fake()->randomElement($branches),
             'is_processing_officer' => $isProcessingOfficer,

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Counsellor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\StoreCounsellorRequest;
-use App\Http\Requests\Api\V1\UpdateCounsellorRequest;
+use App\Http\Requests\Api\V1\Counsellor\StoreCounsellorRequest;
+use App\Http\Requests\Api\V1\Counsellor\UpdateCounsellorRequest;
 use App\Http\Resources\Api\V1\CounsellorResource;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\Counsellor;
@@ -14,18 +14,18 @@ use Illuminate\Http\Request;
 class CounsellorController extends Controller
 {
     use ApiResponse;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $counsellors = Counsellor::query()
-            ->with(['branch','user'])
+            ->with(['branch', 'user'])
             ->paginate(10);
 
         return CounsellorResource::collection($counsellors);
     }
-
 
 
     /**
@@ -33,7 +33,7 @@ class CounsellorController extends Controller
      */
     public function store(StoreCounsellorRequest $request)
     {
-        Counsellor::query()->create($request->getData());
+        Counsellor::query()->create($request->storeData());
         return $this->ok('Counsellor created successfully.', code: 201);
 
     }
@@ -53,7 +53,7 @@ class CounsellorController extends Controller
      */
     public function update(UpdateCounsellorRequest $request, Counsellor $counsellor)
     {
-        $counsellor->update($request->getData());
+        $counsellor->update($request->updateData());
         return $this->ok('Counsellor updated successfully.', code: 201);
     }
 
@@ -61,13 +61,16 @@ class CounsellorController extends Controller
     public function status(Counsellor $counsellor, Request $request)
     {
         $counsellor->update([
-            'is_active' => $request->is_active
+            'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');
     }
 
     public function assign(Counsellor $counsellor, Request $request)
     {
+        $request->validate([
+            'institutions' => ['nullable', 'array'],
+        ]);
         $counsellor->institutions()->sync($request->institutions);
         return $this->ok('Counsellor assigned successfully.');
     }
