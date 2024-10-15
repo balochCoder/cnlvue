@@ -15,19 +15,21 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->resource->id,
-            'name'=>$this->resource->name,
-            'email'=>$this->resource->email,
-            'designation'=>$this->resource->designation,
-            'mobile'=>$this->resource->mobile,
-            'phone'=>$this->resource->phone,
-            'skype'=>$this->resource->skype,
-            'whatsapp'=>$this->resource->whatsapp,
-            'downloadCsv'=>$this->resource->download_csv,
-            'createdAt'=>$this->resource->created_at,
-            'updatedAt'=>$this->resource->updated_at,
-            'roles' => $this->resource->getRoleNames(),
-            'lastLogin' => $this->resource->last_login,
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            $this->mergeWhen($request->routeIs('users.*'), [
+                'email' => $this->resource->email,
+                'designation' => $this->resource->designation,
+                'mobile' => $this->resource->mobile,
+                'phone' => $this->resource->phone,
+                'skype' => $this->resource->skype,
+                'whatsapp' => $this->resource->whatsapp,
+                'downloadCsv' => $this->resource->download_csv,
+                'createdAt' => $this->resource->created_at,
+                'updatedAt' => $this->resource->updated_at,
+                'roles' => $this->resource->getRoleNames(),
+                'lastLogin' => $this->resource->last_login,
+            ])
         ];
     }
 }

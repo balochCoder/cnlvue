@@ -6,11 +6,11 @@ use App\Models\Branch;
 use App\Models\Counsellor;
 use App\Models\Course;
 use App\Models\FrontOffice;
+use App\Models\LeadSource;
 use App\Models\ProcessingOffice;
 use App\Models\RepresentingCountry;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\RepresentingInstitution;
-use App\Models\SubStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -47,5 +47,6 @@ class DatabaseSeeder extends Seeder
         )->create();
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)->create();
+        LeadSource::factory(10)->create();
     }
 }

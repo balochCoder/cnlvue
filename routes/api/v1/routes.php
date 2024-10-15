@@ -1,8 +1,8 @@
 <?php
 
-
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
 use App\Http\Controllers\Api\V1\Branch\BranchController;
+use App\Http\Controllers\Api\V1\LeadSource\LeadSourceController;
 use App\Http\Controllers\Api\V1\ProcessingOffice\ProcessingOfficeController;
 use App\Http\Controllers\Api\V1\Counsellor\CounsellorController;
 use App\Http\Controllers\Api\V1\Country\CountryController;
@@ -14,12 +14,14 @@ use App\Http\Controllers\Api\V1\RepresentingCountry\RepresentingCountryControlle
 use App\Http\Controllers\Api\V1\RepresentingInstitution\RepresentingInstitutionController;
 use App\Http\Controllers\Api\V1\SubStatus\SubStatusController;
 use App\Http\Controllers\Api\V1\TimeZone\TimeZoneController;
+use App\Http\Resources\Api\V1\UserResource;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('users', function () {
-        return \App\Http\Resources\Api\V1\UserResource::collection(\App\Models\User::all());
+        return UserResource::collection(User::all());
     });
     //Representing Countries Routes
     Route::get('countries', CountryController::class)->name('countries.index');
@@ -91,5 +93,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('processing-offices', ProcessingOfficeController::class)
         ->except(['destroy']);
     Route::patch('processing-offices/{processing_office}/status', [ProcessingOfficeController::class, 'status']);
+
+    //Lead Sources
+    Route::apiResource('lead-sources', LeadSourceController::class)
+        ->except(['destroy']);
+    Route::patch('lead-sources/{lead_source}/status', [LeadSourceController::class, 'status']);
 });
 

@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1\LeadSource;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\LeadSource\WriteLeadSourceRequest;
+use App\Http\Resources\Api\V1\LeadSourceResource;
+use App\Models\LeadSource;
+use App\Traits\ApiResponse;
+use Illuminate\Http\Request;
+
+class LeadSourceController extends Controller
+{
+    use ApiResponse;
+    public function index()
+    {
+        $leadSources = LeadSource::query()->with(['user'])->get();
+        return LeadSourceResource::collection($leadSources);
+    }
+
+    public function store(WriteLeadSourceRequest $request)
+    {
+        LeadSource::query()->create($request->storeData());
+        return $this->ok('Lead source created.', code: 201);
+    }
+
+    public function show(LeadSource $leadSource)
+    {
+        return LeadSourceResource::make($leadSource);
+    }
+
+    public function update(LeadSource $leadSource, WriteLeadSourceRequest $request)
+    {
+        $leadSource->update($request->updateData());
+        return $this->ok('Lead source updated.', code: 201);
+    }
+
+    public function status(LeadSource $leadSource, Request $request)
+    {
+        $leadSource->update([
+            'is_active' => $request->isActive
+        ]);
+        return $this->ok('Status updated');
+    }
+}

@@ -29,7 +29,6 @@ class RepresentingInstitutionController extends ApiController
     {
         RepresentingInstitution::query()->create($request->getData());
         return $this->ok('Representing Institution created.', code: 201);
-
     }
 
     /**
