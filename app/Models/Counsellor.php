@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use App\Enums\DownloadCSV;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Counsellor extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'branch_id',
@@ -18,6 +20,45 @@ class Counsellor extends Model
         'user_id',
         'is_active',
     ];
+
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(
+            Branch::class,
+            'branch_id',
+        );
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'user_id',
+        );
+    }
+
+    public function institutions(): BelongsToMany
+    {
+        return $this->belongsToMany(RepresentingInstitution::class, foreignPivotKey: 'counsellor_id', relatedPivotKey: 'institution_id')
+            ->using(CounsellorRepresentingInstitution::class)->withTimestamps();
+    }
+
+    public function remarks(): HasMany
+    {
+        return $this->hasMany(
+            Remark::class,
+            'counsellor_id',
+        );
+    }
+
+    public function targets(): HasMany
+    {
+        return $this->hasMany(
+            Target::class,
+            'counsellor_id',
+        );
+    }
 
     protected function casts(): array
     {
@@ -27,21 +68,5 @@ class Counsellor extends Model
             'user_id' => 'integer',
             'branch_id' => 'integer',
         ];
-    }
-
-    public function branch(): BelongsTo
-    {
-        return $this->belongsTo(Branch::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function institutions(): BelongsToMany
-    {
-        return $this->belongsToMany(RepresentingInstitution::class, foreignPivotKey: 'counsellor_id', relatedPivotKey: 'institution_id')
-            ->using(CounsellorRepresentingInstitution::class)->withTimestamps();
     }
 }

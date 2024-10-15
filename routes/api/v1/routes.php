@@ -11,9 +11,11 @@ use App\Http\Controllers\Api\V1\Course\CourseController;
 use App\Http\Controllers\Api\V1\Currency\CurrencyController;
 use App\Http\Controllers\Api\V1\Enum\EnumController;
 use App\Http\Controllers\Api\V1\FrontOffice\FrontOfficeController;
+use App\Http\Controllers\Api\V1\Remark\RemarkController;
 use App\Http\Controllers\Api\V1\RepresentingCountry\RepresentingCountryController;
 use App\Http\Controllers\Api\V1\RepresentingInstitution\RepresentingInstitutionController;
 use App\Http\Controllers\Api\V1\SubStatus\SubStatusController;
+use App\Http\Controllers\Api\V1\Target\TargetController;
 use App\Http\Controllers\Api\V1\TimeZone\TimeZoneController;
 use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
@@ -54,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/course-levels', [EnumController::class, 'courseLevels']);
     Route::get('enums/course-categories', [EnumController::class, 'courseCategories']);
     Route::get('enums/download-csv', [EnumController::class, 'downloadCSV']);
+    Route::get('enums/associate-categories', [EnumController::class, 'associateCategories']);
 
     //Currency
     Route::get('currencies', CurrencyController::class);
@@ -85,6 +88,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'getAssignedInstitutions']);
 
+    // Remarks
+    Route::apiResource('remarks', RemarkController::class)
+    ->except(['index', 'destroy']);
+    // Targets
+    Route::apiResource('targets', TargetController::class)
+        ->except(['index', 'destroy']);
     //Front Office
     Route::apiResource('front-offices', FrontOfficeController::class)
         ->except(['destroy']);

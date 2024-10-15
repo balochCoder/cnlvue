@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Enum;
 
 use App\Enums\ApplicantDesired;
+use App\Enums\AssociateCategories;
 use App\Enums\CourseCategories;
 use App\Enums\CourseLevel;
 use App\Enums\DownloadCSV;
@@ -41,6 +42,12 @@ class EnumController extends Controller
     {
         $downloadCSV = DownloadCSV::cases();
         return EnumResource::collection($downloadCSV);
+    }
+
+    public function associateCategories()
+    {
+        $associateCategories = AssociateCategories::cases();
+        return EnumResource::collection($associateCategories);
     }
 
 }

@@ -9,9 +9,12 @@ use App\Models\Course;
 use App\Models\FrontOffice;
 use App\Models\LeadSource;
 use App\Models\ProcessingOffice;
+use App\Models\Remark;
 use App\Models\RepresentingCountry;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\RepresentingInstitution;
+use App\Models\Target;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,6 +48,10 @@ class DatabaseSeeder extends Seeder
             RepresentingInstitution::factory(3)->create(),
             [],
             'institutions'
+        )->has(
+            Remark::factory(10)
+        )->has(
+            Target::factory(5)
         )->create();
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)->create();

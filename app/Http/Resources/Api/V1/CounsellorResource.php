@@ -16,11 +16,14 @@ class CounsellorResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'branch' => BranchResource::make($this->whenLoaded('branch')),
-            'isProcessingOfficer' => $this->resource->is_processing_officer,
-            'user' => UserResource::make($this->whenLoaded('user')),
             'isActive' => $this->resource->is_active,
             'createdAt' => $this->resource->created_at,
+            'user' => UserResource::make($this->resource->user),
+            'branch' => BranchResource::make($this->whenLoaded('branch')),
+            'isProcessingOfficer' => $this->resource->is_processing_officer,
+            'remarks'=> RemarkResource::collection($this->whenLoaded('remarks')),
+            'targets' => TargetResource::collection($this->whenLoaded('targets')),
+
         ];
     }
 }

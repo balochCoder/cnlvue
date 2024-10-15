@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Counsellor;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\Counsellor\StoreCounsellorRequest;
 use App\Http\Requests\Api\V1\Counsellor\UpdateCounsellorRequest;
 use App\Http\Resources\Api\V1\CounsellorResource;
@@ -11,7 +11,7 @@ use App\Models\Counsellor;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
-class CounsellorController extends Controller
+class CounsellorController extends ApiController
 {
     use ApiResponse;
 
@@ -21,7 +21,7 @@ class CounsellorController extends Controller
     public function index()
     {
         $counsellors = Counsellor::query()
-            ->with(['branch', 'user'])
+            ->with(['branch'])
             ->paginate(10);
 
         return CounsellorResource::collection($counsellors);
@@ -43,7 +43,13 @@ class CounsellorController extends Controller
      */
     public function show(Counsellor $counsellor)
     {
-        $counsellor->load(['branch', 'user']);
+        $counsellor->load(['branch']);
+        if ($this->include('remarks')) {
+            $counsellor->load('remarks');
+        }
+        if ($this->include('targets')) {
+            $counsellor->load('targets');
+        }
         return CounsellorResource::make($counsellor);
     }
 
