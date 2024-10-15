@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-class LeadSourceFactory extends Factory
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ */
+class TaskFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +16,8 @@ class LeadSourceFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all()->pluck('id')->toArray();
         return [
-            'source_name' => $this->faker->userName(),
-            'added_by' => $this->faker->randomElement($users),
+            //
         ];
     }
 }

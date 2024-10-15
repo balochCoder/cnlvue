@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Associate;
 use App\Models\Branch;
 use App\Models\Counsellor;
 use App\Models\Course;
@@ -47,6 +48,7 @@ class DatabaseSeeder extends Seeder
         )->create();
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)->create();
+        Associate::factory(10)->create();
         LeadSource::factory(10)->create();
     }
 }

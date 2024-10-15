@@ -18,10 +18,7 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
-            'level' => [
-                'key' => $this->resource->level,
-                'value' => $this->resource->level->getLabel(),
-            ],
+            'level' => $this->resource->level,
             'duration' => $this->resource->duration,
             'startDate' => $this->resource->start_date,
             'endDate' => $this->resource->end_date,

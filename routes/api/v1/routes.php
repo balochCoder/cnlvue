@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
+use App\Http\Controllers\Api\V1\Associate\AssociateController;
 use App\Http\Controllers\Api\V1\Branch\BranchController;
 use App\Http\Controllers\Api\V1\LeadSource\LeadSourceController;
 use App\Http\Controllers\Api\V1\ProcessingOffice\ProcessingOfficeController;
@@ -22,7 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('users', function () {
         return UserResource::collection(User::all());
-    });
+    })->name('users');
     //Representing Countries Routes
     Route::get('countries', CountryController::class)->name('countries.index');
     Route::apiResource('representing-countries', RepresentingCountryController::class)
@@ -94,6 +95,10 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::patch('processing-offices/{processing_office}/status', [ProcessingOfficeController::class, 'status']);
 
+    // Associate
+    Route::apiResource('associates', AssociateController::class)
+        ->except(['destroy']);
+    Route::patch('associates/{associate}/status', [AssociateController::class, 'status']);
     //Lead Sources
     Route::apiResource('lead-sources', LeadSourceController::class)
         ->except(['destroy']);
