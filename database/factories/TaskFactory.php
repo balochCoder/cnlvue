@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
         $users = User::all()->pluck('id')->toArray();
         $newUser = User::factory()->create();
-        $roles = ['counsellor','front_office','processing_officer'];
+        $roles = ['counsellor','front office','processing officer'];
         $role = array_rand($roles);
 
         $newUser->assignRole($roles[$role]);

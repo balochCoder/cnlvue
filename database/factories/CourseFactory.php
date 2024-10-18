@@ -25,30 +25,30 @@ class CourseFactory extends Factory
         $institutions = RepresentingInstitution::all()->pluck('id')->toArray();
         $currency = Currency::query()->where('id', 49)->firstOrFail();
         return [
-            'representing_institution_id' => fake()->randomElement($institutions),
-            'title' => fake()->sentence(3),
-            'level' => fake()->randomElement(CourseLevel::cases()),
+            'representing_institution_id' => $this->faker->randomElement($institutions),
+            'title' => $this->faker->sentence(3),
+            'level' => $this->faker->randomElement(CourseLevel::cases()),
             'duration' => json_encode([
-                'year'=>fake()->numberBetween(1, 5),
-                'month'=>fake()->numberBetween(0, 11),
-                'weeks'=>fake()->numberBetween(0, 4),
+                'year'=>$this->faker->numberBetween(1, 5),
+                'month'=>$this->faker->numberBetween(0, 11),
+                'weeks'=>$this->faker->numberBetween(0, 4),
 
             ]),
-            'start_date' => $start =  fake()->dateTimeBetween('now', '+1 years'),
+            'start_date' => $start =  $this->faker->dateTimeBetween('now', '+1 years'),
             'end_date' => fn() => Carbon::parse($start)->addYears(rand(1, 5)),
-            'campus' => fake()->city(),
-            'awarding_body' => fake()->optional()->company(),
-            'fee' => fake()->randomFloat(2, 1000, 50000),
-            'application_fee' => fake()->optional()->randomFloat(2, 50, 500),
+            'campus' => $this->faker->city(),
+            'awarding_body' => $this->faker->optional()->company(),
+            'fee' => $this->faker->randomFloat(2, 1000, 50000),
+            'application_fee' => $this->faker->optional()->randomFloat(2, 50, 500),
             'currency_id' => $currency->id,
-            'monthly_living_cost' => fake()->optional()->numberBetween(500, 5000),
-            'part_time_work_details' => fake()->optional()->paragraph(),
-            'course_benefits' => fake()->optional()->paragraph(),
-            'general_eligibility' => fake()->optional()->paragraph(),
-            'quality_of_applicant' => fake()->optional()->randomElement(ApplicantDesired::cases()),
-            'course_category' => json_encode(fake()->randomElements(CourseCategories::cases(),3)),
-            'modules' => json_encode(fake()->randomElements(['Module A', 'Module B', 'Module C'],  3)),
-            'intake' => json_encode(fake()->randomElements([
+            'monthly_living_cost' => $this->faker->optional()->numberBetween(500, 5000),
+            'part_time_work_details' => $this->faker->optional()->paragraph(),
+            'course_benefits' => $this->faker->optional()->paragraph(),
+            'general_eligibility' => $this->faker->optional()->paragraph(),
+            'quality_of_applicant' => $this->faker->optional()->randomElement(ApplicantDesired::cases()),
+            'course_category' => json_encode($this->faker->randomElements(CourseCategories::cases(),3)),
+            'modules' => json_encode($this->faker->randomElements(['Module A', 'Module B', 'Module C'],  3)),
+            'intake' => json_encode($this->faker->randomElements([
                 'January', 'February', 'March', 'April', 'May', 'June','July','August','September','October','November','December',
             ], 4))
         ];

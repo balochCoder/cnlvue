@@ -46,15 +46,12 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-
-
         if ($request->remark) {
             $task->remarks()->create([
                 'remark' => $request->remark,
                 'created_by' => auth()->id(),
             ]);
         }
-
         $task->update([
             'status' => $request->status,
         ]);

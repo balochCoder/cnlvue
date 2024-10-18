@@ -17,12 +17,12 @@ class CounsellorFactory extends Factory
         $branches = Branch::all()->pluck('id')->toArray();
         $user = User::factory()->create();
         $user->assignRole('counsellor');
-        $isProcessingOfficer = fake()->randomElement([true, false]);
+        $isProcessingOfficer = $this->faker->randomElement([true, false]);
         if ($isProcessingOfficer) {
-            $user->assignRole('processing_officer');
+            $user->assignRole('processing officer');
         }
         return [
-            'branch_id' => fake()->randomElement($branches),
+            'branch_id' => $this->faker->randomElement($branches),
             'is_processing_officer' => $isProcessingOfficer,
             'user_id' => $user->id,
         ];

@@ -128,10 +128,14 @@ Route::middleware('auth:sanctum')->group(function () {
         ->only(['store', 'index']);
 
     //Tasks
+    Route::get('tasks/assigned-by-me', [TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
+    Route::get('/tasks/assigned-to-me', [TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
+
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
-    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
-    Route::get('tasks/assigned-by-me', [TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
-    Route::get('tasks/assigned-to-me', [TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
+
+
+
+    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('/tasks.update');
 });
 

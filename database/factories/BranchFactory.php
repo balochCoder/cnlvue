@@ -19,14 +19,15 @@ class BranchFactory extends Factory
         $user= User::factory()->create();
         $user->assignRole('branch');
         return [
-            'name' => fake()->company(),
-            'address' => fake()->address(),
-            'city' => fake()->city(),
-            'country_id' => fake()->randomElement($countries),
-            'time_zone_id' => fake()->randomElement($zones),
-            'branch_email' => fake()->companyEmail(),
-            'branch_phone' => fake()->phoneNumber(),
-            'branch_website' => fake()->url(),
+            'name' => $this->faker->company(),
+            'address' => $this->faker->address(),
+            'city' => $this->faker->city(),
+            'state'=> $this->faker->city(),
+            'country_id' => $this->faker->randomElement($countries),
+            'time_zone_id' => $this->faker->randomElement($zones),
+            'branch_email' => $this->faker->companyEmail(),
+            'branch_phone' => $this->faker->phoneNumber(),
+            'branch_website' => $this->faker->url(),
             'user_id' => $user->id,
         ];
     }

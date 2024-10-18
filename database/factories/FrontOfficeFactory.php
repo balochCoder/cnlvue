@@ -14,10 +14,10 @@ class FrontOfficeFactory extends Factory
     {
         $branches = Branch::all()->pluck('id')->toArray();
         $user = User::factory()->create();
-        $user->assignRole('front_office');
+        $user->assignRole('front office');
         return [
-            'branch_id' => fake()->randomElement($branches),
-            'edit_leads' => fake()->randomElement([true, false]),
+            'branch_id' => $this->faker->randomElement($branches),
+            'edit_leads' => $this->faker->randomElement([true, false]),
             'user_id' => $user->id,
         ];
     }

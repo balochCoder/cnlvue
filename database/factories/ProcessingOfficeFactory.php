@@ -22,15 +22,15 @@ class ProcessingOfficeFactory extends Factory
         $countries = Country::all()->pluck('id')->toArray();
         $zones = TimeZone::all()->pluck('id')->toArray();
         $user= User::factory()->create();
-        $user->assignRole('processing_officer');
+        $user->assignRole('processing officer');
         return [
-            'name' => fake()->company(),
-            'address' => fake()->address(),
-            'city' => fake()->city(),
-            'state' => fake()->city(),
-            'office_phone' => fake()->e164PhoneNumber(),
-            'country_id' => fake()->randomElement($countries),
-            'time_zone_id' => fake()->randomElement($zones),
+            'name' => $this->faker->company(),
+            'address' => $this->faker->address(),
+            'city' => $this->faker->city(),
+            'state' => $this->faker->city(),
+            'office_phone' => $this->faker->e164PhoneNumber(),
+            'country_id' => $this->faker->randomElement($countries),
+            'time_zone_id' => $this->faker->randomElement($zones),
             'user_id' => $user->id,
         ];
     }

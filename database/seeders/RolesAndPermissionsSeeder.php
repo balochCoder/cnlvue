@@ -114,8 +114,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Role::create(['name' => 'admin','guard_name'=>'web'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'counsellor','guard_name'=>'web']);
         Role::create(['name' => 'branch','guard_name'=>'web']);
-        Role::create(['name' => 'processing_officer','guard_name'=>'web']);
-        Role::create(['name' => 'front_office','guard_name'=>'web']);
+        Role::create(['name' => 'processing officer','guard_name'=>'web']);
+        Role::create(['name' => 'front office','guard_name'=>'web']);
         Role::create(['name' => 'associate','guard_name'=>'web']);
 
     }
