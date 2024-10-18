@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', function () {
         return UserResource::collection(User::all());
     })->name('users');
+
     //Representing Countries Routes
     Route::get('countries', CountryController::class)->name('countries.index');
     Route::apiResource('representing-countries', RepresentingCountryController::class)
@@ -62,9 +63,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/associate-categories', [EnumController::class, 'associateCategories']);
     Route::get('enums/lead-statuses', [EnumController::class, 'leadStatuses']);
     Route::get('enums/followup-modes', [EnumController::class, 'followupModes']);
+    Route::get('enums/task-statuses', [EnumController::class, 'taskStatuses']);
 
     //Currency
     Route::get('currencies', CurrencyController::class);
+
     //Time Zone
     Route::get('time-zones', TimeZoneController::class);
 
@@ -88,17 +91,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('counsellors', CounsellorController::class)
         ->except(['destroy']);
     Route::patch('counsellors/{counsellor}/status', [CounsellorController::class, 'status']);
-
     Route::post('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'assign']);
-
     Route::get('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'getAssignedInstitutions']);
 
     // Remarks
     Route::apiResource('remarks', RemarkController::class)
         ->except(['index', 'destroy']);
+
     // Targets
     Route::apiResource('targets', TargetController::class)
         ->except(['index', 'destroy']);
+
     //Front Office
     Route::apiResource('front-offices', FrontOfficeController::class)
         ->except(['destroy']);
@@ -113,6 +116,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('associates', AssociateController::class)
         ->except(['destroy']);
     Route::patch('associates/{associate}/status', [AssociateController::class, 'status']);
+
     //Lead Sources
     Route::apiResource('lead-sources', LeadSourceController::class)
         ->except(['destroy']);
