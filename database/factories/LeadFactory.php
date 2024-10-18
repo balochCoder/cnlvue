@@ -39,6 +39,7 @@ class LeadFactory extends Factory
             'status' => $this->faker->randomElement(LeadStatus::cases()),
             'course_category' => json_encode($this->faker->randomElements(CourseCategories::cases(), 3)),
             'date_of_birth' => $this->faker->date(),
+            'student_skype' => $this->faker->userName(),
             'is_country_preferred' => $preferred = $this->faker->randomElement([true, false]),
             'lead_source_id' => $this->faker->randomElement($leadSources),
             'interested_country_id' => $preferred ? $this->faker->randomElement($countries) : null,

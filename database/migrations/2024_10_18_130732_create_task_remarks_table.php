@@ -10,25 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('task_remarks', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
-            $table->string('file')->nullable();
+            $table->text('remark');
 
-            $table->text('description');
-
-            $table->enum('status', ['new', 'completed', 'in_process'])->default('new');
-
-            $table->foreignId('assigned_to')
+            $table->foreignId('task_id')
+                ->constrained('tasks')
+                ->cascadeOnDelete();
+            $table->foreignId('created_by')
                 ->constrained('users')
                 ->cascadeOnDelete();
-            $table->foreignId('assigned_by')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->timestamp('start_date');
-            $table->timestamp('due_date');
 
             $table->timestamps();
         });
@@ -39,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_remarks');
     }
 };

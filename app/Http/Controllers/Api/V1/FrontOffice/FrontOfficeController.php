@@ -24,9 +24,6 @@ class FrontOfficeController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreFrontOfficeRequest $request)
     {
         FrontOffice::query()->create($request->storeData());
@@ -35,9 +32,6 @@ class FrontOfficeController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(FrontOffice $frontOffice)
     {
         $frontOffice->load(['branch', 'user']);

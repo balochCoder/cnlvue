@@ -11,9 +11,10 @@ use App\Traits\ApiResponse;
 class LeadController extends Controller
 {
     use ApiResponse;
+
     public function index()
     {
-        $leads = Lead::query()->with(['leadSource', 'counsellors','followups'])->get();
+        $leads = Lead::query()->with(['leadSource', 'counsellors', 'followups'])->get();
         return LeadResource::collection($leads);
     }
 
@@ -29,7 +30,7 @@ class LeadController extends Controller
         $lead = Lead::query()->create($request->storeData());
         $lead->counsellors()->sync($request->counsellorId);
 
-        if ($request->leadType){
+        if ($request->leadType) {
             $lead->followups()->create([
                 'lead_type' => $request->leadType,
                 'follow_up_date' => $request->followUpDate,
@@ -45,8 +46,10 @@ class LeadController extends Controller
     public function update(Lead $lead, WriteLeadRequest $request)
     {
         $lead->update($request->updateData());
-        $lead->counsellors()->sync($request->counsellorId);
-        if ($request->leadType){
+        if ($request->counsellorId) {
+            $lead->counsellors()->sync($request->counsellorId);
+        }
+        if ($request->leadType) {
             $lead->followups()->create([
                 'lead_type' => $request->leadType,
                 'follow_up_date' => $request->followUpDate,
