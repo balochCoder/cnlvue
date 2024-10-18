@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Enums\CourseLevel;
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -48,6 +49,12 @@ class CourseResource extends JsonResource
             'modules' => $this->resource->modules,
             'intake' => $this->resource->intake,
             'isActive' => $this->resource->is_active,
+            'createdAt' => DateResource::make(
+                $this->resource->created_at
+            ),
+            'updatedAt' => DateResource::make(
+                $this->resource->updated_at
+            ),
         ];
     }
 }

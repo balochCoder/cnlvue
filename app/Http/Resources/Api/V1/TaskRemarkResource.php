@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,12 @@ class TaskRemarkResource extends JsonResource
             'remark' => $this->resource->remark,
             'task' => TaskResource::make($this->whenLoaded('task')),
             'createdBy' => $this->resource->createdBy->name,
-            'createdAt' => $this->resource->created_at,
+            'createdAt' => DateResource::make(
+                $this->resource->created_at
+            ),
+            'updatedAt' => DateResource::make(
+                $this->resource->updated_at
+            ),
         ];
     }
 }

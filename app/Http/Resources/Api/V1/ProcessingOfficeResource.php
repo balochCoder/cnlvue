@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,7 +29,12 @@ class ProcessingOfficeResource extends JsonResource
                 'isActive'=> $this->resource->is_active,
 
                 'user' => UserResource::make($this->whenLoaded('user')),
-                'createdAt' => $this->resource->created_at,
+                'createdAt' => DateResource::make(
+                    $this->resource->created_at
+                ),
+                'updatedAt' => DateResource::make(
+                    $this->resource->updated_at
+                ),
             ])
         ];
     }

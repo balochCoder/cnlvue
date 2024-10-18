@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,7 +13,7 @@ class LeadResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'counsellors'=> CounsellorResource::collection($this->whenLoaded('counsellors')),
+            'counsellors' => CounsellorResource::collection($this->whenLoaded('counsellors')),
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
             'intakeOfInterestMonths' => $this->resource->intake_of_interest_month,
@@ -26,7 +27,7 @@ class LeadResource extends JsonResource
             'courseLevelOfInterest' => $this->resource->course_level_of_interest,
             'additionalInfo' => $this->resource->additional_info,
             'courseCategory' => $this->resource->course_category,
-            'dateOfBirth' => $this->resource->date_of_birth,
+            'dateOfBirth' => ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age],
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
@@ -34,8 +35,12 @@ class LeadResource extends JsonResource
             'interesetedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
             'followups' => FollowupResource::collection($this->whenLoaded('followups')),
             'AddedBy' => $this->addedBy->name,
-            'createdAt'=>$this->resource->created_at,
-            'updatedAt'=>$this->resource->updated_at,
+            'createdAt' => DateResource::make(
+                $this->resource->created_at
+            ),
+            'updatedAt' => DateResource::make(
+                $this->resource->updated_at
+            ),
         ];
     }
 }

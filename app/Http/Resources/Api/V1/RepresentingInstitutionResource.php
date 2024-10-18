@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -48,8 +49,12 @@ class RepresentingInstitutionResource extends JsonResource
                 'contactPersonEmail' => $this->resource->contact_person_email,
                 'contactPersonPhone' => $this->resource->contact_person_phone,
                 'contactPersonDesignation' => $this->resource->contact_person_designation,
-                'createdAt' => $this->resource->created_at,
-                'updatedAt' => $this->resource->updated_at,
+                'createdAt' => DateResource::make(
+                    $this->resource->created_at
+                ),
+                'updatedAt' => DateResource::make(
+                    $this->resource->updated_at
+                ),
             ])
         ];
     }

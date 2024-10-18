@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,8 +24,12 @@ class FollowupResource extends JsonResource
             'time' => $this->resource->time,
             'lead' => LeadResource::make($this->whenLoaded('lead')),
             'addedBy' => $this->resource->addedBy->name,
-            'createdAt' => $this->resource->created_at,
-            'updatedAt' => $this->resource->updated_at,
+            'createdAt' => DateResource::make(
+                $this->resource->created_at
+            ),
+            'updatedAt' => DateResource::make(
+                $this->resource->updated_at
+            ),
         ];
     }
 }
