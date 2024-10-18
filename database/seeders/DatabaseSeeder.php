@@ -6,7 +6,9 @@ use App\Models\Associate;
 use App\Models\Branch;
 use App\Models\Counsellor;
 use App\Models\Course;
+use App\Models\Followup;
 use App\Models\FrontOffice;
+use App\Models\Lead;
 use App\Models\LeadSource;
 use App\Models\ProcessingOffice;
 use App\Models\Remark;
@@ -44,7 +46,7 @@ class DatabaseSeeder extends Seeder
         RepresentingInstitution::factory(10)->create();
         Course::factory(50)->create();
         Branch::factory(5)->create();
-        Counsellor::factory(5)->hasAttached(
+        $counsellors = Counsellor::factory(5)->hasAttached(
             RepresentingInstitution::factory(3)->create(),
             [],
             'institutions'
@@ -57,5 +59,7 @@ class DatabaseSeeder extends Seeder
         ProcessingOffice::factory(10)->create();
         Associate::factory(10)->create();
         LeadSource::factory(10)->create();
+        Lead::factory(5)->hasAttached($counsellors)->create();
+        Followup::factory(5)->create();
     }
 }

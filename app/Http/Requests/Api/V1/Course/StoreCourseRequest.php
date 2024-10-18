@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Course;
 
 use App\Enums\ApplicantDesired;
+use App\Enums\CourseCategories;
 use App\Enums\CourseLevel;
 use Illuminate\Validation\Rule;
 
@@ -38,7 +39,7 @@ class StoreCourseRequest extends BaseCourseRequest
             'isLanguage' => ['nullable', 'boolean'],
             'languageRequirements' => ['required_if:isLanguage,true'],
             'additionalInformation' => ['nullable', 'string'],
-            'courseCategory' => ['nullable', 'array'],
+            'courseCategory' => ['nullable', 'array', Rule::enum(CourseCategories::class)],
             'document1Title' => ['nullable', 'string'],
             'document1' => ['nullable', 'file'],
             'document2Title' => ['nullable', 'string'],

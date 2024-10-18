@@ -52,6 +52,15 @@ class Counsellor extends Model
         );
     }
 
+    public function leads(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Lead::class,
+            'counsellor_lead',
+            'counsellor_id',
+            'lead_id',
+        );
+    }
     public function targets(): HasMany
     {
         return $this->hasMany(

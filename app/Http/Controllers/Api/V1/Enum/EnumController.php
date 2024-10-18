@@ -7,7 +7,9 @@ use App\Enums\AssociateCategories;
 use App\Enums\CourseCategories;
 use App\Enums\CourseLevel;
 use App\Enums\DownloadCSV;
+use App\Enums\FollowupMode;
 use App\Enums\InstituteType;
+use App\Enums\LeadStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\EnumResource;
 
@@ -48,6 +50,18 @@ class EnumController extends Controller
     {
         $associateCategories = AssociateCategories::cases();
         return EnumResource::collection($associateCategories);
+    }
+
+    public function leadStatuses()
+    {
+        $leadStatuses = LeadStatus::cases();
+        return EnumResource::collection($leadStatuses);
+    }
+
+    public function followupModes()
+    {
+        $followupModes = FollowupMode::cases();
+        return EnumResource::collection($followupModes);
     }
 
 }

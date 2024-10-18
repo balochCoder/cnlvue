@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
 use App\Http\Controllers\Api\V1\Associate\AssociateController;
 use App\Http\Controllers\Api\V1\Branch\BranchController;
+use App\Http\Controllers\Api\V1\Followup\FollowupController;
+use App\Http\Controllers\Api\V1\Lead\LeadController;
 use App\Http\Controllers\Api\V1\LeadSource\LeadSourceController;
 use App\Http\Controllers\Api\V1\ProcessingOffice\ProcessingOfficeController;
 use App\Http\Controllers\Api\V1\Counsellor\CounsellorController;
@@ -57,6 +59,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/course-categories', [EnumController::class, 'courseCategories']);
     Route::get('enums/download-csv', [EnumController::class, 'downloadCSV']);
     Route::get('enums/associate-categories', [EnumController::class, 'associateCategories']);
+    Route::get('enums/lead-statuses', [EnumController::class, 'leadStatuses']);
+    Route::get('enums/followup-modes', [EnumController::class, 'followupModes']);
 
     //Currency
     Route::get('currencies', CurrencyController::class);
@@ -90,7 +94,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Remarks
     Route::apiResource('remarks', RemarkController::class)
-    ->except(['index', 'destroy']);
+        ->except(['index', 'destroy']);
     // Targets
     Route::apiResource('targets', TargetController::class)
         ->except(['index', 'destroy']);
@@ -112,5 +116,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lead-sources', LeadSourceController::class)
         ->except(['destroy']);
     Route::patch('lead-sources/{lead_source}/status', [LeadSourceController::class, 'status']);
+
+    //Leads
+    Route::apiResource('leads', LeadController::class);
+    Route::apiResource('followups', FollowupController::class)
+        ->only(['store']);
 });
 

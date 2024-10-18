@@ -15,11 +15,14 @@ class LeadSourceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'sourceName' => $this->resource->source_name,
-            'AddedBy' => $this->resource->user->name,
-            'isActive' => $this->resource->is_active,
-            'createdAt' => $this->resource->created_at,
-            'updatedAt' => $this->resource->updated_at,
+            $this->mergeWhen($request->routeIs('lead-sources'), [
+                'AddedBy' => $this->resource->user->name,
+                'isActive' => $this->resource->is_active,
+                'createdAt' => $this->resource->created_at,
+                'updatedAt' => $this->resource->updated_at,
+            ])
         ];
     }
 }
