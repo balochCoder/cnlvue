@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Application;
+namespace App\Http\Requests\Api\V1\Quotation;
 
 
-use App\Enums\FollowupMode;
-use App\Enums\LeadStatus;
-use Illuminate\Validation\Rule;
 
-class StoreApplicationRequest extends BaseApplicationRequest
+
+class StoreQuotationRequest extends BaseQuotationRequest
 {
 
     public function authorize(): bool

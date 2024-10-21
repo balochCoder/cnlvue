@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Application\ApplicationController;
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
 use App\Http\Controllers\Api\V1\Associate\AssociateController;
 use App\Http\Controllers\Api\V1\Branch\BranchController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\Api\V1\Course\CourseController;
 use App\Http\Controllers\Api\V1\Currency\CurrencyController;
 use App\Http\Controllers\Api\V1\Enum\EnumController;
 use App\Http\Controllers\Api\V1\FrontOffice\FrontOfficeController;
+use App\Http\Controllers\Api\V1\Quotation\QuotationController;
 use App\Http\Controllers\Api\V1\Remark\RemarkController;
 use App\Http\Controllers\Api\V1\RepresentingCountry\RepresentingCountryController;
 use App\Http\Controllers\Api\V1\RepresentingInstitution\RepresentingInstitutionController;
@@ -124,7 +124,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('lead-sources/{lead_source}/status', [LeadSourceController::class, 'status']);
 
     //Leads
-    Route::apiResource('leads', LeadController::class);
+    Route::apiResource('leads', LeadController::class)
+        ->except(['destroy']);
     Route::apiResource('followups', FollowupController::class)
         ->only(['store', 'index']);
 
@@ -138,8 +139,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('/tasks.update');
 
 //    Applications
-    Route::get('applications',[ApplicationController::class,'index'])->name('applications.index');
-    Route::get('applications/{application}',[ApplicationController::class,'show'])->name('applications.show');
-    Route::post('applications',[ApplicationController::class, 'store'])->name('applications.store');
+    Route::get('quotations', [ QuotationController::class, 'index'])->name('quotations.index');
+    Route::get('quotations/{quotation}', [QuotationController::class, 'show'])->name('quotations.show');
+    Route::post('quotations', [QuotationController::class, 'store'])->name('quotations.store');
 });
 

@@ -6,7 +6,7 @@ use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ApplicationResource extends JsonResource
+class QuotationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
