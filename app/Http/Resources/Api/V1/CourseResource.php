@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Api\V1;
 
-use App\Enums\CourseLevel;
 use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -20,7 +19,7 @@ class CourseResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'level' => $this->resource->level,
-            'duration' => $this->resource->duration,
+            'duration' => json_decode($this->resource->duration),
             'startDate' => $this->resource->start_date,
             'endDate' => $this->resource->end_date,
             'campus' => $this->resource->campus,
@@ -35,7 +34,7 @@ class CourseResource extends JsonResource
             'qualityOfApplicant' => $this->resource->quality_of_applicant,
             'isLanguage' => $this->resource->is_language,
             'languageRequirements'=> $this->resource->language_requirements,
-            'courseCategory'=> $this->resource->course_category,
+            'courseCategory'=> json_decode($this->resource->course_category),
             'document1Title' => $this->resource->document_1_title,
             'document1' => $this->resource->document_1,
             'document2Title' => $this->resource->document_2_title,
@@ -46,8 +45,8 @@ class CourseResource extends JsonResource
             'document4' => $this->resource->document_4,
             'document5Title' => $this->resource->document_5_title,
             'document5' => $this->resource->document_5,
-            'modules' => $this->resource->modules,
-            'intake' => $this->resource->intake,
+            'modules' => json_decode($this->resource->modules),
+            'intake' => json_decode($this->resource->intake),
             'isActive' => $this->resource->is_active,
             'createdAt' => DateResource::make(
                 $this->resource->created_at

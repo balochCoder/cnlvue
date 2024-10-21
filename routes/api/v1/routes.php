@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Application\ApplicationController;
 use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
 use App\Http\Controllers\Api\V1\Associate\AssociateController;
 use App\Http\Controllers\Api\V1\Branch\BranchController;
@@ -134,8 +135,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 
-
-
     Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('/tasks.update');
+
+//    Applications
+    Route::get('applications',[ApplicationController::class,'index'])->name('applications.index');
+    Route::get('applications/{application}',[ApplicationController::class,'show'])->name('applications.show');
+    Route::post('applications',[ApplicationController::class, 'store'])->name('applications.store');
 });
 

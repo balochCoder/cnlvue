@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Application;
 use App\Models\Associate;
 use App\Models\Branch;
 use App\Models\Counsellor;
@@ -14,12 +15,10 @@ use App\Models\ProcessingOffice;
 use App\Models\Remark;
 use App\Models\RepresentingCountry;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\RepresentingInstitution;
 use App\Models\Target;
 use App\Models\Task;
 use App\Models\TaskRemark;
-use Database\Factories\TaskRemarkFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -64,7 +63,8 @@ class DatabaseSeeder extends Seeder
         LeadSource::factory(10)->create();
         Lead::factory(5)->hasAttached($counsellors)->create();
         Followup::factory(5)->create();
-        $tasks = Task::factory(10)->create();
+        Task::factory(10)->create();
         TaskRemark::factory(10)->create();
+        Application::factory(10)->create();
     }
 }

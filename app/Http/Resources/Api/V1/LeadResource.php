@@ -23,24 +23,27 @@ class LeadResource extends JsonResource
             'studentEmergencyPhone' => $this->resource->student_emergency_phone,
             'studentMobile' => $this->resource->student_mobile,
             'studentSkype' => $this->resource->student_skype,
-            'estimatedBudget' => $this->resource->estimated_budget,
             'courseLevelOfInterest' => $this->resource->course_level_of_interest,
-            'additionalInfo' => $this->resource->additional_info,
-            'courseCategory' => $this->resource->course_category,
             'dateOfBirth' => ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age],
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
             'interesetedCountry' => $this->interested_country_id ? $this->interestedCountry->name : null,
             'interesetedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
-            'followups' => FollowupResource::collection($this->whenLoaded('followups')),
-            'AddedBy' => $this->addedBy->name,
-            'createdAt' => DateResource::make(
-                $this->resource->created_at
-            ),
-            'updatedAt' => DateResource::make(
-                $this->resource->updated_at
-            ),
+
+            $this->mergeWhen($request->routeIs('leads.*'), [
+                'estimatedBudget' => $this->resource->estimated_budget,
+                'additionalInfo' => $this->resource->additional_info,
+                'courseCategory' => json_decode($this->resource->course_category),
+                'followups' => FollowupResource::collection($this->whenLoaded('followups')),
+                'AddedBy' => $this->addedBy->name,
+                'createdAt' => DateResource::make(
+                    $this->resource->created_at
+                ),
+                'updatedAt' => DateResource::make(
+                    $this->resource->updated_at
+                ),
+            ])
         ];
     }
 }
