@@ -3,9 +3,7 @@
 namespace App\Http\Requests\Api\V1\Quotation;
 
 
-
-
-class StoreQuotationRequest extends BaseQuotationRequest
+class UpdateQuotationRequest extends BaseQuotationRequest
 {
 
     public function authorize(): bool
@@ -29,7 +27,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'studentPhone' => ['nullable', 'string'],
             'studentEmail' => ['nullable', 'email', 'string'],
             'studentMobile' => ['nullable', 'string'],
-            'studentImage' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'studentImage' => ['sometimes', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
 //            Permanent Address
             'permanentAddress' => ['nullable', 'array', 'required_array_keys:address,city,state,country', function ($attribute, $value, $fail) {
                 $allowedKeys = ['address', 'city', 'state', 'country'];
@@ -50,7 +48,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'educationHistory.*.qualification' => ['required_with:educationHistory', 'string'],
             'educationHistory.*.year' => ['required_with:educationHistory', 'integer'],
             'educationHistory.*.grade' => ['required_with:educationHistory', 'string'],
-            'educationHistory.*.file' => ['required_with:educationHistory', 'file'],
+            'educationHistory.*.file' => ['sometimes', 'file'],
 
             //English Language
             'englishLanguage' => ['nullable', 'array'],
@@ -67,7 +65,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'englishLanguage.ielts.writing' => ['required_with:englishLanguage.ielts', 'decimal:0,1'],
             'englishLanguage.ielts.score' => ['required_with:englishLanguage.ielts', 'decimal:0,1'],
             'englishLanguage.ielts.date' => ['required_with:englishLanguage.ielts', 'date'],
-            'englishLanguage.ielts.additional' => ['required_with:englishLanguage.ielts', 'string'], 'englishLanguage.ielts.file' => ['required_with:englishLanguage.ielts', 'file'],
+            'englishLanguage.ielts.additional' => ['required_with:englishLanguage.ielts', 'string'], 'englishLanguage.ielts.file' => ['sometimes', 'file'],
             //English Language TOEFL
             'englishLanguage.toefl' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -82,7 +80,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'englishLanguage.toefl.score' => ['required_with:englishLanguage.toefl', 'decimal:0,1'],
             'englishLanguage.toefl.date' => ['required_with:englishLanguage.toefl', 'date'],
             'englishLanguage.toefl.additional' => ['required_with:englishLanguage.toefl', 'string'],
-            'englishLanguage.toefl.file' => ['required_with:englishLanguage.toefl', 'file'],
+            'englishLanguage.toefl.file' => ['sometimes', 'file'],
             //English Language PTE
             'englishLanguage.pte' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -97,7 +95,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'englishLanguage.pte.score' => ['required_with:englishLanguage.pte', 'decimal:0,1'],
             'englishLanguage.pte.date' => ['required_with:englishLanguage.pte', 'date'],
             'englishLanguage.pte.additional' => ['required_with:englishLanguage.pte', 'string'],
-            'englishLanguage.pte.file' => ['required_with:englishLanguage.pte', 'file'],
+            'englishLanguage.pte.file' => ['sometimes', 'file'],
 //            English Language GMAT
             'englishLanguage.gmat' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -112,11 +110,12 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'englishLanguage.gmat.score' => ['required_with:englishLanguage.gmat', 'decimal:0,1'],
             'englishLanguage.gmat.date' => ['required_with:englishLanguage.gmat', 'date'],
             'englishLanguage.gmat.additional' => ['required_with:englishLanguage.gmat', 'string'],
-            'englishLanguage.gmat.file' => ['required_with:englishLanguage.gmat', 'file'],
+            'englishLanguage.gmat.file' => ['sometimes', 'file'],
+
             //English Language OTHERS
             'englishLanguage.others' => ['nullable', 'array'],
             'englishLanguage.others.info' => ['nullable', 'string'],
-            'englishLanguage.others.file' => ['required_with:englishLanguage.others.info', 'file'],
+            'englishLanguage.others.file' => ['sometimes', 'file'],
 
             //Work Experience
             'workExperience' => ['nullable', 'array'],
@@ -124,7 +123,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'workExperience.*.position' => ['required_with:workExperience', 'string'],
             'workExperience.*.period' => ['required_with:workExperience', 'string'],
             'workExperience.*.responsibilities' => ['required_with:workExperience', 'string'],
-            'workExperience.*.file' => ['required_with:workExperience', 'file'],
+            'workExperience.*.file' => ['sometimes', 'file'],
 
             //References
             'references' => ['nullable', 'array'],
@@ -141,7 +140,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'references.*.zip' => ['nullable', 'string'],
 
             //Statement of Purpose
-            'statementOfPurpose' => ['nullable', 'array','required_array_keys:sop,file', function ($attribute, $value, $fail) {
+            'statementOfPurpose' => ['nullable', 'array', 'required_array_keys:sop,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['sop', 'file'];
                 if (array_diff(array_keys($value), $allowedKeys)) {
                     $fail($attribute . ' contains invalid keys.');
@@ -163,12 +162,12 @@ class StoreQuotationRequest extends BaseQuotationRequest
             //Additional Documents
             'additionalDocuments' => ['nullable', 'array'],
             'additionalDocuments.*.title' => ['nullable', 'string'],
-            'additionalDocuments.*.file' => ['required_with:additionalDocuments.*.title', 'file'],
+            'additionalDocuments.*.file' => ['sometimes', 'file'],
             //Lead Id
-            'leadId' => ['required','exists:leads,id'],
+            'leadId' => ['required', 'exists:leads,id'],
 
             //CountryId, CourseId, InstitutionId
-            'choices' => ['nullable','array'],
+            'choices' => ['nullable', 'array'],
             'choices.*.countryId' => ['nullable', 'exists:representing_countries,id'],
             'choices.*.institutionId' => ['required_with:choices.*.countryId', 'exists:representing_institutions,id'],
             'choices.*.courseId' => ['required_with:choices.*.countryId', 'exists:courses,id'],

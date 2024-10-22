@@ -142,5 +142,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('quotations', [ QuotationController::class, 'index'])->name('quotations.index');
     Route::get('quotations/{quotation}', [QuotationController::class, 'show'])->name('quotations.show');
     Route::post('quotations', [QuotationController::class, 'store'])->name('quotations.store');
+    Route::patch('quotations/{quotation}',[QuotationController::class,'update'])->name('quotations.update');
 });
 

@@ -38,10 +38,10 @@ class UpdateRepresentingInstituionRequest extends BaseRepresentingInstitutionReq
             'partTimeWorkDetails' => ['nullable', 'string'],
             'scholarshipsPolicy' => ['nullable', 'string'],
             'institutionStatusNotes' => ['nullable', 'string'],
-            'logo' => ['sometimes','image'],
+            'logo' => ['sometimes', 'image'],
             'prospectus' => ['sometimes', 'file'],
             'document1Title' => ['nullable', 'string'],
-            'document1' => ['sometimes','file'],
+            'document1' => ['sometimes', 'file'],
             'document2Title' => ['nullable', 'string'],
             'document2' => ['sometimes', 'file'],
             'contactPersonName' => ['required', 'string'],
@@ -50,6 +50,7 @@ class UpdateRepresentingInstituionRequest extends BaseRepresentingInstitutionReq
             'contactPersonDesignation' => ['required']
         ];
     }
+
     public function messages(): array
     {
         return [

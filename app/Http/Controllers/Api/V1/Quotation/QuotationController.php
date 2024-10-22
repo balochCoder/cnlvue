@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\V1\Quotation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Quotation\StoreQuotationRequest;
+use App\Http\Requests\Api\V1\Quotation\UpdateQuotationRequest;
 use App\Http\Resources\Api\V1\QuotationResource;
 use App\Models\Quotation;
+use App\Models\QuotationChoice;
 use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\DB;
 
 class QuotationController extends Controller
 {
@@ -15,15 +18,50 @@ class QuotationController extends Controller
         $quotations = Quotation::query()->with(['lead'])->get();
         return QuotationResource::collection($quotations);
     }
+
     use ApiResponse;
+
     public function store(StoreQuotationRequest $request)
     {
-       Quotation::query()->create($request->storeData());
-       return $this->ok('Quotation generated successfully.');
+        $quotation = Quotation::query()->create($request->storeData());
+
+        if ($request->choices) {
+            foreach ($request->choices as $choice) {
+                QuotationChoice::query()->create([
+                    'quotation_id' => $quotation->id,
+                    'country_id' => $choice['countryId'],
+                    'institution_id' => $choice['institutionId'],
+                    'course_id' => $choice['courseId'],
+                ]);
+            }
+        }
+        return $this->ok('Quotation generated successfully.');
     }
+
     public function show(Quotation $quotation)
     {
         $quotation->load(['lead']);
         return QuotationResource::make($quotation);
+    }
+
+    public function update(UpdateQuotationRequest $request, Quotation $quotation)
+    {
+        DB::beginTransaction();
+        $quotation->update($request->storeData());
+
+        if ($request->choices) {
+            $quotation->quotationChoices()->delete();
+            foreach ($request->choices as $choice) {
+                QuotationChoice::query()->create([
+                    'quotation_id' => $quotation->id,
+                    'country_id' => $choice['countryId'],
+                    'institution_id' => $choice['institutionId'],
+                    'course_id' => $choice['courseId'],
+                ]);
+            }
+        }
+
+        DB::commit();
+        return $this->ok('Quotation updated successfully.');
     }
 }

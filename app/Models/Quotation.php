@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,6 +47,14 @@ class Quotation extends Model
         );
     }
 
+    public function quotationChoices(): HasMany
+    {
+        return $this->hasMany(
+            QuotationChoice::class,
+            'quotation_id',
+        );
+    }
+
     public function AddedBy(): BelongsTo
     {
         return $this->belongsTo(
@@ -60,6 +70,19 @@ class Quotation extends Model
         Storage::makeDirectory($subFolder);
 
         return $subFolder;
+    }
+
+    protected function studentImage(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if ($value == null) {
+                    return Storage::url('files/quotations/no_image_available.png');
+                }
+
+                return $value;
+            },
+        );
     }
 
     protected function casts(): array

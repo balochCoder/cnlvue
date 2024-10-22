@@ -31,6 +31,7 @@ class BaseQuotationRequest extends FormRequest
             'isAccommodationRequired' => 'is_accommodation_required',
             'isMedicalRequired' => 'is_medical_required',
             'leadId' => 'lead_id',
+            'choices' => 'choices',
 
         ], $otherAttributes);
         $attributesToUpdate = [];
@@ -42,7 +43,7 @@ class BaseQuotationRequest extends FormRequest
         return $attributesToUpdate;
     }
 
-    public function storeData(): array
+    public function getData(): array
     {
         $data = $this->mappedAttributes();
 
@@ -136,17 +137,6 @@ class BaseQuotationRequest extends FormRequest
 
     }
 
-    public function updateData(): array
-    {
-        $data = $this->mappedAttributes();
-        if ($this->courseCategory) {
-            $data['course_category'] = json_encode($this->courseCategory);
-        }
 
-        if ($this->leadType) {
-            $data['status'] = $this->leadType;
-        }
-        return $data;
-    }
 
 }
