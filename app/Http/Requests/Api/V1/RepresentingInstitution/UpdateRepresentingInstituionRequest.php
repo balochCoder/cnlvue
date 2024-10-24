@@ -33,7 +33,7 @@ class UpdateRepresentingInstituionRequest extends BaseRepresentingInstitutionReq
             'contractCopy' => ['sometimes', 'file'],
             'contractExpiry' => ['nullable', 'date'],
             'isLanguage' => ['nullable', 'boolean'],
-            'languageRequirements' => ['required_if:isLanguage,true'],
+            'languageRequirements' => ['required_if:isLanguage,true', 'string'],
             'institutionalBenefits' => ['nullable', 'string'],
             'partTimeWorkDetails' => ['nullable', 'string'],
             'scholarshipsPolicy' => ['nullable', 'string'],
@@ -56,5 +56,12 @@ class UpdateRepresentingInstituionRequest extends BaseRepresentingInstitutionReq
         return [
             'languageRequirements.required_if' => 'Language Requirements is required.',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'isLanguage' => filter_var($this->input('isLanguage'), FILTER_VALIDATE_BOOLEAN),
+        ]);
     }
 }

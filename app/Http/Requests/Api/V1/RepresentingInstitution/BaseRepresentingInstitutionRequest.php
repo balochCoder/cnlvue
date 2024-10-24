@@ -56,11 +56,11 @@ class BaseRepresentingInstitutionRequest extends FormRequest
         $data = $this->mappedAttributes();
         if ($this->hasFile('contractCopy')) {
             $directory = RepresentingInstitution::makeDirectory('contract_copy');
-            $data['contract_copy'] = Storage::url('/') .$this->contractCopy->store($directory);
+            $data['contract_copy'] = Storage::url('/') . $this->contractCopy->store($directory);
         }
         if ($this->hasFile('logo')) {
             $directory = RepresentingInstitution::makeDirectory('logo');
-            $data['logo'] = Storage::url('/') .$this->logo->store($directory);
+            $data['logo'] = Storage::url('/') . $this->logo->store($directory);
         }
         if ($this->hasFile('prospectus')) {
             $directory = RepresentingInstitution::makeDirectory('prospectus');
@@ -68,12 +68,14 @@ class BaseRepresentingInstitutionRequest extends FormRequest
         }
         if ($this->hasFile('document1')) {
             $directory = RepresentingInstitution::makeDirectory('document_1');
-            $data['document_1'] = Storage::url('/') .$this->document1->store($directory);
+            $data['document_1'] = Storage::url('/') . $this->document1->store($directory);
         }
         if ($this->hasFile('document2')) {
             $directory = RepresentingInstitution::makeDirectory('document_2');
-            $data['document_2'] = Storage::url('/') .$this->document2->store($directory);
+            $data['document_2'] = Storage::url('/') . $this->document2->store($directory);
         }
+
+
 
         return $data;
     }

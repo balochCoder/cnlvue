@@ -57,5 +57,10 @@ class StoreRepresentingInstitutionRequest extends BaseRepresentingInstitutionReq
         ];
     }
 
-
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'isLanguage' => filter_var($this->input('isLanguage'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
 }

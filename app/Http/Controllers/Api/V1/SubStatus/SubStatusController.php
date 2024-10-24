@@ -17,11 +17,11 @@ class SubStatusController extends ApiController
     public function update(Request $request, SubStatus $subStatus)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
         ]);
 
         $subStatus->update([
-            'name' => $request->title,
+            'name' => $request->name,
         ]);
 
         return SubStatusResource::make($subStatus);
@@ -30,11 +30,11 @@ class SubStatusController extends ApiController
     public function store(Request $request, ApplicationProcess $applicationProcess)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
         ]);
 
         $subStatus = $applicationProcess->subStatuses()->create([
-            'name' => $request->title,
+            'name' => $request->name,
             'is_active' => true,
         ]);
         return SubStatusResource::make($subStatus);

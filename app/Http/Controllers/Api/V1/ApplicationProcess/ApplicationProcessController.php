@@ -86,6 +86,6 @@ class ApplicationProcessController extends ApiController
             $applicationProcesses->push($item);
         }
 
-        return $this->ok('Order Updated Successfull');
+        return ApplicationProcessResource::collection($applicationProcesses);
     }
 }
