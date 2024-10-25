@@ -30,7 +30,7 @@ class UpdateCounsellorRequest extends BaseCounsellorRequest
             'canDownloadCsv' => ['nullable', Rule::enum(DownloadCSV::class)],
             'isProcessingOfficer' => ['nullable', 'boolean'],
             'email' => ['sometimes', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
-            'password' => ['sometimes', 'string'],
+            'password' => ['sometimes', 'nullable','string'],
             'passwordConfirmation' => ['sometimes', 'same:password'],
             'userId' => ['required', 'integer', 'exists:users,id'],
 

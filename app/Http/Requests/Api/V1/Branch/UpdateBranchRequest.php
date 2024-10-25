@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Api\V1\Branch;
 
 use App\Enums\DownloadCSV;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UpdateBranchRequest extends BaseBranchRequest
@@ -38,7 +36,7 @@ class UpdateBranchRequest extends BaseBranchRequest
             'contactPersonWhatsapp' => ['nullable', 'string'],
             'contactPersonSkype' => ['nullable', 'string'],
             'contactPersonEmail' => ['sometimes', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
-            'contactPersonPassword' => ['sometimes'],
+            'contactPersonPassword' => ['sometimes','nullable'],
             'contactPersonPasswordConfirmation'=>['sometimes','same:contactPersonPassword'],
             'userId' => ['required', 'integer', 'exists:users,id'],
         ];
