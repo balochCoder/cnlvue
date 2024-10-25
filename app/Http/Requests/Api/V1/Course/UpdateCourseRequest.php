@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Course;
 
 use App\Enums\ApplicantDesired;
+use App\Enums\CourseCategories;
 use App\Enums\CourseLevel;
 use Illuminate\Validation\Rule;
 
@@ -39,6 +40,7 @@ class UpdateCourseRequest extends BaseCourseRequest
             'languageRequirements' => ['required_if:isLanguage,true'],
             'additionalInformation' => ['nullable', 'string'],
             'courseCategory' => ['nullable', 'array'],
+            'courseCategory.*' => [Rule::enum(CourseCategories::class)],
             'document1Title' => ['nullable', 'string'],
             'document1' => ['nullable', 'file'],
             'document2Title' => ['nullable', 'string'],
@@ -61,5 +63,10 @@ class UpdateCourseRequest extends BaseCourseRequest
             'languageRequirements.required_if' => 'Language requirements field is required if Language mandatory',
         ];
     }
-
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'isLanguage' => filter_var($this->input('isLanguage'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
 }

@@ -39,7 +39,8 @@ class StoreCourseRequest extends BaseCourseRequest
             'isLanguage' => ['nullable', 'boolean'],
             'languageRequirements' => ['required_if:isLanguage,true'],
             'additionalInformation' => ['nullable', 'string'],
-            'courseCategory' => ['nullable', 'array', Rule::enum(CourseCategories::class)],
+            'courseCategory' => ['nullable', 'array'],
+            'courseCategory.*' => [ Rule::enum(CourseCategories::class)],
             'document1Title' => ['nullable', 'string'],
             'document1' => ['nullable', 'file'],
             'document2Title' => ['nullable', 'string'],
@@ -62,5 +63,10 @@ class StoreCourseRequest extends BaseCourseRequest
         ];
     }
 
-
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'isLanguage' => filter_var($this->input('isLanguage'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
 }

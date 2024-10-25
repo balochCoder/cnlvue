@@ -18,7 +18,10 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
-            'level' => $this->resource->level,
+            'level' => [
+                'value' => $this->level,
+                'label'=> $this->level->getLabel(),
+            ],
             'duration' => json_decode($this->resource->duration),
             'startDate' => $this->resource->start_date,
             'endDate' => $this->resource->end_date,
@@ -34,6 +37,7 @@ class CourseResource extends JsonResource
             'qualityOfApplicant' => $this->resource->quality_of_applicant,
             'isLanguage' => $this->resource->is_language,
             'languageRequirements'=> $this->resource->language_requirements,
+            'additionalInformation' => $this->resource->additional_information,
             'courseCategory'=> json_decode($this->resource->course_category),
             'document1Title' => $this->resource->document_1_title,
             'document1' => $this->resource->document_1,

@@ -71,7 +71,9 @@ class RepresentingInstitution extends Model
 
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class, 'representing_institution_id');
+        return $this
+            ->hasMany(Course::class, 'representing_institution_id')
+            ->with('currency');
     }
 
     public function currency(): BelongsTo

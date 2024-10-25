@@ -13,16 +13,16 @@ class UserResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
+            'mobile' => $this->resource->mobile,
+            'lastLogin' => $this->resource->last_login,
+            'email' => $this->resource->email,
+            'designation' => $this->resource->designation,
+            'phone' => $this->resource->phone,
+            'skype' => $this->resource->skype,
+            'whatsapp' => $this->resource->whatsapp,
+            'downloadCsv' => $this->resource->download_csv,
             $this->mergeWhen($request->routeIs('users'), [
-                'email' => $this->resource->email,
-                'designation' => $this->resource->designation,
-                'mobile' => $this->resource->mobile,
-                'phone' => $this->resource->phone,
-                'skype' => $this->resource->skype,
-                'whatsapp' => $this->resource->whatsapp,
-                'downloadCsv' => $this->resource->download_csv,
                 'roles' => $this->resource->getRoleNames(),
-                'lastLogin' => $this->resource->last_login,
                 'createdAt' => DateResource::make(
                     $this->resource->created_at
                 ),
