@@ -56,7 +56,7 @@ class BaseProcessingOfficeRequest extends FormRequest
     {
         $data = $this->mappedAttributes();
         $user = $this->createUser();
-        $user->assignRole('processing_officer');
+        $user->assignRole('processing officer');
         //TODO: Send an Email to user with login details
         $data['user_id'] = $user->id;
         return $data;

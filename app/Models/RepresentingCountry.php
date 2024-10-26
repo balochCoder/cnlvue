@@ -50,7 +50,7 @@ class RepresentingCountry extends Model
             ->orderBy('order');
     }
 
-    public function representingInstitutions(): HasMany
+        public function representingInstitutions(): HasMany
     {
         return $this->hasMany(RepresentingInstitution::class, 'representing_country_id');
     }

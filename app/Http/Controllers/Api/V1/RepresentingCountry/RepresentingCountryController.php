@@ -15,8 +15,13 @@ class RepresentingCountryController extends ApiController
 
     public function index()
     {
-        $representingCountries = RepresentingCountry::with(['applicationProcesses', 'country'])->get();
 
+        if ($this->include('representingInstitutions')) {
+            $representingCountries = RepresentingCountry::with(['applicationProcesses', 'country','representingInstitutions'])->get();
+        } else {
+            $representingCountries = RepresentingCountry::with(['applicationProcesses', 'country'])->get();
+
+        }
         return RepresentingCountryResource::collection($representingCountries);
     }
 

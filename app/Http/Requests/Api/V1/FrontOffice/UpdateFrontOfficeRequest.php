@@ -25,7 +25,7 @@ class UpdateFrontOfficeRequest extends BaseFrontOfficeRequest
             'mobile' => ['nullable'],
             'editLeads' => ['nullable', 'boolean'],
             'email' => ['sometimes', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
-            'password' => ['sometimes', 'string'],
+            'password' => ['sometimes', 'nullable', 'string'],
             'passwordConfirmation' => ['sometimes', 'same:password'],
             'userId' => ['required', 'integer', 'exists:users,id'],
         ];
