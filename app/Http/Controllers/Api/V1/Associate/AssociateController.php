@@ -5,12 +5,8 @@ namespace App\Http\Controllers\Api\V1\Associate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Associate\StoreAssociateRequest;
 use App\Http\Requests\Api\V1\Associate\UpdateAssociateRequest;
-use App\Http\Requests\Api\V1\Branch\StoreBranchRequest;
-use App\Http\Requests\Api\V1\Branch\UpdateBranchRequest;
 use App\Http\Resources\Api\V1\AssociateResource;
-use App\Http\Resources\Api\V1\BranchResource;
 use App\Models\Associate;
-use App\Models\Branch;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
