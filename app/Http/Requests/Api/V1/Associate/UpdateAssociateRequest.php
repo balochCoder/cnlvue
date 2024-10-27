@@ -30,7 +30,7 @@ class UpdateAssociateRequest extends BaseAssociateRequest
             'website' => ['nullable', 'url'],
             'category' => ['required', Rule::enum(AssociateCategories::class)],
             'termsOfAssociation' => ['nullable', 'string'],
-            'contractTerm' => ['nullable', 'file'],
+            'contractTerm' => ['sometimes', 'file'],
 
 
             'contactPersonName' => ['required', 'string'],

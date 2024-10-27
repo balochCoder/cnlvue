@@ -51,7 +51,7 @@ class BaseAssociateRequest extends FormRequest
             'mobile' => $this->contactPersonMobile,
             'phone' => $this->contactPersonPhone,
             'skype' => $this->contactPersonSkype,
-
+            'designation' => $this->contactPersonDesignation,
         ]);
     }
 

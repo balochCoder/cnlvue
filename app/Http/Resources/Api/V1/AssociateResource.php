@@ -26,6 +26,7 @@ class AssociateResource extends JsonResource
                 'city'=> $this->resource->city,
                 'state'=> $this->resource->state,
                 'phone'=> $this->resource->phone,
+                'website'=> $this->resource->website,
                 'country' => CountryResource::make($this->whenLoaded('country')),
                 'contractTerm'=> $this->resource->contract_term,
                 'termsOfAssociation'=> $this->resource->terms_of_association,
