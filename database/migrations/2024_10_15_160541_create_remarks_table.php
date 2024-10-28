@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->text('remarks');
 
-            $table->timestamp('date');
+            $table->timestamp('add_date');
 
             $table->foreignId('counsellor_id')
             ->constrained('counsellors')

@@ -11,7 +11,7 @@ class BaseRemarkRequest extends FormRequest
         $attributeMap = array_merge([
             'counsellorId' => 'counsellor_id',
             'remarks' => 'remarks',
-            'date' => 'date',
+            'addDate' => 'add_date',
         ], $otherAttributes);
         $attributesToUpdate = [];
         foreach ($attributeMap as $key => $attribute) {

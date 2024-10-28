@@ -14,7 +14,7 @@ class RemarkFactory extends Factory
         $users = User::all()->pluck('id')->toArray();
         return [
             'remarks' => $this->faker->sentence(),
-            'date' => $this->faker->date(),
+            'add_date' => $this->faker->date(),
             'added_by' => $this->faker->randomElement($users),
         ];
     }

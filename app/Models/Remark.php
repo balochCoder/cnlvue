@@ -14,7 +14,7 @@ class Remark extends Model
 
     protected $fillable = [
         'remarks',
-        'date',
+        'add_date',
         'counsellor_id',
         'added_by',
     ];
@@ -39,7 +39,7 @@ class Remark extends Model
         return [
             'added_by' => 'integer',
             'counsellor_id' => 'integer',
-            'date' => 'datetime',
+            'add_date' => 'datetime',
         ];
     }
 }

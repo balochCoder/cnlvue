@@ -13,7 +13,7 @@ class RemarkResource extends JsonResource
     {
         return [
             'remarks' => $this->resource->remarks,
-            'date' => $this->resource->date,
+            'addDate' => $this->resource->add_date,
             'counsellor'=>CounsellorResource::make($this->whenLoaded('counsellor')),
             'addedBy' => UserResource::make($this->resource->addedBy),
             'createdAt' => DateResource::make(

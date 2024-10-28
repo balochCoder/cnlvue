@@ -21,8 +21,9 @@ class UserResource extends JsonResource
             'skype' => $this->resource->skype,
             'whatsapp' => $this->resource->whatsapp,
             'downloadCsv' => $this->resource->download_csv,
+            'roles' => $this->resource->getRoleNames(),
             $this->mergeWhen($request->routeIs('users'), [
-                'roles' => $this->resource->getRoleNames(),
+
                 'createdAt' => DateResource::make(
                     $this->resource->created_at
                 ),

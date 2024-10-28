@@ -17,7 +17,7 @@ class WriteRemarkRequest extends BaseRemarkRequest
         return [
             'counsellorId' => ['required', 'integer', 'exists:counsellors,id'],
             'remarks' => ['required', 'string'],
-            'date' => ['required', 'date'],
+            'addDate' => ['required', 'date'],
         ];
     }
 }
