@@ -12,6 +12,7 @@ class RemarkResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'remarks' => $this->resource->remarks,
             'addDate' => $this->resource->add_date,
             'counsellor'=>CounsellorResource::make($this->whenLoaded('counsellor')),
