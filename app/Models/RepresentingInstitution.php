@@ -156,4 +156,9 @@ class RepresentingInstitution extends Model
         return $this->belongsToMany(Counsellor::class, foreignPivotKey: 'institution_id', relatedPivotKey: 'counsellor_id')
             ->using(CounsellorRepresentingInstitution::class);
     }
+    public function processingOffices(): BelongsToMany
+    {
+        return $this->belongsToMany(ProcessingOffice::class, foreignPivotKey: 'institution_id', relatedPivotKey: 'office_id')
+            ->using(OfficeRepresentingInstitution::class);
+    }
 }

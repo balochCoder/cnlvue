@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProcessingOffice extends Model
@@ -52,5 +53,11 @@ class ProcessingOffice extends Model
     public function country() : BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function institutions(): BelongsToMany
+    {
+        return $this->belongsToMany(RepresentingInstitution::class, table: 'office_representing_institution',foreignPivotKey: 'office_id', relatedPivotKey: 'institution_id')
+            ->using(OfficeRepresentingInstitution::class)->withTimestamps();
     }
 }

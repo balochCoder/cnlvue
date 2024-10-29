@@ -10,6 +10,7 @@ use App\Models\Followup;
 use App\Models\FrontOffice;
 use App\Models\Lead;
 use App\Models\LeadSource;
+use App\Models\OfficeRepresentingInstitution;
 use App\Models\ProcessingOffice;
 use App\Models\Quotation;
 use App\Models\Remark;
@@ -58,7 +59,13 @@ class DatabaseSeeder extends Seeder
             Target::factory(5)
         )->create();
         FrontOffice::factory(10)->create();
-        ProcessingOffice::factory(10)->create();
+        ProcessingOffice::factory(10)
+            ->hasAttached(
+                RepresentingInstitution::factory(3)->create(),
+                [],
+                'institutions'
+            )
+            ->create();
         Associate::factory(10)->create();
         LeadSource::factory(10)->create();
         Lead::factory(5)->hasAttached($counsellors)->create();

@@ -113,6 +113,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::patch('processing-offices/{processing_office}/status', [ProcessingOfficeController::class, 'status']);
 
+    Route::post('processing-offices/{processing_office}/assigned-institutions', [ProcessingOfficeController::class, 'assign']);
+    Route::get('processing-offices/{processing_office}/assigned-institutions', [ProcessingOfficeController::class, 'getAssignedInstitutions']);
+
     // Associate
     Route::apiResource('associates', AssociateController::class)
         ->except(['destroy']);

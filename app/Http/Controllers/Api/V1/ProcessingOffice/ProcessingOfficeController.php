@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\ProcessingOffice\StoreProcessingOfficeRequest;
 use App\Http\Requests\Api\V1\ProcessingOffice\UpdateProcessingOfficeRequest;
 use App\Http\Resources\Api\V1\ProcessingOfficeResource;
+use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\ProcessingOffice;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -51,5 +52,19 @@ class ProcessingOfficeController extends Controller
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');
+    }
+
+    public function assign(ProcessingOffice $processingOffice, Request $request)
+    {
+        $request->validate([
+            'institutions' => ['nullable', 'array'],
+        ]);
+        $processingOffice->institutions()->sync($request->institutions);
+        return $this->ok('Processing Office assigned successfully.');
+    }
+
+    public function getAssignedInstitutions(ProcessingOffice $processingOffice)
+    {
+        return RepresentingInstitutionResource::collection($processingOffice->institutions()->get());
     }
 }
