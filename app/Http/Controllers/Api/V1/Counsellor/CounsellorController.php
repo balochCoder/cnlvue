@@ -21,7 +21,7 @@ class CounsellorController extends ApiController
     public function index()
     {
         $counsellors = Counsellor::query()
-            ->with(['branch','remarks'])
+            ->with(['branch','remarks','targets'])
             ->paginate(10);
 
         return CounsellorResource::collection($counsellors);

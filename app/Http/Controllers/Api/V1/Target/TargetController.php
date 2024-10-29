@@ -20,13 +20,13 @@ class TargetController extends Controller
 
     public function store(WriteTargetRequest $request)
     {
-        Target::query()->create($request->storeData());
-        return $this->ok('Target was created');
+        $target = Target::query()->create($request->storeData());
+        return TargetResource::make($target);
     }
 
     public function update(Target $target, WriteTargetRequest $request)
     {
         $target->update($request->mappedAttributes());
-        return $this->ok('Target was updated');
+        return TargetResource::make($target);
     }
 }

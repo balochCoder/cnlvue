@@ -12,6 +12,7 @@ class TargetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'description' => $this->resource->description,
             'year' => $this->resource->year,
             'number' => $this->resource->number,
