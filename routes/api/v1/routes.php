@@ -1,26 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\V1\ApplicationProcess\ApplicationProcessController;
-use App\Http\Controllers\Api\V1\Associate\AssociateController;
-use App\Http\Controllers\Api\V1\Branch\BranchController;
-use App\Http\Controllers\Api\V1\Followup\FollowupController;
-use App\Http\Controllers\Api\V1\Lead\LeadController;
-use App\Http\Controllers\Api\V1\LeadSource\LeadSourceController;
-use App\Http\Controllers\Api\V1\ProcessingOffice\ProcessingOfficeController;
-use App\Http\Controllers\Api\V1\Counsellor\CounsellorController;
-use App\Http\Controllers\Api\V1\Country\CountryController;
-use App\Http\Controllers\Api\V1\Course\CourseController;
-use App\Http\Controllers\Api\V1\Currency\CurrencyController;
-use App\Http\Controllers\Api\V1\Enum\EnumController;
-use App\Http\Controllers\Api\V1\FrontOffice\FrontOfficeController;
-use App\Http\Controllers\Api\V1\Quotation\QuotationController;
-use App\Http\Controllers\Api\V1\Remark\RemarkController;
-use App\Http\Controllers\Api\V1\RepresentingCountry\RepresentingCountryController;
-use App\Http\Controllers\Api\V1\RepresentingInstitution\RepresentingInstitutionController;
-use App\Http\Controllers\Api\V1\SubStatus\SubStatusController;
-use App\Http\Controllers\Api\V1\Target\TargetController;
-use App\Http\Controllers\Api\V1\Task\TaskController;
-use App\Http\Controllers\Api\V1\TimeZone\TimeZoneController;
+use App\Http\Controllers\Api\V1;
+
 use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -32,119 +13,119 @@ Route::middleware('auth:sanctum')->group(function () {
     })->name('users');
 
     //Representing Countries Routes
-    Route::get('countries', CountryController::class)->name('countries.index');
-    Route::apiResource('representing-countries', RepresentingCountryController::class)
+    Route::get('countries', V1\Country\CountryController::class)->name('countries.index');
+    Route::apiResource('representing-countries', V1\RepresentingCountry\RepresentingCountryController::class)
         ->only(['index', 'store', 'show']);
-    Route::patch('representing-countries/{representing_country}/status', [RepresentingCountryController::class, 'status'])->name('representing-countries.status');
+    Route::patch('representing-countries/{representing_country}/status', [V1\RepresentingCountry\RepresentingCountryController::class, 'status'])->name('representing-countries.status');
 
     //Application Process Routes
-    Route::apiResource('representing-countries.application-processes', ApplicationProcessController::class)
+    Route::apiResource('representing-countries.application-processes', V1\ApplicationProcess\ApplicationProcessController::class)
         ->shallow()
         ->only(['show', 'update', 'store']);
-    Route::patch('representing-countries/{representing_country}/application-processes/notes', [ApplicationProcessController::class, 'updateNotes'])
+    Route::patch('representing-countries/{representing_country}/application-processes/notes', [V1\ApplicationProcess\ApplicationProcessController::class, 'updateNotes'])
         ->name('representing-countries.notes.update');
-    Route::patch('application-processes/{application_process}/status', [ApplicationProcessController::class, 'status'])
+    Route::patch('application-processes/{application_process}/status', [V1\ApplicationProcess\ApplicationProcessController::class, 'status'])
         ->name('application-processes.status');
-    Route::patch('application-processes/reorder/update', [ApplicationProcessController::class, 'updateOrder'])
+    Route::patch('application-processes/reorder/update', [V1\ApplicationProcess\ApplicationProcessController::class, 'updateOrder'])
         ->name('application-processes.reorder.update');
 
     //Sub Statuses
-    Route::apiResource('application-processes.sub-statuses', SubStatusController::class)
+    Route::apiResource('application-processes.sub-statuses', V1\SubStatus\SubStatusController::class)
         ->shallow()
         ->only(['store', 'update']);
-    Route::patch('sub-statuses/{sub_status}/status', [SubStatusController::class, 'status'])
+    Route::patch('sub-statuses/{sub_status}/status', [V1\SubStatus\SubStatusController::class, 'status'])
         ->name('sub-statuses.status');
 
     //Enums
-    Route::get('enums/institute-types', [EnumController::class, 'instituteTypes']);
-    Route::get('enums/applicant-desired', [EnumController::class, 'applicantDesired']);
-    Route::get('enums/course-levels', [EnumController::class, 'courseLevels']);
-    Route::get('enums/course-categories', [EnumController::class, 'courseCategories']);
-    Route::get('enums/download-csv', [EnumController::class, 'downloadCSV']);
-    Route::get('enums/associate-categories', [EnumController::class, 'associateCategories']);
-    Route::get('enums/lead-statuses', [EnumController::class, 'leadStatuses']);
-    Route::get('enums/followup-modes', [EnumController::class, 'followupModes']);
-    Route::get('enums/task-statuses', [EnumController::class, 'taskStatuses']);
+    Route::get('enums/institute-types', [V1\Enum\EnumController::class, 'instituteTypes']);
+    Route::get('enums/applicant-desired', [V1\Enum\EnumController::class, 'applicantDesired']);
+    Route::get('enums/course-levels', [V1\Enum\EnumController::class, 'courseLevels']);
+    Route::get('enums/course-categories', [V1\Enum\EnumController::class, 'courseCategories']);
+    Route::get('enums/download-csv', [V1\Enum\EnumController::class, 'downloadCSV']);
+    Route::get('enums/associate-categories', [V1\Enum\EnumController::class, 'associateCategories']);
+    Route::get('enums/lead-statuses', [V1\Enum\EnumController::class, 'leadStatuses']);
+    Route::get('enums/followup-modes', [V1\Enum\EnumController::class, 'followupModes']);
+    Route::get('enums/task-statuses', [V1\Enum\EnumController::class, 'taskStatuses']);
 
     //Currency
-    Route::get('currencies', CurrencyController::class);
+    Route::get('currencies', V1\Currency\CurrencyController::class);
 
     //Time Zone
-    Route::get('time-zones', TimeZoneController::class);
+    Route::get('time-zones', V1\TimeZone\TimeZoneController::class);
 
     //Representing Institution
-    Route::apiResource('representing-institutions', RepresentingInstitutionController::class)
+    Route::apiResource('representing-institutions', V1\RepresentingInstitution\RepresentingInstitutionController::class)
         ->only(['index', 'store', 'show', 'update']);
-    Route::patch('representing-institutions/{representing_institution}/status', [RepresentingInstitutionController::class, 'status'])
+    Route::patch('representing-institutions/{representing_institution}/status', [V1\RepresentingInstitution\RepresentingInstitutionController::class, 'status'])
         ->name('representing-institutions.status');
 
     //Courses
-    Route::apiResource('courses', CourseController::class)
+    Route::apiResource('courses', V1\Course\CourseController::class)
         ->except(['index', 'destroy']);
-    Route::patch('courses/{course}/status', [CourseController::class, 'status']);
+    Route::patch('courses/{course}/status', [V1\Course\CourseController::class, 'status']);
 
     //Branch
-    Route::apiResource('branches', BranchController::class)
+    Route::apiResource('branches', V1\Branch\BranchController::class)
         ->except(['destroy']);
-    Route::patch('branches/{branch}/status', [BranchController::class, 'status']);
+    Route::patch('branches/{branch}/status', [V1\Branch\BranchController::class, 'status']);
 
     //Counsellor
-    Route::apiResource('counsellors', CounsellorController::class)
+    Route::apiResource('counsellors', V1\Counsellor\CounsellorController::class)
         ->except(['destroy']);
-    Route::patch('counsellors/{counsellor}/status', [CounsellorController::class, 'status']);
-    Route::post('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'assign']);
-    Route::get('counsellors/{counsellor}/assigned-institutions', [CounsellorController::class, 'getAssignedInstitutions']);
+    Route::patch('counsellors/{counsellor}/status', [V1\Counsellor\CounsellorController::class, 'status']);
+    Route::post('counsellors/{counsellor}/assigned-institutions', [V1\Counsellor\CounsellorController::class, 'assign']);
+    Route::get('counsellors/{counsellor}/assigned-institutions', [V1\Counsellor\CounsellorController::class, 'getAssignedInstitutions']);
 
     // Remarks
-    Route::apiResource('remarks', RemarkController::class)
+    Route::apiResource('remarks', V1\Remark\RemarkController::class)
         ->except(['index', 'destroy']);
 
     // Targets
-    Route::apiResource('targets', TargetController::class)
+    Route::apiResource('targets', V1\Target\TargetController::class)
         ->except(['index', 'destroy']);
 
     //Front Office
-    Route::apiResource('front-offices', FrontOfficeController::class)
+    Route::apiResource('front-offices', V1\FrontOffice\FrontOfficeController::class)
         ->except(['destroy']);
-    Route::patch('front-offices/{front_office}/status', [FrontOfficeController::class, 'status']);
+    Route::patch('front-offices/{front_office}/status', [V1\FrontOffice\FrontOfficeController::class, 'status']);
 
     //Processing Office
-    Route::apiResource('processing-offices', ProcessingOfficeController::class)
+    Route::apiResource('processing-offices', V1\ProcessingOffice\ProcessingOfficeController::class)
         ->except(['destroy']);
-    Route::patch('processing-offices/{processing_office}/status', [ProcessingOfficeController::class, 'status']);
+    Route::patch('processing-offices/{processing_office}/status', [V1\ProcessingOffice\ProcessingOfficeController::class, 'status']);
 
-    Route::post('processing-offices/{processing_office}/assigned-institutions', [ProcessingOfficeController::class, 'assign']);
-    Route::get('processing-offices/{processing_office}/assigned-institutions', [ProcessingOfficeController::class, 'getAssignedInstitutions']);
+    Route::post('processing-offices/{processing_office}/assigned-institutions', [V1\ProcessingOffice\ProcessingOfficeController::class, 'assign']);
+    Route::get('processing-offices/{processing_office}/assigned-institutions', [V1\ProcessingOffice\ProcessingOfficeController::class, 'getAssignedInstitutions']);
 
     // Associate
-    Route::apiResource('associates', AssociateController::class)
+    Route::apiResource('associates', V1\Associate\AssociateController::class)
         ->except(['destroy']);
-    Route::patch('associates/{associate}/status', [AssociateController::class, 'status']);
+    Route::patch('associates/{associate}/status', [V1\Associate\AssociateController::class, 'status']);
 
     //Lead Sources
-    Route::apiResource('lead-sources', LeadSourceController::class)
+    Route::apiResource('lead-sources', V1\LeadSource\LeadSourceController::class)
         ->except(['destroy']);
-    Route::patch('lead-sources/{lead_source}/status', [LeadSourceController::class, 'status']);
+    Route::patch('lead-sources/{lead_source}/status', [V1\LeadSource\LeadSourceController::class, 'status']);
 
     //Leads
-    Route::apiResource('leads', LeadController::class)
+    Route::apiResource('leads', V1\Lead\LeadController::class)
         ->except(['destroy']);
-    Route::apiResource('followups', FollowupController::class)
+    Route::apiResource('followups', V1\Followup\FollowupController::class)
         ->only(['store', 'index']);
 
     //Tasks
-    Route::get('tasks/assigned-by-me', [TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
-    Route::get('/tasks/assigned-to-me', [TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
+    Route::get('tasks/assigned-by-me', [V1\Task\TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
+    Route::get('/tasks/assigned-to-me', [V1\Task\TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
 
-    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-    Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+    Route::post('/tasks', [V1\Task\TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/tasks/{task}', [V1\Task\TaskController::class, 'show'])->name('tasks.show');
 
-    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('/tasks.update');
+    Route::patch('/tasks/{task}', [V1\Task\TaskController::class, 'update'])->name('/tasks.update');
 
 //    Applications
-    Route::get('quotations', [ QuotationController::class, 'index'])->name('quotations.index');
-    Route::get('quotations/{quotation}', [QuotationController::class, 'show'])->name('quotations.show');
-    Route::post('quotations', [QuotationController::class, 'store'])->name('quotations.store');
-    Route::patch('quotations/{quotation}',[QuotationController::class,'update'])->name('quotations.update');
+    Route::get('quotations', [ V1\Quotation\QuotationController::class, 'index'])->name('quotations.index');
+    Route::get('quotations/{quotation}', [V1\Quotation\QuotationController::class, 'show'])->name('quotations.show');
+    Route::post('quotations', [V1\Quotation\QuotationController::class, 'store'])->name('quotations.store');
+    Route::patch('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
 });
 
