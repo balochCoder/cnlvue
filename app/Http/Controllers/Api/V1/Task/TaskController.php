@@ -30,7 +30,7 @@ class TaskController extends Controller
     {
         $tasks = Task::query()->where([
             'assigned_by' => auth()->id(),
-        ])->with(['assignedTo', 'assignedBy'])->get();
+        ])->with(['assignedTo', 'assignedBy', 'remarks'])->get();
 
         return TaskResource::collection($tasks);
     }
@@ -39,7 +39,7 @@ class TaskController extends Controller
     {
         $tasks = Task::query()->where([
             'assigned_to' => auth()->id(),
-        ])->with(['assignedTo', 'assignedBy'])->get();
+        ])->with(['assignedTo', 'assignedBy','remarks'])->get();
 
         return TaskResource::collection($tasks);
     }
