@@ -114,6 +114,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ->only(['store', 'index']);
 
     //Tasks
+    Route::get('tasks',[V1\Task\TaskController::class, 'index'])
+    ->name('tasks.index');
     Route::get('tasks/assigned-by-me', [V1\Task\TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
     Route::get('/tasks/assigned-to-me', [V1\Task\TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
 
@@ -127,5 +129,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('quotations/{quotation}', [V1\Quotation\QuotationController::class, 'show'])->name('quotations.show');
     Route::post('quotations', [V1\Quotation\QuotationController::class, 'store'])->name('quotations.store');
     Route::patch('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
+
+//    Roles
+    Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
+    Route::get('roles/{role}/users',[V1\Role\RoleController::class, 'getUsers'])->name('roles.users');
 });
 

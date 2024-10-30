@@ -14,6 +14,14 @@ class TaskController extends Controller
 {
     use ApiResponse;
 
+    public function index()
+    {
+        $tasks = Task::query()
+            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->get();
+
+        return TaskResource::collection($tasks);
+    }
     public function store(StoreTaskRequest $request)
     {
         Task::query()->create($request->storeData());
