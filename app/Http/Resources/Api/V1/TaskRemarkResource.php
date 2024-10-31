@@ -19,7 +19,7 @@ class TaskRemarkResource extends JsonResource
             'id' => $this->resource->id,
             'remark' => $this->resource->remark,
             'task' => TaskResource::make($this->whenLoaded('task')),
-            'createdBy' => $this->resource->createdBy->name,
+            'createdBy' => UserResource::make($this->resource->createdBy),
             'createdAt' => DateResource::make(
                 $this->resource->created_at
             ),

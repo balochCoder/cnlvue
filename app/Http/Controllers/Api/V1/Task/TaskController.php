@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Task\StoreTaskRequest;
 use App\Http\Requests\Api\V1\Task\UpdateTaskRequest;
+use App\Http\Resources\Api\V1\TaskRemarkResource;
 use App\Http\Resources\Api\V1\TaskResource;
 use App\Models\Task;
 use App\Traits\ApiResponse;
@@ -53,8 +54,9 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $newRemark = null;
         if ($request->remark) {
-            $task->remarks()->create([
+           $newRemark =  $task->remarks()->create([
                 'remark' => $request->remark,
                 'created_by' => auth()->id(),
             ]);
@@ -62,7 +64,7 @@ class TaskController extends Controller
         $task->update([
             'status' => $request->status,
         ]);
-        return $this->ok('Task updated successfully');
+        return $newRemark ? TaskRemarkResource::make($newRemark) : $this->ok('Task updated successfully');
 
     }
 }
