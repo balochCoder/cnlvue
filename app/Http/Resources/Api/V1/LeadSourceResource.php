@@ -18,8 +18,8 @@ class LeadSourceResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'sourceName' => $this->resource->source_name,
-            $this->mergeWhen($request->routeIs('lead-sources'), [
-                'AddedBy' => $this->resource->user->name,
+            $this->mergeWhen($request->routeIs('lead-sources.*'), [
+                'addedBy' => $this->resource->user->name,
                 'isActive' => $this->resource->is_active,
                 'createdAt' => DateResource::make(
                     $this->resource->created_at
