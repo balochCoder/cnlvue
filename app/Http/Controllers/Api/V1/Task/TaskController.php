@@ -8,7 +8,6 @@ use App\Http\Requests\Api\V1\Task\UpdateTaskRequest;
 use App\Http\Resources\Api\V1\TaskResource;
 use App\Models\Task;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {

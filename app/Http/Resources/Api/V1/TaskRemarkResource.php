@@ -16,6 +16,7 @@ class TaskRemarkResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'remark' => $this->resource->remark,
             'task' => TaskResource::make($this->whenLoaded('task')),
             'createdBy' => $this->resource->createdBy->name,

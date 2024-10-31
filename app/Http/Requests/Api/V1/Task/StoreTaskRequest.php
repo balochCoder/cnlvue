@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Api\V1\Task;
 
-use App\Enums\AssociateCategories;
-use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends BaseTaskRequest
 {
@@ -24,6 +22,13 @@ class StoreTaskRequest extends BaseTaskRequest
             'dueDate' => ['required', 'date', 'after_or_equal:startDate'],
             'file' => ['nullable', 'file'],
             'description' => ['required', 'string'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'assignedTo.required' => 'User is required.',
         ];
     }
 
