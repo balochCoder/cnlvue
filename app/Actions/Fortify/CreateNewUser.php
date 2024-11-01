@@ -4,7 +4,6 @@ namespace App\Actions\Fortify;
 
 use App\Enums\DownloadCSV;
 use App\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
