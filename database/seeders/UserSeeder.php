@@ -13,20 +13,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user1 = User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@example.com',
-        ]);
-
-        $user2 = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
         ]);
-        $user3 = User::factory()->create([
+
+
+        $user2 = User::factory()->create([
             'name' => 'Counsellor',
             'email' => 'counsellor@example.com',
         ]);
         $user1->assignRole('super admin');
-        $user2->assignRole('admin');
-        $user3->assignRole('counsellor');
+        $user2->assignRole('counsellor');
     }
 }
