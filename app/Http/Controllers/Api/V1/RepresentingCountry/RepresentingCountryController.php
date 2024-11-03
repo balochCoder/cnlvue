@@ -17,6 +17,7 @@ class RepresentingCountryController
     {
         $representingCountries = QueryBuilder::for(RepresentingCountry::class)
             ->allowedIncludes(['representingInstitutions'])
+            ->allowedFilters(['is_active'])
             ->with(['applicationProcesses', 'country'])
             ->getEloquentBuilder()
             ->get();
