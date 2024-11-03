@@ -10,12 +10,16 @@ use App\Models\Quotation;
 use App\Models\QuotationChoice;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class QuotationController extends Controller
 {
     public function index()
     {
-        $quotations = Quotation::query()->with(['lead'])->get();
+        $quotations = QueryBuilder::for(Quotation::class)
+            ->with(['lead'])
+            ->getEloquentBuilder()
+            ->get();
         return QuotationResource::collection($quotations);
     }
 

@@ -8,6 +8,7 @@ use App\Http\Resources\Api\V1\FollowupResource;
 use App\Models\Followup;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class FollowupController extends Controller
 {
@@ -27,7 +28,12 @@ class FollowupController extends Controller
 
     public function index()
     {
-        $followups = Followup::query()->with(['lead'])->get();
+        $followups = QueryBuilder::for(
+            Followup::class
+        )
+            ->with(['lead'])
+            ->getEloquentBuilder()
+            ->get();
         return FollowupResource::collection($followups);
     }
 }

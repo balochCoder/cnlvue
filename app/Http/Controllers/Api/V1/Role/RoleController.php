@@ -7,12 +7,15 @@ use App\Http\Resources\Api\V1\RoleResource;
 use App\Http\Resources\Api\V1\UserResource;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        $roles =  Role::query()->get();
+        $roles =  QueryBuilder::for(Role::class)
+            ->getEloquentBuilder()
+            ->get();
         return RoleResource::collection($roles);
 
 //        return $role->users;

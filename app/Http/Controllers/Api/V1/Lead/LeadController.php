@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Lead\WriteLeadRequest;
 use App\Http\Resources\Api\V1\LeadResource;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadController extends Controller
 {
@@ -14,7 +15,7 @@ class LeadController extends Controller
 
     public function index()
     {
-        $leads = Lead::query()->with(['leadSource', 'counsellors', 'followups'])->get();
+        $leads = QueryBuilder::for(Lead::class)->with(['leadSource', 'counsellors', 'followups'])->get();
         return LeadResource::collection($leads);
     }
 

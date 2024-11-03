@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers\Api\V1\RepresentingCountry;
 
-use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\RepresentingCountry\StoreRepresentingCountryRequest;
 use App\Http\Resources\Api\V1\RepresentingCountryResource;
 use App\Models\RepresentingCountry;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
-class RepresentingCountryController extends ApiController
+class RepresentingCountryController
 {
     use ApiResponse;
 
     public function index()
     {
+        $representingCountries = QueryBuilder::for(RepresentingCountry::class)
+            ->allowedIncludes(['representingInstitutions'])
+            ->with(['applicationProcesses', 'country'])
+            ->getEloquentBuilder()
+            ->get();
 
-        if ($this->include('representingInstitutions')) {
-            $representingCountries = RepresentingCountry::with(['applicationProcesses', 'country','representingInstitutions'])->get();
-        } else {
-            $representingCountries = RepresentingCountry::with(['applicationProcesses', 'country'])->get();
-
-        }
         return RepresentingCountryResource::collection($representingCountries);
     }
 

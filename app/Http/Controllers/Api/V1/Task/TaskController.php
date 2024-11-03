@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\TaskRemarkResource;
 use App\Http\Resources\Api\V1\TaskResource;
 use App\Models\Task;
 use App\Traits\ApiResponse;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
@@ -16,12 +17,13 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::query()
+        $tasks = QueryBuilder::for(Task::class)
             ->with(['assignedTo', 'assignedBy', 'remarks'])
             ->get();
 
         return TaskResource::collection($tasks);
     }
+
     public function store(StoreTaskRequest $request)
     {
         Task::query()->create($request->storeData());
@@ -36,18 +38,26 @@ class TaskController extends Controller
 
     public function assignedByMe()
     {
-        $tasks = Task::query()->where([
-            'assigned_by' => auth()->id(),
-        ])->with(['assignedTo', 'assignedBy', 'remarks'])->get();
+        $tasks = QueryBuilder::for(
+            Task::query()
+                ->where('assigned_by', auth()->id())
+        )
+            ->getEloquentBuilder()
+            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->get();
 
         return TaskResource::collection($tasks);
     }
 
     public function assignedToMe()
     {
-        $tasks = Task::query()->where([
-            'assigned_to' => auth()->id(),
-        ])->with(['assignedTo', 'assignedBy','remarks'])->get();
+        $tasks = QueryBuilder::for(
+            Task::query()
+                ->where('assigned_to', auth()->id())
+        )
+            ->getEloquentBuilder()
+            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->get();
 
         return TaskResource::collection($tasks);
     }
@@ -56,7 +66,7 @@ class TaskController extends Controller
     {
         $newRemark = null;
         if ($request->remark) {
-           $newRemark =  $task->remarks()->create([
+            $newRemark = $task->remarks()->create([
                 'remark' => $request->remark,
                 'created_by' => auth()->id(),
             ]);

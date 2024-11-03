@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\Counsellor;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CounsellorController extends ApiController
 {
@@ -20,7 +21,7 @@ class CounsellorController extends ApiController
      */
     public function index()
     {
-        $counsellors = Counsellor::query()
+        $counsellors = QueryBuilder::for(Counsellor::class)
             ->with(['branch','remarks','targets'])
             ->paginate(10);
 

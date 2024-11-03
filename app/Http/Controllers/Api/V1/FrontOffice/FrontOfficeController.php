@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\FrontOfficeResource;
 use App\Models\FrontOffice;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class FrontOfficeController extends Controller
 {
@@ -16,7 +17,7 @@ class FrontOfficeController extends Controller
 
     public function index()
     {
-        $frontOffices = FrontOffice::query()
+        $frontOffices = QueryBuilder::for(FrontOffice::class)
             ->with(['branch', 'user'])
             ->paginate(10);
 

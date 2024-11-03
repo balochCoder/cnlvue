@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\RepresentingInstitution;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RepresentingInstitutionController extends ApiController
 {
@@ -18,7 +19,10 @@ class RepresentingInstitutionController extends ApiController
     use ApiResponse;
     public function index()
     {
-        $institutions = RepresentingInstitution::with(['representingCountry','currency'])->get();
+        $institutions = QueryBuilder::for(RepresentingInstitution::class)
+            ->with(['representingCountry','currency'])
+            ->getEloquentBuilder()
+            ->get();
         return RepresentingInstitutionResource::collection($institutions);
     }
 

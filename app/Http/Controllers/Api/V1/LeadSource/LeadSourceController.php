@@ -8,13 +8,14 @@ use App\Http\Resources\Api\V1\LeadSourceResource;
 use App\Models\LeadSource;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadSourceController extends Controller
 {
     use ApiResponse;
     public function index()
     {
-        $leadSources = LeadSource::query()->with(['user'])->get();
+        $leadSources = QueryBuilder::for(LeadSource::class)->with(['user'])->get();
         return LeadSourceResource::collection($leadSources);
     }
 

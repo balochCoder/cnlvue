@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\ProcessingOffice;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProcessingOfficeController extends Controller
 {
@@ -17,10 +18,11 @@ class ProcessingOfficeController extends Controller
 
     public function index()
     {
-        $branches = ProcessingOffice::query()
+        $processingOffice = QueryBuilder::for(ProcessingOffice::class)
             ->with(['country', 'timeZone', 'user'])
+            ->getEloquentBuilder()
             ->get();
-        return ProcessingOfficeResource::collection($branches);
+        return ProcessingOfficeResource::collection($processingOffice);
     }
 
 

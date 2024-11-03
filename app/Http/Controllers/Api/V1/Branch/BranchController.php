@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\BranchResource;
 use App\Models\Branch;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BranchController extends Controller
 {
@@ -16,7 +17,7 @@ class BranchController extends Controller
 
     public function index()
     {
-        $branches = Branch::query()
+        $branches = QueryBuilder::for(Branch::class)
             ->with(['country', 'timeZone', 'user'])
             ->get();
         return BranchResource::collection($branches);

@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\AssociateResource;
 use App\Models\Associate;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AssociateController extends Controller
 {
@@ -16,8 +17,9 @@ class AssociateController extends Controller
 
     public function index()
     {
-        $associates = Associate::query()
+        $associates = QueryBuilder::for(Associate::class)
             ->with(['country', 'branch', 'user'])
+            ->getEloquentBuilder()
             ->get();
         return AssociateResource::collection($associates);
     }

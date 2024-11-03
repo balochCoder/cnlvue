@@ -33,8 +33,7 @@ class ApplicationProcessController extends ApiController
 
     public function show(ApplicationProcess $applicationProcess)
     {
-        if ($this->include('subStatuses'))
-        {
+        if ($this->include('subStatuses')) {
             $applicationProcess->load('subStatuses');
         }
         return ApplicationProcessResource::make($applicationProcess);
