@@ -18,14 +18,15 @@ class RepresentingCountryResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'country' => CountryResource::make($this->whenLoaded('country')),
-
+            "visaRequirements" => $this->resource->visa_requirements,
+            "countryBenefits" => $this->resource->country_benefits,
             $this->mergeWhen(
                 $request->routeIs('representing-countries.*'),
                 [
                     "monthlyLivingCost" => $this->resource->monthly_living_cost,
-                    "visaRequirements" => $this->resource->visa_requirements,
+
                     "partTimeWorkDetails" => $this->resource->part_time_work_details,
-                    "countryBenefits" => $this->resource->country_benefits,
+
                     "isActive" => $this->resource->is_active,
                     'applicationProcesses' => ApplicationProcessResource::collection($this->whenLoaded('applicationProcesses')),
                     'representingInstitutions' => RepresentingInstitutionResource::collection($this->whenLoaded('representingInstitutions')),

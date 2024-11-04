@@ -19,9 +19,10 @@ class RepresentingInstitutionResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'isActive' => !!$this->resource->is_active,
+            'representingCountry' => RepresentingCountryResource::make($this->whenLoaded('representingCountry')),
             'courses' => CourseResource::collection($this->whenLoaded('courses')),
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
-                'representingCountry' => RepresentingCountryResource::make($this->whenLoaded('representingCountry')),
+
                 'type' => $this->resource->type,
                 'campus' => $this->resource->campus,
                 'website' => $this->resource->website,
