@@ -23,6 +23,8 @@ class RoleController extends Controller
 
     public function getUsers(Role $role)
     {
-        return UserResource::collection($role->users);
+        return UserResource::collection(
+            $role->users()->where('id', '!=', auth()->id())->get()
+        );
     }
 }
