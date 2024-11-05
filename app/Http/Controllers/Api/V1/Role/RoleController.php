@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\V1\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\RoleResource;
 use App\Http\Resources\Api\V1\UserResource;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\QueryBuilder\QueryBuilder;
 

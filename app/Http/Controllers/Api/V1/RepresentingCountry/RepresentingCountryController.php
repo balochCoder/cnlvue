@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1\RepresentingCountry;
 
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\RepresentingCountry\StoreRepresentingCountryRequest;
 use App\Http\Resources\Api\V1\RepresentingCountryResource;
 use App\Models\RepresentingCountry;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class RepresentingCountryController
+class RepresentingCountryController extends ApiController
 {
     use ApiResponse;
 
@@ -17,7 +19,7 @@ class RepresentingCountryController
     {
         $representingCountries = QueryBuilder::for(RepresentingCountry::class)
             ->allowedIncludes(['representingInstitutions'])
-            ->allowedFilters(['is_active'])
+            ->allowedFilters(['is_active',AllowedFilter::exact('id') ])
             ->with(['applicationProcesses', 'country'])
             ->getEloquentBuilder()
             ->get();

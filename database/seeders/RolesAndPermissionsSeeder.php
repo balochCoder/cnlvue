@@ -109,9 +109,8 @@ class RolesAndPermissionsSeeder extends Seeder
         });
 
         Permission::query()->insert($permissions->toArray());
-        Role::create(['name' => 'super admin','guard_name'=>'web']);
+        Role::create(['name' => 'super admin','guard_name'=>'web'])->givePermissionTo(Permission::all());
 
-        Role::create(['name' => 'admin','guard_name'=>'web'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'counsellor','guard_name'=>'web']);
         Role::create(['name' => 'branch','guard_name'=>'web']);
         Role::create(['name' => 'processing officer','guard_name'=>'web']);
