@@ -22,7 +22,7 @@ class CounsellorController extends ApiController
     public function index()
     {
         $counsellors = QueryBuilder::for(Counsellor::class)
-            ->with(['branch','remarks','targets'])
+            ->with(['branch', 'remarks', 'targets'])
             ->paginate(10);
 
         return CounsellorResource::collection($counsellors);
@@ -44,13 +44,13 @@ class CounsellorController extends ApiController
      */
     public function show(Counsellor $counsellor)
     {
-        $counsellor->load(['branch']);
-        if ($this->include('remarks')) {
-            $counsellor->load('remarks');
-        }
-        if ($this->include('targets')) {
-            $counsellor->load('targets');
-        }
+
+        $counsellor = QueryBuilder::for(Counsellor::class)
+            ->where('id', $counsellor->id)
+            ->with(['branch'])
+            ->allowedIncludes(['remarks', 'targets'])
+            ->firstOrFail();
+
         return CounsellorResource::make($counsellor);
     }
 

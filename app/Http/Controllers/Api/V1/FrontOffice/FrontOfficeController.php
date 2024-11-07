@@ -35,7 +35,11 @@ class FrontOfficeController extends Controller
 
     public function show(FrontOffice $frontOffice)
     {
-        $frontOffice->load(['branch', 'user']);
+        $frontOffice = QueryBuilder::for(FrontOffice::class)
+            ->where('id', $frontOffice->id)
+            ->with(['branch', 'user'])
+            ->firstOrFail();
+
         return FrontOfficeResource::make($frontOffice);
     }
 

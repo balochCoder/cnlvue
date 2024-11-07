@@ -15,7 +15,10 @@ class LeadSourceController extends Controller
     use ApiResponse;
     public function index()
     {
-        $leadSources = QueryBuilder::for(LeadSource::class)->with(['user'])->get();
+        $leadSources = QueryBuilder::for(LeadSource::class)
+            ->with(['user'])
+            ->getEloquentBuilder()
+            ->get();
         return LeadSourceResource::collection($leadSources);
     }
 

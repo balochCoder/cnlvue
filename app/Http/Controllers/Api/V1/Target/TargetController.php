@@ -8,13 +8,18 @@ use App\Http\Resources\Api\V1\TargetResource;
 use App\Models\Target;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TargetController extends Controller
 {
     use ApiResponse;
     public function show(Target $target)
     {
-        $target->load('counsellor');
+        $target = QueryBuilder::for(Target::class)
+            ->where('id', $target->id)
+            ->with(['counsellor'])
+            ->firstOrFail();
+
         return TargetResource::make($target);
     }
 

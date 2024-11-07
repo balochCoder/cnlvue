@@ -17,10 +17,11 @@ class RepresentingInstitutionController extends ApiController
      * Display a listing of the resource.
      */
     use ApiResponse;
+
     public function index()
     {
         $institutions = QueryBuilder::for(RepresentingInstitution::class)
-            ->with(['representingCountry','currency'])
+            ->with(['representingCountry', 'currency'])
             ->getEloquentBuilder()
             ->get();
         return RepresentingInstitutionResource::collection($institutions);
@@ -40,13 +41,13 @@ class RepresentingInstitutionController extends ApiController
      */
     public function show(RepresentingInstitution $representingInstitution)
     {
+        $representingInstitution = QueryBuilder::for(RepresentingInstitution::class)
+            ->where('id', $representingInstitution->id)
+            ->with(['representingCountry', 'currency'])
+            ->allowedIncludes(['courses'])
+            ->firstOrFail();
 
-        $representingInstitution
-            ->load(['representingCountry','currency']);
-        if ($this->include('courses'))
-        {
-            $representingInstitution->load('courses');
-        }
+
         return RepresentingInstitutionResource::make($representingInstitution);
     }
 
@@ -68,6 +69,6 @@ class RepresentingInstitutionController extends ApiController
         $representingInstitution->update([
             'is_active' => $request->isActive
         ]);
-       return $this->ok('Status updated');
+        return $this->ok('Status updated');
     }
 }

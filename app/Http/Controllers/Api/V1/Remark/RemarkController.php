@@ -7,13 +7,17 @@ use App\Http\Requests\Api\V1\Remark\WriteRemarkRequest;
 use App\Http\Resources\Api\V1\RemarkResource;
 use App\Models\Remark;
 use App\Traits\ApiResponse;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RemarkController extends Controller
 {
     use ApiResponse;
     public function show(Remark $remark)
     {
-        $remark->load('counsellor');
+        $remark = QueryBuilder::for(Remark::class)
+            ->where('id', $remark->id)
+            ->with(['counsellor'])
+            ->firstOrFail();
         return RemarkResource::make($remark);
     }
 

@@ -19,7 +19,7 @@ class RepresentingCountryController extends ApiController
     {
         $representingCountries = QueryBuilder::for(RepresentingCountry::class)
             ->allowedIncludes(['representingInstitutions'])
-            ->allowedFilters(['is_active',AllowedFilter::exact('id') ])
+            ->allowedFilters(['is_active', AllowedFilter::exact('id')])
             ->with(['applicationProcesses', 'country'])
             ->getEloquentBuilder()
             ->get();
@@ -51,12 +51,11 @@ class RepresentingCountryController extends ApiController
 
     public function show(RepresentingCountry $representingCountry)
     {
-        if ($this->include('applicationProcesses')) {
-            $representingCountry->load('applicationProcesses');
-        }
-        if ($this->include('country')) {
-            $representingCountry->load('country');
-        }
+        $representingCountry = QueryBuilder::for(RepresentingCountry::class)
+            ->where('id', $representingCountry->id)
+            ->allowedIncludes(['applicationProcesses', 'country'])
+            ->firstOrFail();
+
         return RepresentingCountryResource::make($representingCountry);
     }
 }

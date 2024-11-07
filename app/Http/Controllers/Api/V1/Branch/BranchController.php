@@ -35,7 +35,11 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        $branch->load(['country', 'timeZone', 'user']);
+        $branch = QueryBuilder::for(Branch::class)
+            ->where('id', $branch->id)
+            ->with(['country', 'timeZone', 'user'])
+            ->firstOrFail();
+
         return BranchResource::make($branch);
     }
 

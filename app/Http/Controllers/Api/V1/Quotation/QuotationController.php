@@ -27,6 +27,8 @@ class QuotationController extends Controller
 
     public function store(StoreQuotationRequest $request)
     {
+        DB::beginTransaction();
+
         $quotation = Quotation::query()->create($request->storeData());
 
         if ($request->choices) {
@@ -39,12 +41,16 @@ class QuotationController extends Controller
                 ]);
             }
         }
+        DB::commit();
         return $this->ok('Quotation generated successfully.');
     }
 
     public function show(Quotation $quotation)
     {
-        $quotation->load(['lead']);
+        $quotation = QueryBuilder::for(Quotation::class)
+            ->where('quotation.id', $quotation->id)
+            ->with(['lead'])
+            ->firstOrFail();
         return QuotationResource::make($quotation);
     }
 

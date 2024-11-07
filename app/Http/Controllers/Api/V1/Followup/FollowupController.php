@@ -17,8 +17,8 @@ class FollowupController extends Controller
     public function store(WriteFollowupRequest $request)
     {
         Followup::query()->create($request->storeData());
-
         $lead = Lead::query()->findOrFail($request->leadId);
+
         $lead->update([
             'status' => $request->leadType
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Course;
 
 use App\Http\Controllers\Api\V1\ApiController;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
 use App\Http\Resources\Api\V1\CourseResource;
 use App\Models\{Course};
@@ -21,7 +22,11 @@ class CourseController extends ApiController
 
     public function show(Course $course)
     {
-        $course->load('currency');
+        $course = QueryBuilder::for(Course::class)
+            ->where('id', $course->id)
+            ->with(['currency'])
+            ->firstOrFail();
+
         return CourseResource::make($course);
     }
 

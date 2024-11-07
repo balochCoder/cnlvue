@@ -37,7 +37,11 @@ class ProcessingOfficeController extends Controller
      */
     public function show(ProcessingOffice $processingOffice)
     {
-        $processingOffice->load(['country', 'timeZone', 'user']);
+        $processingOffice = QueryBuilder::for(ProcessingOffice::class)
+            ->where('id', $processingOffice->id)
+            ->with(['country', 'timeZone', 'user'])
+            ->firstOrFail();
+
         return ProcessingOfficeResource::make($processingOffice);
     }
 

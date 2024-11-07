@@ -36,7 +36,10 @@ class AssociateController extends Controller
      */
     public function show(Associate $associate)
     {
-        $associate->load(['country', 'branch', 'user']);
+        $associate = QueryBuilder::for(Associate::class)
+            ->where('id', $associate->id)
+            ->with(['country', 'branch', 'user'])
+            ->firstOrFail();
         return AssociateResource::make($associate);
     }
 

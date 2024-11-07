@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Lead\WriteLeadRequest;
 use App\Http\Resources\Api\V1\LeadResource;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadController extends Controller
@@ -15,18 +16,25 @@ class LeadController extends Controller
 
     public function index()
     {
-        $leads = QueryBuilder::for(Lead::class)->with(['leadSource', 'counsellors', 'followups'])->get();
+        $leads = QueryBuilder::for(Lead::class)
+            ->with(['leadSource', 'counsellors', 'followups'])
+            ->getEloquentBuilder()
+            ->get();
         return LeadResource::collection($leads);
     }
 
     public function show(Lead $lead)
     {
-        $lead->load(['leadSource', 'counsellors', 'followups']);
+        $lead = QueryBuilder::for(Lead::class)
+            ->where('id', $lead->id)
+            ->with(['leadSource', 'counsellors', 'followups'])
+            ->firstOrFail();
         return LeadResource::make($lead);
     }
 
     public function store(WriteLeadRequest $request)
     {
+        DB::beginTransaction();
 
         $lead = Lead::query()->create($request->storeData());
         $lead->counsellors()->sync($request->counsellorId);
@@ -41,11 +49,14 @@ class LeadController extends Controller
                 'added_by' => auth()->id()
             ]);
         }
+        DB::commit();
         return $this->ok('Lead created successfully.');
     }
 
     public function update(Lead $lead, WriteLeadRequest $request)
     {
+        DB::beginTransaction();
+
         $lead->update($request->updateData());
         if ($request->counsellorId) {
             $lead->counsellors()->sync($request->counsellorId);
@@ -60,6 +71,7 @@ class LeadController extends Controller
                 'added_by' => auth()->id()
             ]);
         }
+        DB::commit();
         return $this->ok('Lead updated successfully.');
     }
 }

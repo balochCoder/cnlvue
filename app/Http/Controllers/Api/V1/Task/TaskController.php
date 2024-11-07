@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\TaskRemarkResource;
 use App\Http\Resources\Api\V1\TaskResource;
 use App\Models\Task;
 use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
@@ -32,7 +33,10 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        $task->load(['assignedTo', 'assignedBy', 'remarks']);
+        $task = QueryBuilder::for(Task::class)
+            ->where('id', $task->id)
+            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->firstOrFail();
         return TaskResource::make($task);
     }
 
@@ -64,6 +68,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        DB::beginTransaction();
         $newRemark = null;
         if ($request->remark) {
             $newRemark = $task->remarks()->create([
@@ -74,6 +79,7 @@ class TaskController extends Controller
         $task->update([
             'status' => $request->status,
         ]);
+        DB::commit();
         return $newRemark ? TaskRemarkResource::make($newRemark) : $this->ok('Task updated successfully');
 
     }

@@ -9,6 +9,7 @@ use App\Models\RepresentingCountry;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ApplicationProcessController extends ApiController
 {
@@ -33,9 +34,11 @@ class ApplicationProcessController extends ApiController
 
     public function show(ApplicationProcess $applicationProcess)
     {
-        if ($this->include('subStatuses')) {
-            $applicationProcess->load('subStatuses');
-        }
+        $applicationProcess = QueryBuilder::for(ApplicationProcess::class)
+            ->where('id', $applicationProcess->id)
+            ->allowedIncludes(['subStatuses'])
+            ->firstOrFail();
+
         return ApplicationProcessResource::make($applicationProcess);
     }
 
