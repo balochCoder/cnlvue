@@ -39,7 +39,7 @@ class RepresentingInstitutionFactory extends Factory
             'contact_person_email'=> $this->faker->email(),
             'contact_person_phone'=> $this->faker->phoneNumber(),
             'contact_person_designation'=> $this->faker->jobTitle(),
-            'contract_expiry'=> Carbon::now()->addYears(2),
+            'contract_expiry'=> $this->faker->dateTimeThisYear(),
             'part_time_work_details' => $this->faker->paragraph(),
             'logo' => $this->faker->imageUrl(),
         ];

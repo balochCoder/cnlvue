@@ -46,11 +46,11 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        RepresentingInstitution::factory(10)->create();
-        Course::factory(50)->create();
+        RepresentingInstitution::factory(1)->create();
+        Course::factory(5)->create();
         Branch::factory(5)->create();
         $counsellors = Counsellor::factory(5)->hasAttached(
-            RepresentingInstitution::factory(3)->create(),
+            RepresentingInstitution::factory(2)->create(),
             [],
             'institutions'
         )->has(
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)
             ->hasAttached(
-                RepresentingInstitution::factory(3)->create(),
+                RepresentingInstitution::factory(2)->create(),
                 [],
                 'institutions'
             )

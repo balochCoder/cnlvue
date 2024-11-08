@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api\V1\RepresentingInstitution;
 
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Filters\ContractExpireAtFilter;
+use App\Http\Filters\CoursesFilter;
+use App\Http\Filters\CourseTitleFilter;
 use App\Http\Requests\Api\V1\RepresentingInstitution\StoreRepresentingInstitutionRequest;
 use App\Http\Requests\Api\V1\RepresentingInstitution\UpdateRepresentingInstituionRequest;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\RepresentingInstitution;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class RepresentingInstitutionController extends ApiController
@@ -22,6 +26,13 @@ class RepresentingInstitutionController extends ApiController
     {
         $institutions = QueryBuilder::for(RepresentingInstitution::class)
             ->with(['representingCountry', 'currency'])
+            ->allowedFilters([
+                AllowedFilter::exact('country', 'representing_country_id'),
+                AllowedFilter::partial('name'),
+                AllowedFilter::exact('type'),
+                AllowedFilter::partial('email', 'contact_person_email'),
+                AllowedFilter::custom('contract_expire_at', new ContractExpireAtFilter())
+            ])
             ->getEloquentBuilder()
             ->get();
         return RepresentingInstitutionResource::collection($institutions);
@@ -41,12 +52,11 @@ class RepresentingInstitutionController extends ApiController
      */
     public function show(RepresentingInstitution $representingInstitution)
     {
-        $representingInstitution = QueryBuilder::for(RepresentingInstitution::class)
-            ->where('id', $representingInstitution->id)
+        $representingInstitution = QueryBuilder::for(
+            RepresentingInstitution::where('id', $representingInstitution->id)
+        )
             ->with(['representingCountry', 'currency'])
-            ->allowedIncludes(['courses'])
             ->firstOrFail();
-
 
         return RepresentingInstitutionResource::make($representingInstitution);
     }

@@ -53,7 +53,8 @@ class RepresentingCountryController extends ApiController
     {
         $representingCountry = QueryBuilder::for(RepresentingCountry::class)
             ->where('id', $representingCountry->id)
-            ->allowedIncludes(['applicationProcesses', 'country'])
+            ->with(['country'])
+            ->allowedIncludes(['applicationProcesses'])
             ->firstOrFail();
 
         return RepresentingCountryResource::make($representingCountry);

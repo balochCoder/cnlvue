@@ -59,6 +59,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('representing-institutions/{representing_institution}/status', [V1\RepresentingInstitution\RepresentingInstitutionController::class, 'status'])
         ->name('representing-institutions.status');
 
+    Route::get('representing-institutions/{representing_institution}/courses', [V1\Course\CourseController::class, 'index']);
+
     //Courses
     Route::apiResource('courses', V1\Course\CourseController::class)
         ->except(['index', 'destroy']);

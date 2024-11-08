@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -156,9 +157,17 @@ class RepresentingInstitution extends Model
         return $this->belongsToMany(Counsellor::class, foreignPivotKey: 'institution_id', relatedPivotKey: 'counsellor_id')
             ->using(CounsellorRepresentingInstitution::class);
     }
+
     public function processingOffices(): BelongsToMany
     {
         return $this->belongsToMany(ProcessingOffice::class, foreignPivotKey: 'institution_id', relatedPivotKey: 'office_id')
             ->using(OfficeRepresentingInstitution::class);
+    }
+
+    public function scopeCourseTitle($query, $title)
+    {
+        return $query->whereHas('courses', function ($q) use ($title) {
+            $q->where('title', 'LIKE', "%{$title}%");
+        });
     }
 }
