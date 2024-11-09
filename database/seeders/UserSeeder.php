@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
+use App\Models\Counsellor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +23,12 @@ class UserSeeder extends Seeder
         $user2 = User::factory()->create([
             'name' => 'Counsellor',
             'email' => 'counsellor@example.com',
+        ]);
+
+        $branch = Branch::factory()->create();
+        Counsellor::query()->create([
+            'branch_id' =>  $branch->id,
+            'user_id' => $user2->id,
         ]);
         $user1->assignRole('super admin');
         $user2->assignRole('counsellor');

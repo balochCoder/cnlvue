@@ -31,10 +31,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesAndPermissionsSeeder::class,
-            UserSeeder::class,
             CountrySeeder::class,
             CurrencySeeder::class,
             TimeZoneSeeder::class,
+            UserSeeder::class,
+
         ]);
         RepresentingCountry::factory(10)->create()->each(function (RepresentingCountry $country) {
             $process = $country->applicationProcesses()->create([

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Branch;
-use App\Models\RepresentingCountry;
+use App\Models\Country;
 use App\Models\TimeZone;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -14,7 +14,7 @@ class BranchFactory extends Factory
 
     public function definition(): array
     {
-        $countries = RepresentingCountry::all()->pluck('id')->toArray();
+        $countries = Country::all()->pluck('id')->toArray();
         $zones = TimeZone::all()->pluck('id')->toArray();
         $user= User::factory()->create();
         $user->assignRole('branch');

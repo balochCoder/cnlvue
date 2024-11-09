@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\FrontOfficeResource;
 use App\Models\FrontOffice;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FrontOfficeController extends Controller
@@ -19,7 +20,12 @@ class FrontOfficeController extends Controller
     {
         $frontOffices = QueryBuilder::for(FrontOffice::class)
             ->with(['branch', 'user'])
-            ->paginate(10);
+            ->allowedFilters([
+                AllowedFilter::exact('email','user.email'),
+                AllowedFilter::exact('status','is_active'),
+            ])
+            ->getEloquentBuilder()
+            ->get();
 
         return FrontOfficeResource::collection($frontOffices);
     }
