@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Models\ProcessingOffice;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProcessingOfficeController extends Controller
@@ -20,6 +21,11 @@ class ProcessingOfficeController extends Controller
     {
         $processingOffice = QueryBuilder::for(ProcessingOffice::class)
             ->with(['country', 'timeZone', 'user'])
+            ->allowedFilters([
+                AllowedFilter::partial('email', 'user.email'),
+                AllowedFilter::partial('user', 'user.name'),
+                AllowedFilter::exact('country', 'country_id'),
+            ])
             ->getEloquentBuilder()
             ->get();
         return ProcessingOfficeResource::collection($processingOffice);

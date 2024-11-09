@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\AssociateResource;
 use App\Models\Associate;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class AssociateController extends Controller
@@ -19,6 +20,12 @@ class AssociateController extends Controller
     {
         $associates = QueryBuilder::for(Associate::class)
             ->with(['country', 'branch', 'user'])
+            ->allowedFilters([
+                AllowedFilter::exact('email', 'user.email'),
+                AllowedFilter::exact('status', 'is_active'),
+                AllowedFilter::exact('category'),
+                AllowedFilter::exact('country', 'country_id'    ),
+            ])
             ->getEloquentBuilder()
             ->get();
         return AssociateResource::collection($associates);
