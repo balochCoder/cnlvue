@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\BranchResource;
 use App\Models\Branch;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BranchController extends Controller
@@ -19,6 +20,11 @@ class BranchController extends Controller
     {
         $branches = QueryBuilder::for(Branch::class)
             ->with(['country', 'timeZone', 'user'])
+            ->allowedFilters([
+                AllowedFilter::exact('email', 'user.email'),
+                AllowedFilter::exact('status', 'is_active'),
+                AllowedFilter::exact('country', 'country_id'),
+            ])
             ->get();
         return BranchResource::collection($branches);
     }
