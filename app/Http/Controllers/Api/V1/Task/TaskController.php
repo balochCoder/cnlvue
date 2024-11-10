@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\TaskResource;
 use App\Models\Task;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
@@ -46,8 +47,13 @@ class TaskController extends Controller
             Task::query()
                 ->where('assigned_by', auth()->id())
         )
-            ->getEloquentBuilder()
             ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->allowedFilters([
+                AllowedFilter::exact('dueDate','due_date'),
+                AllowedFilter::exact('status',),
+            ])
+            ->getEloquentBuilder()
+
             ->get();
 
         return TaskResource::collection($tasks);
@@ -59,8 +65,14 @@ class TaskController extends Controller
             Task::query()
                 ->where('assigned_to', auth()->id())
         )
-            ->getEloquentBuilder()
             ->with(['assignedTo', 'assignedBy', 'remarks'])
+
+            ->allowedFilters([
+                AllowedFilter::exact('dueDate','due_date'),
+                AllowedFilter::exact('status'),
+            ])
+            ->getEloquentBuilder()
+
             ->get();
 
         return TaskResource::collection($tasks);
