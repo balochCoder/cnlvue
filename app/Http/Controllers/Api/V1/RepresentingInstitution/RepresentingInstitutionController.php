@@ -88,6 +88,7 @@ class RepresentingInstitutionController extends ApiController
     {
         $courses = QueryBuilder::for(Course::class)
             ->where('representing_institution_id', $representingInstitution->id)
+            ->with(['currency'])
             ->allowedFilters([
                 AllowedFilter::exact('level'),
                 AllowedFilter::partial('title'),

@@ -24,6 +24,7 @@ class RepresentingCountryFactory extends Factory
             'visa_requirements'=> $this->faker->sentence(),
             'part_time_work_details'=>$this->faker->sentence(),
             'country_benefits'=>$this->faker->sentence(),
+            'is_active' => true
         ];
     }
 }

@@ -24,13 +24,23 @@ class UserSeeder extends Seeder
             'name' => 'Counsellor',
             'email' => 'counsellor@example.com',
         ]);
+        $user3 = User::factory()->create([
+            'name' => 'Branch',
+            'email' => 'branch@example.com',
+        ]);
 
         $branch = Branch::factory()->create();
         Counsellor::query()->create([
             'branch_id' =>  $branch->id,
             'user_id' => $user2->id,
         ]);
+
+        Branch::factory()->create([
+
+            'user_id' => $user3->id,
+        ]);
         $user1->assignRole('super admin');
         $user2->assignRole('counsellor');
+        $user3->assignRole('branch');
     }
 }
