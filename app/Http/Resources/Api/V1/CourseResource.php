@@ -22,6 +22,7 @@ class CourseResource extends JsonResource
                 'value' => $this->level,
                 'label'=> $this->level->getLabel(),
             ],
+            'representingInstitution' => RepresentingInstitutionResource::make($this->whenLoaded('representingInstitution')),
             'duration' => json_decode($this->resource->duration),
             'startDate' => $this->resource->start_date,
             'endDate' => $this->resource->end_date,

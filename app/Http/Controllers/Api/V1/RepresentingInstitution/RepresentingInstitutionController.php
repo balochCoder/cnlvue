@@ -8,7 +8,9 @@ use App\Http\Filters\CoursesFilter;
 use App\Http\Filters\CourseTitleFilter;
 use App\Http\Requests\Api\V1\RepresentingInstitution\StoreRepresentingInstitutionRequest;
 use App\Http\Requests\Api\V1\RepresentingInstitution\UpdateRepresentingInstituionRequest;
+use App\Http\Resources\Api\V1\CourseResource;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
+use App\Models\Course;
 use App\Models\RepresentingInstitution;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -81,4 +83,20 @@ class RepresentingInstitutionController extends ApiController
         ]);
         return $this->ok('Status updated');
     }
+
+    public function courses(RepresentingInstitution $representingInstitution)
+    {
+        $courses = QueryBuilder::for(Course::class)
+            ->where('representing_institution_id', $representingInstitution->id)
+            ->allowedFilters([
+                AllowedFilter::exact('level'),
+                AllowedFilter::partial('title'),
+                AllowedFilter::partial('campus'),
+            ])
+            ->getEloquentBuilder()
+            ->get();
+
+        return CourseResource::collection($courses);
+    }
+
 }

@@ -4,10 +4,10 @@ namespace App\Enums;
 
 enum ApplicantDesired: string
 {
-    case Excellent = 'excellent';
-    case Good = 'good';
-    case Average = 'average';
-    case Below_Average = 'below average';
+    case Excellent = '4';
+    case Good = '3';
+    case Average = '2';
+    case Below_Average = '1';
 
     public function getLabel(): string
     {

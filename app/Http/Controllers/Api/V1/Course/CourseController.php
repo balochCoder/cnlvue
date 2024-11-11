@@ -7,7 +7,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
 use App\Http\Resources\Api\V1\CourseResource;
-use App\Models\{Course, RepresentingInstitution};
+use App\Models\{Course};
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -15,10 +15,10 @@ class CourseController extends ApiController
 {
     use ApiResponse;
 
-    public function index(RepresentingInstitution $representingInstitution)
+    public function index()
     {
         $courses = QueryBuilder::for(Course::class)
-            ->where('representing_institution_id', $representingInstitution->id)
+            ->with(['representingInstitution', 'representingInstitution.representingCountry', 'currency'])
             ->allowedFilters([
                 AllowedFilter::exact('level'),
                 AllowedFilter::partial('title'),

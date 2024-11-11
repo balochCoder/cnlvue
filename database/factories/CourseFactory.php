@@ -45,7 +45,7 @@ class CourseFactory extends Factory
             'part_time_work_details' => $this->faker->optional()->paragraph(),
             'course_benefits' => $this->faker->optional()->paragraph(),
             'general_eligibility' => $this->faker->optional()->paragraph(),
-            'quality_of_applicant' => $this->faker->optional()->randomElement(ApplicantDesired::cases()),
+            'quality_of_applicant' => $this->faker->randomElement(ApplicantDesired::cases()),
             'course_category' => json_encode($this->faker->randomElements(CourseCategories::cases(),3)),
             'modules' => json_encode($this->faker->randomElements(['Module A', 'Module B', 'Module C'],  3)),
             'intake' => json_encode($this->faker->randomElements([

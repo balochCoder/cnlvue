@@ -50,7 +50,7 @@ return new class extends Migration {
             $table->text('additional_information')
                 ->nullable();
 
-            $table->enum('quality_of_applicant', ['excellent', 'good', 'average', 'below average'])
+            $table->enum('quality_of_applicant', ['4', '3', '2', '1'])
                 ->nullable();
 
             $table->json('duration');

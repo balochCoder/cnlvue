@@ -21,13 +21,15 @@ class RepresentingInstitutionResource extends JsonResource
             'isActive' => !!$this->resource->is_active,
             'representingCountry' => RepresentingCountryResource::make($this->whenLoaded('representingCountry')),
             'courses' => CourseResource::collection($this->whenLoaded('courses')),
+            'institutionalBenefits' => $this->resource->institutional_benefits,
+            'fundsRequired' => $this->resource->funds_required,
+
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
 
                 'type' => $this->resource->type,
                 'campus' => $this->resource->campus,
                 'website' => $this->resource->website,
                 'monthlyLivingCost' => $this->resource->monthly_living_cost,
-                'fundsRequired' => $this->resource->funds_required,
                 'applicationFee' => $this->resource->application_fee,
                 'currency' => CurrencyResource::make($this->whenLoaded('currency')),
                 'contractTerm' => $this->resource->contract_term,
@@ -36,7 +38,6 @@ class RepresentingInstitutionResource extends JsonResource
                 'contractExpiry' => $this->resource->contract_expiry,
                 'isLanguage' => $this->resource->is_language,
                 'languageRequirements' => $this->resource->language_requirements,
-                'institutionalBenefits' => $this->resource->institutional_benefits,
                 'partTimeWorkDetails' => $this->resource->part_time_work_details,
                 'scholarshipsPolicy' => $this->resource->scholarships_policy,
                 'institutionStatusNotes' => $this->resource->institution_status_notes,

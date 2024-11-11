@@ -29,7 +29,7 @@ class UpdateCourseRequest extends BaseCourseRequest
             'campus' => ['required', 'string'],
             'awardingBody' => ['nullable', 'string'],
             'fee' => ['required', 'numeric'],
-            'applicationFee' => ['nullable', 'numeric'],
+            'applicationFee' => ['required', 'numeric'],
             'currencyId' => ['required', 'integer', Rule::exists('currencies', 'id')],
             'monthlyLivingCost' => ['numeric', 'nullable'],
             'partTimeWorkDetails' => ['nullable', 'string'],
