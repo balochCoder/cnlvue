@@ -21,6 +21,7 @@ class FrontOfficeController extends Controller
         $frontOffices = QueryBuilder::for(FrontOffice::class)
             ->with(['branch', 'user'])
             ->allowedFilters([
+                AllowedFilter::exact('branch','branch_id'),
                 AllowedFilter::exact('email','user.email'),
                 AllowedFilter::exact('status','is_active'),
             ])

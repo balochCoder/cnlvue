@@ -22,8 +22,10 @@ class UserResource extends JsonResource
             'whatsapp' => $this->resource->whatsapp,
             'downloadCsv' => $this->resource->download_csv,
             'roles' => $this->resource->getRoleNames(),
+            $this->mergeWhen($this->resource->hasRole('branch'), [
+                'branch' => BranchResource::make($this->resource->branch),
+            ]),
             $this->mergeWhen($request->routeIs('users'), [
-
                 'createdAt' => DateResource::make(
                     $this->resource->created_at
                 ),

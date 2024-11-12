@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\DownloadCSV;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,5 +62,13 @@ class User extends Authenticatable
             'last_login' => 'datetime',
             'download_csv' => DownloadCSV::class,
         ];
+    }
+
+    public function branch(): HasOne
+    {
+        return $this->hasOne(
+            Branch::class,
+            'user_id',
+        );
     }
 }

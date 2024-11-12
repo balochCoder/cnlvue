@@ -25,6 +25,7 @@ class CounsellorController extends ApiController
         $counsellors = QueryBuilder::for(Counsellor::class)
             ->with(['branch', 'remarks', 'targets'])
             ->allowedFilters([
+                AllowedFilter::exact('branch','branch_id'),
                 AllowedFilter::exact('email','user.email'),
                 AllowedFilter::exact('status','is_active'),
                 AllowedFilter::exact('downloadCsv','user.download_csv'),
