@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\CourseCategories;
 use App\Enums\CourseLevel;
 use App\Enums\LeadStatus;
+use App\Models\Branch;
 use App\Models\Country;
 use App\Models\LeadSource;
 use App\Models\RepresentingInstitution;
@@ -24,6 +25,7 @@ class LeadFactory extends Factory
         $countries = Country::all()->pluck('id')->toArray();
         $institutions = RepresentingInstitution::all()->pluck('id')->toArray();
         $users = User::all()->pluck('id')->toArray();
+        $branches = Branch::all()->pluck('id')->toArray();
         return [
             'student_first_name' => $this->faker->firstName(),
             'student_last_name' => $this->faker->lastName(),
@@ -45,6 +47,7 @@ class LeadFactory extends Factory
             'interested_country_id' => $preferred ? $this->faker->randomElement($countries) : null,
             'interested_institution_id' => $preferred ? $this->faker->randomElement($institutions) : null,
             'added_by' => $this->faker->randomElement($users),
+            'branch_id' => $this->faker->randomElement($branches),
 
         ];
     }

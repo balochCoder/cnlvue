@@ -19,6 +19,7 @@ class WriteLeadRequest extends BaseLeadRequest
     public function rules(): array
     {
         return [
+            'branchId' => ['required', 'exists:branches,id'],
             'counsellorId' => ['required', 'exists:counsellors,id','array'],
             'leadSourceId' => ['required', 'integer', 'exists:lead_sources,id'],
             'studentFirstName' => ['required', 'string'],

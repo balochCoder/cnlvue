@@ -30,6 +30,7 @@ class BaseLeadRequest extends FormRequest
             'courseCategory' => 'course_category',
             'additionalInfo' => 'additional_info',
             'leadType' => 'lead_type',
+            'branchId' => 'branch_id',
         ], $otherAttributes);
         $attributesToUpdate = [];
         foreach ($attributeMap as $key => $attribute) {

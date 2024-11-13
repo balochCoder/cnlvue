@@ -8,6 +8,7 @@ use App\Http\Resources\Api\V1\LeadResource;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadController extends Controller
@@ -17,7 +18,10 @@ class LeadController extends Controller
     public function index()
     {
         $leads = QueryBuilder::for(Lead::class)
-            ->with(['leadSource', 'counsellors', 'followups'])
+            ->with(['leadSource', 'counsellors', 'followups','branch'])
+            ->allowedFilters([
+                AllowedFilter::exact('branch', 'branch.id'),
+            ])
             ->getEloquentBuilder()
             ->get();
         return LeadResource::collection($leads);

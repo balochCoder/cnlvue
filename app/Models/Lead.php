@@ -19,6 +19,7 @@ class Lead extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'branch_id',
         'student_first_name',
         'student_last_name',
         'intake_of_interest_month',
@@ -71,6 +72,14 @@ class Lead extends Model
         return $this->belongsTo(
             User::class,
             'added_by',
+        );
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(
+            Branch::class,
+            'branch_id',
         );
     }
 

@@ -24,12 +24,13 @@ class LeadResource extends JsonResource
             'studentMobile' => $this->resource->student_mobile,
             'studentSkype' => $this->resource->student_skype,
             'courseLevelOfInterest' => $this->resource->course_level_of_interest,
-            'dateOfBirth' => ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age],
+            'dateOfBirth' => $this->resource->date_of_birth ?  ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age] : null,
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
             'interesetedCountry' => $this->interested_country_id ? $this->interestedCountry->name : null,
             'interesetedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
+            'institutionName' => $this->resource->institution_name,
 
             $this->mergeWhen($request->routeIs('leads.*'), [
                 'estimatedBudget' => $this->resource->estimated_budget,

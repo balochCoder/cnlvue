@@ -42,7 +42,7 @@ return new class extends Migration {
                 'not_responding'
             ])->default('new');
 
-            $table->json('course_category');
+            $table->json('course_category')->nullable();
 
             $table->date('date_of_birth')
                 ->nullable();
@@ -66,6 +66,9 @@ return new class extends Migration {
             $table->foreignId('added_by')
                 ->nullable()
                 ->constrained('users')
+                ->cascadeOnDelete();
+            $table->foreignId('branch_id')
+                ->constrained('branches')
                 ->cascadeOnDelete();
 
 
