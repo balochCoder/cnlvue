@@ -40,10 +40,17 @@ class WriteLeadRequest extends BaseLeadRequest
             'courseCategory' => ['nullable', 'array'],
             'additionalInfo' => ['nullable', 'string'],
             'leadType' => ['nullable', 'string', Rule::enum(LeadStatus::class)],
-            'followUpDate' => ['required_with:leadType', 'date'],
-            'followUpMode' => ['required_with:leadType', 'string', Rule::enum(FollowupMode::class)],
-            'time' => ['required_with:leadType', 'array', 'required_array_keys:hour,minute,am/pm'],
+            'followUpDate' => ['required_with:leadType', 'nullable','date'],
+            'followUpMode' => ['required_with:leadType', 'nullable','string', Rule::enum(FollowupMode::class)],
+            'time' => ['required_with:leadType', 'array', "required_array_keys:hour,minute,zone"],
             'remarks' => ['required_with:leadType', 'string'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'isCountryPreferred' => filter_var($this->input('isCountryPreferred'), FILTER_VALIDATE_BOOLEAN),
+        ]);
     }
 }

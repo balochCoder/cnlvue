@@ -25,7 +25,7 @@ class FollowupFactory extends Factory
             'time' => json_encode([
                 'hour' => $this->faker->numberBetween(0, 13),
                 'minute' => $this->faker->numberBetween(0, 60),
-                'am/pm' => $this->faker->randomElement(['am', 'pm']),
+                'zone' => $this->faker->randomElement(['am', 'pm']),
             ]),
             'added_by' => $this->faker->randomElement($users),
         ];
