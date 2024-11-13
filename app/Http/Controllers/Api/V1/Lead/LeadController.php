@@ -48,6 +48,8 @@ class LeadController extends Controller
                 'remarks' => $request->remarks,
                 'added_by' => auth()->id()
             ]);
+
+
         }
         DB::commit();
         return $this->ok('Lead created successfully.');

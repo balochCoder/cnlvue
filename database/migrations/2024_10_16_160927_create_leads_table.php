@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('student_skype')->nullable();
             $table->string('estimated_budget')->nullable();
             $table->string('course_level_of_interest')->nullable();
+            $table->string('institution_name')->nullable();
 
             $table->text('additional_info')->nullable();
 

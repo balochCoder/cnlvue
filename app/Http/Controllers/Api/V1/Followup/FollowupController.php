@@ -8,6 +8,7 @@ use App\Http\Resources\Api\V1\FollowupResource;
 use App\Models\Followup;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
+use DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FollowupController extends Controller
@@ -16,12 +17,15 @@ class FollowupController extends Controller
 
     public function store(WriteFollowupRequest $request)
     {
-        Followup::query()->create($request->storeData());
+        DB::beginTransaction();
         $lead = Lead::query()->findOrFail($request->leadId);
+        $lead->followups()->create($request->storeData());
 
         $lead->update([
             'status' => $request->leadType
         ]);
+
+        DB::commit();
 
         return $this->ok("Followup successfully added");
     }

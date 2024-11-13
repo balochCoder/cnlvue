@@ -69,8 +69,7 @@ class DatabaseSeeder extends Seeder
             ->create();
         Associate::factory(10)->create();
         LeadSource::factory(10)->create();
-        Lead::factory(5)->hasAttached($counsellors)->create();
-        Followup::factory(5)->create();
+        Lead::factory(5)->hasFollowups(4)->hasAttached($counsellors)->create();
         Task::factory(10)->create();
         TaskRemark::factory(10)->create();
         Quotation::factory(10)->create();

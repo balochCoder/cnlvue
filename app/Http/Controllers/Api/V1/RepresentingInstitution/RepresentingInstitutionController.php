@@ -29,6 +29,7 @@ class RepresentingInstitutionController extends ApiController
         $institutions = QueryBuilder::for(RepresentingInstitution::class)
             ->with(['representingCountry', 'currency'])
             ->allowedFilters([
+                AllowedFilter::exact('interestedCountry','representingCountry.country.id'),
                 AllowedFilter::exact('country', 'representing_country_id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('type'),

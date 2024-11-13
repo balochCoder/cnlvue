@@ -35,15 +35,13 @@ return new class extends Migration {
                 'skype',
                 'whatsapp',
             ]);
+            $table->morphs('followupable');
 
             $table->date('follow_up_date');
 
             $table->json('time');
 
 
-            $table->foreignId('lead_id')
-                ->constrained('leads')
-                ->cascadeOnDelete();
 
             $table->foreignId('added_by')
                 ->constrained('users')

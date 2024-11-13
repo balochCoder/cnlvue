@@ -9,7 +9,6 @@ class BaseFollowupRequest extends FormRequest
     public function mappedAttributes(array $otherAttributes = []): array
     {
         $attributeMap = array_merge([
-            'leadId' => 'lead_id',
             'leadType' => 'lead_type',
             'remarks' => 'remarks',
             'followUpDate' => 'follow_up_date',
@@ -28,6 +27,7 @@ class BaseFollowupRequest extends FormRequest
     public function storeData(): array
     {
         $data = $this->mappedAttributes();
+        $data['time'] = json_encode($this->time);
         $data['added_by'] = auth()->id();
         return $data;
 

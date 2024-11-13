@@ -19,7 +19,6 @@ class WriteFollowupRequest extends BaseFollowupRequest
     public function rules(): array
     {
         return [
-            'leadId' => ['required', 'exists:leads,id','integer'],
             'leadType' => ['required', 'string', Rule::enum(LeadStatus::class)],
             'followUpDate' => ['required', 'date'],
             'followUpMode' => ['required', 'string', Rule::enum(FollowupMode::class)],

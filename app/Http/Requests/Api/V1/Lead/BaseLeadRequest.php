@@ -20,6 +20,7 @@ class BaseLeadRequest extends FormRequest
             'isCountryPreferred' => 'is_country_preferred',
             'interestedCountryId' => 'interested_country_id',
             'interestedInstitutionId' => 'interested_institution_id',
+            'institutionName' => 'institution_name',
             'studentPhone' => 'student_phone',
             'studentEmergencyPhone' => 'student_emergency_phone',
             'studentMobile' => 'student_mobile',

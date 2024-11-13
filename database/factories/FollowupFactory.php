@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\FollowupMode;
 use App\Enums\LeadStatus;
-use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,7 +12,6 @@ class FollowupFactory extends Factory
 
     public function definition(): array
     {
-        $leads = Lead::all()->pluck('id')->toArray();
         $users = User::all()->pluck('id')->toArray();
         return [
             'remarks' => $this->faker->realText(),
@@ -29,7 +27,6 @@ class FollowupFactory extends Factory
                 'minute' => $this->faker->numberBetween(0, 60),
                 'am/pm' => $this->faker->randomElement(['am', 'pm']),
             ]),
-            'lead_id' => $this->faker->randomElement($leads),
             'added_by' => $this->faker->randomElement($users),
         ];
     }
