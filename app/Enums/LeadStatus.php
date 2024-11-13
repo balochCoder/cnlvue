@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum LeadStatus : string
 {
+    case New = 'new';
     case Cold = 'cold';
     case Completed = 'completed';
     case Failed = 'failed';
@@ -15,6 +16,7 @@ enum LeadStatus : string
     public function getLabel(): string
     {
         return match ($this) {
+            self::New => 'New',
             self::Cold => __('Cold'),
             self::Completed => __('Completed'),
             self::Failed => __('Failed'),

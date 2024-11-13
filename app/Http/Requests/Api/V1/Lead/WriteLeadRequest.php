@@ -30,7 +30,7 @@ class WriteLeadRequest extends BaseLeadRequest
             'dateOfBirth' => ['nullable', 'date'],
             'isCountryPreferred' => ['boolean'],
             'interestedCountryId' => ['required_if:isCountryPreferred,true', 'nullable', 'integer', 'exists:countries,id'],
-            'interesetedInstitutionId' => ['nullable','integer', 'exists:representing_institutions,id'],
+            'interestedInstitutionId' => ['nullable','integer', 'exists:representing_institutions,id'],
             'institutionName' => ['nullable', 'string'],
             'studentPhone' => ['nullable', 'string'],
             'studentEmergencyPhone' => ['nullable', 'string'],

@@ -28,16 +28,16 @@ class LeadResource extends JsonResource
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
-            'interesetedCountry' => $this->interested_country_id ? $this->interestedCountry->name : null,
-            'interesetedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
+            'interestedCountry' => $this->interested_country_id ? $this->interestedCountry->name : null,
+            'interestedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
             'institutionName' => $this->resource->institution_name,
-
+            'status' => $this->resource->status,
             $this->mergeWhen($request->routeIs('leads.*'), [
                 'estimatedBudget' => $this->resource->estimated_budget,
                 'additionalInfo' => $this->resource->additional_info,
                 'courseCategory' => json_decode($this->resource->course_category),
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
-                'AddedBy' => $this->addedBy->name,
+                'addedBy' => $this->addedBy->name,
                 'createdAt' => DateResource::make(
                     $this->resource->created_at
                 ),
