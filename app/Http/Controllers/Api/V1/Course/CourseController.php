@@ -35,6 +35,7 @@ class CourseController extends ApiController
     public function store(StoreCourseRequest $request)
     {
         $course = Course::query()->create($request->getData());
+        $course->load(['representingInstitution']);
         return CourseResource::make($course);
     }
 
@@ -42,7 +43,7 @@ class CourseController extends ApiController
     {
         $course = QueryBuilder::for(Course::class)
             ->where('id', $course->id)
-            ->with(['currency'])
+            ->with(['currency','representingInstitution'])
             ->firstOrFail();
 
         return CourseResource::make($course);
