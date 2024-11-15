@@ -22,7 +22,7 @@ class StoreAssociateRequest extends BaseAssociateRequest
         return [
             'branchId' => ['required', Rule::exists('branches', 'id')->where('is_active', true)],
             'associateName' => ['required', Rule::unique('associates', 'associate_name')],
-            'address' => ['nullable', 'string'],
+            'address' => ['required', 'string'],
             'city' => ['nullable', 'string'],
             'state' => ['nullable', 'string'],
             'phone' => ['nullable', 'string'],

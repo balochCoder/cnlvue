@@ -35,6 +35,7 @@ class ApplicationProcessController extends ApiController
     public function show(ApplicationProcess $applicationProcess)
     {
         $applicationProcess = QueryBuilder::for(ApplicationProcess::class)
+            ->with('representingCountry')
             ->where('id', $applicationProcess->id)
             ->allowedIncludes(['subStatuses'])
             ->firstOrFail();

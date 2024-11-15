@@ -21,6 +21,7 @@ class AssociateController extends Controller
         $associates = QueryBuilder::for(Associate::class)
             ->with(['country', 'branch', 'user'])
             ->allowedFilters([
+                AllowedFilter::exact('branch','branch_id'),
                 AllowedFilter::exact('email', 'user.email'),
                 AllowedFilter::exact('status', 'is_active'),
                 AllowedFilter::exact('category'),

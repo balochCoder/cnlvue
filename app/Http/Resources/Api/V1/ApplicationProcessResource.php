@@ -17,6 +17,7 @@ class ApplicationProcessResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'representingCountry' => RepresentingCountryResource::make($this->whenLoaded('representingCountry')),
             'name' => $this->resource->name,
             'notes' => $this->resource->notes,
             'isActive' => $this->resource->is_active,

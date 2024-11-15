@@ -20,6 +20,8 @@ class RepresentingCountryResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             "visaRequirements" => $this->resource->visa_requirements,
             "countryBenefits" => $this->resource->country_benefits,
+            "isActive" => $this->resource->is_active,
+
             $this->mergeWhen(
                 $request->routeIs('representing-countries.*'),
                 [
@@ -27,7 +29,6 @@ class RepresentingCountryResource extends JsonResource
 
                     "partTimeWorkDetails" => $this->resource->part_time_work_details,
 
-                    "isActive" => $this->resource->is_active,
                     'applicationProcesses' => ApplicationProcessResource::collection($this->whenLoaded('applicationProcesses')),
                     'representingInstitutions' => RepresentingInstitutionResource::collection($this->whenLoaded('representingInstitutions')),
                     'createdAt' => DateResource::make(
