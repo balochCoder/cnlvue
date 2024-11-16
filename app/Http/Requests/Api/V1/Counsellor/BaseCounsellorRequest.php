@@ -52,9 +52,9 @@ class BaseCounsellorRequest extends FormRequest
         $data = $this->mappedAttributes();
         $user = $this->createUser();
         $user->assignRole('counsellor');
-        if ($data['is_processing_officer']) {
-            $user->assignRole('processing officer');
-        }
+//        if ($data['is_processing_officer']) {
+//            $user->assignRole('processing officer');
+//        }
         //TODO: Send an Email to user with login details
         $data['user_id'] = $user->id;
         return $data;
@@ -64,11 +64,11 @@ class BaseCounsellorRequest extends FormRequest
     {
         $data = $this->mappedAttributes();
         $user = User::find($data['user_id']);
-        if ($data['is_processing_officer']) {
-            $user->assignRole('processing officer');
-        } else {
-            $user->removeRole('processing officer');
-        }
+//        if ($data['is_processing_officer']) {
+//            $user->assignRole('processing officer');
+//        } else {
+//            $user->removeRole('processing officer');
+//        }
         $user->update([
             'name' => $this->name,
             'email' => $this->email,

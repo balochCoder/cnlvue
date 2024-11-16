@@ -18,9 +18,6 @@ class CounsellorFactory extends Factory
         $user = User::factory()->create();
         $user->assignRole('counsellor');
         $isProcessingOfficer = $this->faker->randomElement([true, false]);
-        if ($isProcessingOfficer) {
-            $user->assignRole('processing officer');
-        }
         return [
             'branch_id' => $this->faker->randomElement($branches),
             'is_processing_officer' => $isProcessingOfficer,

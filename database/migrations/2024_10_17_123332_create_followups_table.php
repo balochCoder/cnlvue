@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('remarks');
 
             $table->enum('lead_type', [
+                'new',
                 'cold',
                 'completed',
                 'failed',
