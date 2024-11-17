@@ -10,15 +10,24 @@ use App\Http\Requests\Api\V1\RepresentingInstitution\StoreRepresentingInstitutio
 use App\Http\Requests\Api\V1\RepresentingInstitution\UpdateRepresentingInstituionRequest;
 use App\Http\Resources\Api\V1\CourseResource;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
+use App\Jobs\RepresentingInstitutions\CreateRepresentingInstitution;
+use App\Jobs\RepresentingInstitutions\UpdateRepresentingInstitution;
 use App\Models\Course;
 use App\Models\RepresentingInstitution;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class RepresentingInstitutionController extends ApiController
 {
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +38,7 @@ class RepresentingInstitutionController extends ApiController
         $institutions = QueryBuilder::for(RepresentingInstitution::class)
             ->with(['representingCountry', 'currency'])
             ->allowedFilters([
-                AllowedFilter::exact('interestedCountry','representingCountry.country.id'),
+                AllowedFilter::exact('interestedCountry', 'representingCountry.country.id'),
                 AllowedFilter::exact('country', 'representing_country_id'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::exact('type'),
@@ -46,7 +55,9 @@ class RepresentingInstitutionController extends ApiController
      */
     public function store(StoreRepresentingInstitutionRequest $request)
     {
-        RepresentingInstitution::query()->create($request->getData());
+        $this->bus->dispatch(
+            command: new CreateRepresentingInstitution($request->getData())
+        );
         return $this->ok('Representing Institution created.', code: 201);
     }
 
@@ -69,11 +80,10 @@ class RepresentingInstitutionController extends ApiController
      */
     public function update(RepresentingInstitution $representingInstitution, UpdateRepresentingInstituionRequest $request)
     {
-        $representingInstitution
-            ->update($request->getData());
+        $this->bus->dispatch(
+            command: new UpdateRepresentingInstitution($request->getData(), $representingInstitution    )
+        );
         return $this->ok('Representing Institution updated.');
-
-
     }
 
 

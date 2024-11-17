@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\V1\RepresentingCountry;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\RepresentingCountry\StoreRepresentingCountryRequest;
 use App\Http\Resources\Api\V1\RepresentingCountryResource;
+use App\Jobs\RepresentingCountries\CreateRepresentingCountry;
 use App\Models\RepresentingCountry;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -14,6 +16,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 class RepresentingCountryController extends ApiController
 {
     use ApiResponse;
+
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
 
     public function index()
     {
@@ -29,15 +37,12 @@ class RepresentingCountryController extends ApiController
 
     public function store(StoreRepresentingCountryRequest $request)
     {
-        $filteredCollection = collect($request->applicationProcesses)
-            ->filter(function ($item) {
-                return !is_null($item['name']);
-            });
-        $representingCountry = RepresentingCountry::create($request->mappedAttributes());
-        $representingCountry
-            ->applicationProcesses()
-            ->createMany($filteredCollection->toArray());
-
+        $this->bus->dispatch(
+            command: new CreateRepresentingCountry(
+                $request->mappedAttributes(),
+                $request->applicationProcesses
+            )
+        );
         return $this->ok('Representing country successfully created');
     }
 
