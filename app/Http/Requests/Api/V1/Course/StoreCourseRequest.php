@@ -29,7 +29,7 @@ class StoreCourseRequest extends BaseCourseRequest
             'campus' => ['required', 'string'],
             'awardingBody' => ['nullable', 'string'],
             'fee' => ['required', 'numeric'],
-            'applicationFee' => ['required', 'numeric'],
+            'applicationFee' => ['nullable', 'numeric'],
             'currencyId' => ['required', 'integer', Rule::exists('currencies', 'id')],
             'monthlyLivingCost' => ['numeric', 'nullable'],
             'partTimeWorkDetails' => ['nullable', 'string'],

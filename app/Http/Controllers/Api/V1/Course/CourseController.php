@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Course;
 
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Jobs\Courses\CreateCourse;
+use App\Jobs\Courses\UpdateCourse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
@@ -15,6 +18,12 @@ class CourseController extends ApiController
 {
     use ApiResponse;
 
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
+
     public function index()
     {
         $courses = QueryBuilder::for(Course::class)
@@ -24,7 +33,7 @@ class CourseController extends ApiController
                 AllowedFilter::partial('category', 'course_category'),
                 AllowedFilter::partial('intake'),
                 AllowedFilter::exact('level'),
-                AllowedFilter::exact('quality','quality_of_applicant'),
+                AllowedFilter::exact('quality', 'quality_of_applicant'),
                 AllowedFilter::partial('amount', 'fee'),
             ])
             ->getEloquentBuilder()
@@ -32,18 +41,24 @@ class CourseController extends ApiController
 
         return CourseResource::collection($courses);
     }
+
     public function store(StoreCourseRequest $request)
     {
-        $course = Course::query()->create($request->getData());
-        $course->load(['representingInstitution']);
-        return CourseResource::make($course);
+
+
+        $this->bus->dispatch(
+            command: new CreateCourse($request->getData())
+        );
+
+        return $this->ok('Course added successfully');
+
     }
 
     public function show(Course $course)
     {
         $course = QueryBuilder::for(Course::class)
             ->where('id', $course->id)
-            ->with(['currency','representingInstitution'])
+            ->with(['currency', 'representingInstitution'])
             ->firstOrFail();
 
         return CourseResource::make($course);
@@ -51,8 +66,10 @@ class CourseController extends ApiController
 
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        $course->update($request->getData());
-        return CourseResource::make($course);
+        $this->bus->dispatch(
+            command: new UpdateCourse($request->getData(), $course)
+        );
+        return $this->ok('Course updated successfully');
     }
 
     public function status(Course $course, Request $request)

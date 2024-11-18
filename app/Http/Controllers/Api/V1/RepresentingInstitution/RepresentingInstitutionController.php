@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\V1\RepresentingInstitution;
 
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\ContractExpireAtFilter;
-use App\Http\Filters\CoursesFilter;
-use App\Http\Filters\CourseTitleFilter;
 use App\Http\Requests\Api\V1\RepresentingInstitution\StoreRepresentingInstitutionRequest;
 use App\Http\Requests\Api\V1\RepresentingInstitution\UpdateRepresentingInstituionRequest;
 use App\Http\Resources\Api\V1\CourseResource;
@@ -81,7 +79,10 @@ class RepresentingInstitutionController extends ApiController
     public function update(RepresentingInstitution $representingInstitution, UpdateRepresentingInstituionRequest $request)
     {
         $this->bus->dispatch(
-            command: new UpdateRepresentingInstitution($request->getData(), $representingInstitution    )
+            command: new UpdateRepresentingInstitution(
+                attributes: $request->getData(),
+                representingInstitution: $representingInstitution
+            )
         );
         return $this->ok('Representing Institution updated.');
     }
