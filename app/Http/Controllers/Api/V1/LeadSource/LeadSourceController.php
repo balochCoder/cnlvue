@@ -5,14 +5,23 @@ namespace App\Http\Controllers\Api\V1\LeadSource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\LeadSource\WriteLeadSourceRequest;
 use App\Http\Resources\Api\V1\LeadSourceResource;
+use App\Jobs\LeadSources\CreateLeadSource;
+use App\Jobs\LeadSources\UpdateLeadSource;
 use App\Models\LeadSource;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadSourceController extends Controller
 {
     use ApiResponse;
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
+
     public function index()
     {
         $leadSources = QueryBuilder::for(LeadSource::class)
@@ -24,7 +33,9 @@ class LeadSourceController extends Controller
 
     public function store(WriteLeadSourceRequest $request)
     {
-        LeadSource::query()->create($request->storeData());
+        $this->bus->dispatch(
+            command: new CreateLeadSource($request->storeData())
+        );
         return $this->ok('Lead source created.', code: 201);
     }
 
@@ -35,7 +46,9 @@ class LeadSourceController extends Controller
 
     public function update(LeadSource $leadSource, WriteLeadSourceRequest $request)
     {
-        $leadSource->update($request->updateData());
+        $this->bus->dispatch(
+            command: new UpdateLeadSource($request->updateData(), $leadSource)
+        );
         return $this->ok('Lead source updated.', code: 201);
     }
 

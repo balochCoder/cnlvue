@@ -61,7 +61,6 @@ class ApplicationProcessController extends ApiController
 
     public function updateNotes(RepresentingCountry $representingCountry, Request $request)
     {
-
         foreach ($representingCountry->applicationProcesses()->get() as $index => $applicationProcess) {
             $applicationProcess->update([
                 'notes' => $request->status[$index]['notes'],

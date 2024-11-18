@@ -8,8 +8,10 @@ use App\Http\Requests\Api\V1\Task\StoreTaskRequest;
 use App\Http\Requests\Api\V1\Task\UpdateTaskRequest;
 use App\Http\Resources\Api\V1\TaskRemarkResource;
 use App\Http\Resources\Api\V1\TaskResource;
+use App\Jobs\Tasks\CreateTask;
 use App\Models\Task;
 use App\Traits\ApiResponse;
+use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -18,24 +20,32 @@ class TaskController extends Controller
 {
     use ApiResponse;
 
+    public function __construct(
+        private readonly Dispatcher $bus,
+    )
+    {
+    }
+
     public function index()
     {
-            $tasks = QueryBuilder::for(Task::class)
-                ->with(['assignedTo', 'assignedBy', 'remarks'])
-                ->allowedFilters([
-                    AllowedFilter::exact('user','assignedTo.name'),
-                    AllowedFilter::exact('dueDate','due_date'),
-                    AllowedFilter::exact('status'),
-                    AllowedFilter::custom('overdue', new OverDueTasksFilter()),
-                ])
-                ->get();
+        $tasks = QueryBuilder::for(Task::class)
+            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->allowedFilters([
+                AllowedFilter::exact('user', 'assignedTo.name'),
+                AllowedFilter::exact('dueDate', 'due_date'),
+                AllowedFilter::exact('status'),
+                AllowedFilter::custom('overdue', new OverDueTasksFilter()),
+            ])
+            ->get();
 
         return TaskResource::collection($tasks);
     }
 
     public function store(StoreTaskRequest $request)
     {
-        Task::query()->create($request->storeData());
+        $this->bus->dispatch(
+            command: new CreateTask($request->storeData())
+        );
         return $this->ok('Task created successfully');
     }
 
@@ -56,12 +66,11 @@ class TaskController extends Controller
         )
             ->with(['assignedTo', 'assignedBy', 'remarks'])
             ->allowedFilters([
-                AllowedFilter::exact('dueDate','due_date'),
+                AllowedFilter::exact('dueDate', 'due_date'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('overdue', new OverDueTasksFilter())
             ])
             ->getEloquentBuilder()
-
             ->get();
 
         return TaskResource::collection($tasks);
@@ -71,17 +80,16 @@ class TaskController extends Controller
     {
         $tasks = QueryBuilder::for(
             Task::query()
-                ->where('assigned_to', auth()->id())
+                ->where('assigned_to', auth()->id()
+                )
         )
             ->with(['assignedTo', 'assignedBy', 'remarks'])
-
             ->allowedFilters([
-                AllowedFilter::exact('dueDate','due_date'),
+                AllowedFilter::exact('dueDate', 'due_date'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('overdue', new OverDueTasksFilter())
             ])
             ->getEloquentBuilder()
-
             ->get();
 
         return TaskResource::collection($tasks);
