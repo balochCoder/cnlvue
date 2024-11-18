@@ -7,8 +7,11 @@ use App\Http\Requests\Api\V1\ProcessingOffice\StoreProcessingOfficeRequest;
 use App\Http\Requests\Api\V1\ProcessingOffice\UpdateProcessingOfficeRequest;
 use App\Http\Resources\Api\V1\ProcessingOfficeResource;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
+use App\Jobs\ProcessingOffices\CreateProcessingOffice;
+use App\Jobs\ProcessingOffices\UpdateProcessingOffice;
 use App\Models\ProcessingOffice;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -16,6 +19,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 class ProcessingOfficeController extends Controller
 {
     use ApiResponse;
+
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
 
     public function index()
     {
@@ -34,7 +43,9 @@ class ProcessingOfficeController extends Controller
 
     public function store(StoreProcessingOfficeRequest $request)
     {
-        ProcessingOffice::query()->create($request->storeData());
+        $this->bus->dispatch(
+            command: new CreateProcessingOffice($request->storeData())
+        );
         return $this->ok('Processing Office created successfully.', code: 201);
     }
 
@@ -53,7 +64,9 @@ class ProcessingOfficeController extends Controller
 
     public function update(UpdateProcessingOfficeRequest $request, ProcessingOffice $processingOffice)
     {
-        $processingOffice->update($request->updateData());
+        $this->bus->dispatch(
+            command: new UpdateProcessingOffice($request->updateData(), $processingOffice)
+        );
         return $this->ok('Processing Office updated successfully.', code: 201);
     }
 

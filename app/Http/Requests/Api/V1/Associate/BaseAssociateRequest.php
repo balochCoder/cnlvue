@@ -60,12 +60,15 @@ class BaseAssociateRequest extends FormRequest
     {
 
         $data = $this->mappedAttributes();
-        $user = $this->createUser();
         if ($this->hasFile('contractTerm')) {
             $directory = Associate::makeDirectory('contract_term');
             $data['contract_term'] = Storage::url('/') .$this->contractTerm->store($directory);
         }
+
+
+        $user = $this->createUser();
         $user->assignRole('associate');
+
 
         //TODO: Send an Email to user with login details
         $data['user_id'] = $user->id;
