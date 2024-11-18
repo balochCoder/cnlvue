@@ -7,8 +7,11 @@ use App\Http\Requests\Api\V1\Counsellor\StoreCounsellorRequest;
 use App\Http\Requests\Api\V1\Counsellor\UpdateCounsellorRequest;
 use App\Http\Resources\Api\V1\CounsellorResource;
 use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
+use App\Jobs\Counsellors\CreateCounsellor;
+use App\Jobs\Counsellors\UpdateCounsellor;
 use App\Models\Counsellor;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -16,6 +19,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 class CounsellorController extends ApiController
 {
     use ApiResponse;
+
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,10 +34,10 @@ class CounsellorController extends ApiController
         $counsellors = QueryBuilder::for(Counsellor::class)
             ->with(['branch', 'remarks', 'targets'])
             ->allowedFilters([
-                AllowedFilter::exact('branch','branch_id'),
-                AllowedFilter::exact('email','user.email'),
-                AllowedFilter::exact('status','is_active'),
-                AllowedFilter::exact('downloadCsv','user.download_csv'),
+                AllowedFilter::exact('branch', 'branch_id'),
+                AllowedFilter::exact('email', 'user.email'),
+                AllowedFilter::exact('status', 'is_active'),
+                AllowedFilter::exact('downloadCsv', 'user.download_csv'),
             ])
             ->getEloquentBuilder()
             ->get();
@@ -42,7 +51,9 @@ class CounsellorController extends ApiController
      */
     public function store(StoreCounsellorRequest $request)
     {
-        Counsellor::query()->create($request->storeData());
+        $this->bus->dispatch(
+            command: new CreateCounsellor($request->storeData())
+        );
         return $this->ok('Counsellor created successfully.', code: 201);
 
     }
@@ -68,7 +79,9 @@ class CounsellorController extends ApiController
      */
     public function update(UpdateCounsellorRequest $request, Counsellor $counsellor)
     {
-        $counsellor->update($request->updateData());
+        $this->bus->dispatch(
+            command: new UpdateCounsellor($request->updateData(), $counsellor)
+        );
         return $this->ok('Counsellor updated successfully.', code: 201);
     }
 
