@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Http\Resources\Api\DateResource;
+use App\Models\RepresentingInstitution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,8 +17,8 @@ class LeadResource extends JsonResource
             'counsellors' => CounsellorResource::collection($this->whenLoaded('counsellors')),
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
-            'intakeOfInterestMonths' => $this->resource->intake_of_interest_month,
-            'intakeOfInterestYears' => $this->resource->intake_of_interest_year,
+            'intakeOfInterestMonth' => $this->resource->intake_of_interest_month,
+            'intakeOfInterestYear' => $this->resource->intake_of_interest_year,
             'studentEmail' => $this->resource->student_email,
             'studentPhone' => $this->resource->student_phone,
             'studentEmergencyPhone' => $this->resource->student_emergency_phone,
@@ -28,8 +29,8 @@ class LeadResource extends JsonResource
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
-            'interestedCountry' => $this->interested_country_id ? $this->interestedCountry->name : null,
-            'interestedInstitution' => $this->interested_institution_id ? $this->interestedInstitution->name : null,
+            'interestedCountry' => $this->interested_country_id ? CountryResource::make($this->whenLoaded('interestedCountry')) : null,
+            'interestedInstitution' => $this->interested_institution_id ? RepresentingInstitutionResource::make($this->whenLoaded('interestedInstitution')) : null,
             'institutionName' => $this->resource->institution_name,
             'status' => $this->resource->status,
             $this->mergeWhen($request->routeIs('leads.*'), [
