@@ -21,8 +21,8 @@ class FollowupResource extends JsonResource
             'leadType' => $this->resource->lead_type,
             'followUpMode' => $this->resource->follow_up_mode,
             'followUpDate' => $this->resource->follow_up_date,
-            'time' => $this->resource->time,
-            'addedBy' => $this->resource->addedBy->name,
+            'time' => json_decode($this->resource->time),
+            'addedBy' => UserResource::make($this->resource->addedBy),
             'createdAt' => DateResource::make(
                 $this->resource->created_at
             ),

@@ -14,6 +14,7 @@ class LeadResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'branch' => BranchResource::make($this->whenLoaded('branch')),
             'counsellors' => CounsellorResource::collection($this->whenLoaded('counsellors')),
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
@@ -28,7 +29,9 @@ class LeadResource extends JsonResource
             'dateOfBirth' => $this->resource->date_of_birth ?  ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age] : null,
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
-            'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
+            'leadSource' => LeadSourceResource::make(
+                $this->whenLoaded('leadSource')
+            ),
             'interestedCountry' => $this->interested_country_id ? CountryResource::make($this->whenLoaded('interestedCountry')) : null,
             'interestedInstitution' => $this->interested_institution_id ? RepresentingInstitutionResource::make($this->whenLoaded('interestedInstitution')) : null,
             'institutionName' => $this->resource->institution_name,

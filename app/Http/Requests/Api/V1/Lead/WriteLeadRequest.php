@@ -44,7 +44,7 @@ class WriteLeadRequest extends BaseLeadRequest
             'followUpDate' => ['required_with:leadType', 'nullable','date'],
             'followUpMode' => ['required_with:leadType', 'nullable','string', Rule::enum(FollowupMode::class)],
             'time' => ['required_with:leadType', 'array', "required_array_keys:hour,minute,zone"],
-            'remarks' => ['required_with:leadType', 'string'],
+            'remarks' => ['required_with:leadType', 'nullable','string'],
         ];
     }
 

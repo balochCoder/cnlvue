@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             TimeZoneSeeder::class,
             UserSeeder::class,
+            LeadSourceSeeder::class,
 
         ]);
         RepresentingCountry::factory(10)->create()->each(function (RepresentingCountry $country) {

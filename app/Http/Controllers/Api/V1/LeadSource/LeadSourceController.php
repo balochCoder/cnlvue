@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\LeadSource;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\IncludeAssociate;
 use App\Http\Requests\Api\V1\LeadSource\WriteLeadSourceRequest;
 use App\Http\Resources\Api\V1\LeadSourceResource;
 use App\Jobs\LeadSources\CreateLeadSource;
@@ -10,7 +11,9 @@ use App\Jobs\LeadSources\UpdateLeadSource;
 use App\Models\LeadSource;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class LeadSourceController extends Controller
@@ -25,6 +28,9 @@ class LeadSourceController extends Controller
     public function index()
     {
         $leadSources = QueryBuilder::for(LeadSource::class)
+            ->allowedFilters([
+                AllowedFilter::custom('includeAssociate', new IncludeAssociate())
+            ])
             ->with(['user'])
             ->getEloquentBuilder()
             ->get();
@@ -41,11 +47,17 @@ class LeadSourceController extends Controller
 
     public function show(LeadSource $leadSource)
     {
+        if ($leadSource->source_name === 'associate') {
+            throw new ModelNotFoundException();
+        }
         return LeadSourceResource::make($leadSource);
     }
 
     public function update(LeadSource $leadSource, WriteLeadSourceRequest $request)
     {
+        if ($leadSource->source_name === 'associate') {
+            throw new ModelNotFoundException();
+        }
         $this->bus->dispatch(
             command: new UpdateLeadSource($request->updateData(), $leadSource)
         );
@@ -54,6 +66,9 @@ class LeadSourceController extends Controller
 
     public function status(LeadSource $leadSource, Request $request)
     {
+        if ($leadSource->source_name === 'associate') {
+            throw new ModelNotFoundException();
+        }
         $leadSource->update([
             'is_active' => $request->isActive
         ]);
