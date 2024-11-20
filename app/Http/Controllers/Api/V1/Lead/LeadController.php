@@ -27,7 +27,7 @@ class LeadController extends Controller
     public function index()
     {
         $leads = QueryBuilder::for(Lead::class)
-            ->with(['leadSource', 'counsellors', 'followups', 'branch','interestedInstitution','interestedCountry'])
+            ->with(['leadSource', 'counsellors', 'followups', 'branch','interestedInstitution','interestedCountry','quotations'])
             ->allowedFilters([
                 AllowedFilter::exact('branch', 'branch.id'),
             ])
@@ -40,7 +40,17 @@ class LeadController extends Controller
     {
         $lead = QueryBuilder::for(Lead::class)
             ->where('id', $lead->id)
-            ->with(['branch','leadSource', 'counsellors', 'followups', 'interestedCountry', 'interestedInstitution', 'associate'])
+            ->with([
+                'branch',
+                'leadSource',
+                'counsellors',
+                'followups',
+                'interestedCountry',
+                'interestedCountry.representingCountry',
+                'interestedInstitution',
+                'associate',
+
+            ])
             ->firstOrFail();
         return LeadResource::make($lead);
     }

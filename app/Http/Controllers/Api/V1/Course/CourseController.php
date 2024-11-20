@@ -29,7 +29,7 @@ class CourseController extends ApiController
         $courses = QueryBuilder::for(Course::class)
             ->with(['representingInstitution', 'representingInstitution.representingCountry', 'currency'])
             ->allowedFilters([
-                AllowedFilter::exact('country', 'representingInstitution.representingCountry.country.name'),
+                AllowedFilter::exact('country', 'representingInstitution.representingCountry.id'),
                 AllowedFilter::partial('category', 'course_category'),
                 AllowedFilter::partial('intake'),
                 AllowedFilter::exact('level'),

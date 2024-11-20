@@ -100,6 +100,13 @@ class Lead extends Model
         );
     }
 
+    public function quotations(): HasMany
+    {
+        return $this->hasMany(
+            Quotation::class,
+            'lead_id',
+        );
+    }
     public function counsellors(): BelongsToMany
     {
         return $this->belongsToMany(

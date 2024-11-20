@@ -55,7 +55,7 @@ class Quotation extends Model
         );
     }
 
-    public function AddedBy(): BelongsTo
+    public function addedBy(): BelongsTo
     {
         return $this->belongsTo(
             User::class,

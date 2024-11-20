@@ -22,7 +22,7 @@ class WriteFollowupRequest extends BaseFollowupRequest
             'leadType' => ['required', 'string', Rule::enum(LeadStatus::class)],
             'followUpDate' => ['required', 'date'],
             'followUpMode' => ['required', 'string', Rule::enum(FollowupMode::class)],
-            'time' => ['required', 'array', 'required_array_keys:hour,minute,am/pm'],
+            'time' => ['required', 'array', 'required_array_keys:hour,minute,zone'],
             'remarks' => ['required', 'string'],
         ];
     }
