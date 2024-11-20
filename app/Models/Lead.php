@@ -20,6 +20,7 @@ class Lead extends Model
 
     protected $fillable = [
         'branch_id',
+        'associate_id',
         'student_first_name',
         'student_last_name',
         'intake_of_interest_month',
@@ -83,6 +84,14 @@ class Lead extends Model
         );
     }
 
+    public function associate(): BelongsTo
+    {
+        return $this->belongsTo(
+            Associate::class,
+            'associate_id',
+        );
+    }
+
     public function followups(): MorphMany
     {
         return $this->morphMany(
@@ -111,8 +120,9 @@ class Lead extends Model
             'lead_source_id' => 'integer',
             'interested_country_id' => 'integer',
             'interested_institution_id' => 'integer',
+            'associate_id' => 'integer',
             'added_by' => 'integer',
-            'intake_of_interest_month' => 'integer',
+            'intake_of_interest_month' => 'string',
             'intake_of_interest_year' => 'integer',
             'is_application_generated' => 'boolean',
             'status' => LeadStatus::class

@@ -11,6 +11,7 @@ class BaseLeadRequest extends FormRequest
         $attributeMap = array_merge([
             'counsellorId' => 'counsellor_id',
             'leadSourceId' => 'lead_source_id',
+            'associateId'=> 'associate_id',
             'studentFirstName' => 'student_first_name',
             'studentLastName' => 'student_last_name',
             'intakeOfInterestMonth' => 'intake_of_interest_month',

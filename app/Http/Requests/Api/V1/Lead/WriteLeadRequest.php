@@ -22,6 +22,7 @@ class WriteLeadRequest extends BaseLeadRequest
             'branchId' => ['required', 'exists:branches,id'],
             'counsellorId' => ['required', 'exists:counsellors,id','array'],
             'leadSourceId' => ['required', 'integer', 'exists:lead_sources,id'],
+            'associateId' => ['nullable', 'integer', 'exists:associates,id'],
             'studentFirstName' => ['required', 'string'],
             'studentLastName' => ['required', 'string'],
             'intakeOfInterestMonth' => ['nullable', 'string'],

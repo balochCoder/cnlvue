@@ -63,10 +63,17 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('representing_institutions')
                 ->cascadeOnDelete();
+
+            $table->foreignId('associate_id')
+                ->nullable()
+                ->constrained('associates')
+                ->cascadeOnDelete();
+
             $table->foreignId('added_by')
                 ->nullable()
                 ->constrained('users')
                 ->cascadeOnDelete();
+
             $table->foreignId('branch_id')
                 ->constrained('branches')
                 ->cascadeOnDelete();

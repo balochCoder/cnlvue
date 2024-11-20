@@ -16,6 +16,7 @@ class LeadResource extends JsonResource
             'id' => $this->resource->id,
             'branch' => BranchResource::make($this->whenLoaded('branch')),
             'counsellors' => CounsellorResource::collection($this->whenLoaded('counsellors')),
+            'associate' => CounsellorResource::make($this->whenLoaded('associate')),
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
             'intakeOfInterestMonth' => $this->resource->intake_of_interest_month,

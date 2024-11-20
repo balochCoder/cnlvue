@@ -40,7 +40,7 @@ class LeadController extends Controller
     {
         $lead = QueryBuilder::for(Lead::class)
             ->where('id', $lead->id)
-            ->with(['branch','leadSource', 'counsellors', 'followups', 'interestedCountry', 'interestedInstitution'])
+            ->with(['branch','leadSource', 'counsellors', 'followups', 'interestedCountry', 'interestedInstitution', 'associate'])
             ->firstOrFail();
         return LeadResource::make($lead);
     }
