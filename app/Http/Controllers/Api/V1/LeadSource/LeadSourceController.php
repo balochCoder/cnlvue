@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\LeadSource;
 
 use App\Http\Controllers\Controller;
-use App\Http\Filters\IncludeAssociate;
+use App\Http\Filters\IncludeAssociateFilter;
 use App\Http\Requests\Api\V1\LeadSource\WriteLeadSourceRequest;
 use App\Http\Resources\Api\V1\LeadSourceResource;
 use App\Jobs\LeadSources\CreateLeadSource;
@@ -29,7 +29,7 @@ class LeadSourceController extends Controller
     {
         $leadSources = QueryBuilder::for(LeadSource::class)
             ->allowedFilters([
-                AllowedFilter::custom('includeAssociate', new IncludeAssociate())
+                AllowedFilter::custom('includeAssociate', new IncludeAssociateFilter())
             ])
             ->with(['user'])
             ->getEloquentBuilder()

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Api\V1\Lead;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ByLastFollowUpDateFilter;
+use App\Http\Filters\LeadAddedDateFilter;
+use App\Http\Filters\LeadUpdatedDateFilter;
+use App\Http\Filters\UnassignedLeadsFilter;
+use App\Http\Filters\UniqueLeadsByEmailFilter;
 use App\Http\Requests\Api\V1\Lead\WriteLeadRequest;
 use App\Http\Resources\Api\V1\LeadResource;
 use App\Jobs\Leads\CreateLead;
@@ -10,7 +15,6 @@ use App\Jobs\Leads\UpdateLead;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -28,10 +32,23 @@ class LeadController extends Controller
     {
         $leads = QueryBuilder::for(Lead::class)
             ->with(['leadSource', 'counsellors', 'followups', 'branch','interestedInstitution','interestedCountry','quotations'])
+
             ->allowedFilters([
+                AllowedFilter::exact('country', 'interestedCountry.name'),
                 AllowedFilter::exact('branch', 'branch.id'),
+                AllowedFilter::exact('counsellor', 'counsellors.id'),
+                AllowedFilter::exact('source', 'leadSource.source_name'),
+                AllowedFilter::exact('type', 'status'),
+                AllowedFilter::custom('followupDate', new ByLastFollowUpDateFilter()),
+                AllowedFilter::custom('addedDate', new LeadAddedDateFilter()),
+                AllowedFilter::custom('updatedDate', new LeadUpdatedDateFilter()),
+                AllowedFilter::exact('generatedApplications','is_application_generated'),
+                AllowedFilter::exact('unGeneratedApplications','is_application_generated'),
+                AllowedFilter::custom('uniqueLeads',new UniqueLeadsByEmailFilter()),
+                AllowedFilter::custom('unAssignedLeads',new UnassignedLeadsFilter()),
             ])
             ->getEloquentBuilder()
+            ->latest('id')
             ->get();
         return LeadResource::collection($leads);
     }
@@ -49,7 +66,6 @@ class LeadController extends Controller
                 'interestedCountry.representingCountry',
                 'interestedInstitution',
                 'associate',
-
             ])
             ->firstOrFail();
         return LeadResource::make($lead);
