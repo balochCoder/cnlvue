@@ -12,6 +12,7 @@ class LeadResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->resource->id,
             'branch' => BranchResource::make($this->whenLoaded('branch')),
@@ -27,7 +28,7 @@ class LeadResource extends JsonResource
             'studentMobile' => $this->resource->student_mobile,
             'studentSkype' => $this->resource->student_skype,
             'courseLevelOfInterest' => $this->resource->course_level_of_interest,
-            'dateOfBirth' => $this->resource->date_of_birth ?  ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age] : null,
+            'dateOfBirth' => $this->resource->date_of_birth ? ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age] : null,
             'isCountryPreferred' => $this->resource->is_country_preferred,
             'isApplicationGenerated' => $this->resource->is_application_generated,
             'leadSource' => LeadSourceResource::make(
@@ -37,6 +38,7 @@ class LeadResource extends JsonResource
             'interestedInstitution' => $this->interested_institution_id ? RepresentingInstitutionResource::make($this->whenLoaded('interestedInstitution')) : null,
             'institutionName' => $this->resource->institution_name,
             'status' => $this->resource->status,
+            'isDuplicated' => (bool) $this->is_duplicated,
             $this->mergeWhen($request->routeIs('leads.*'), [
                 'estimatedBudget' => $this->resource->estimated_budget,
                 'additionalInfo' => $this->resource->additional_info,

@@ -34,6 +34,7 @@ class UpdateLead implements ShouldQueue
         $database->transaction(
             callback: function () {
                 $this->lead->update($this->attributes['updateData']);
+                $this->lead->counsellors()->sync($this->attributes['counsellorId']);
 
                 if ($this->attributes['leadType'])
                 {
