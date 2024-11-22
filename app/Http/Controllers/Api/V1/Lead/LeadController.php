@@ -57,7 +57,7 @@ class LeadController extends Controller
 //                END');
 //                },
 //            ])
-            ->with(['leadSource', 'counsellors', 'followups', 'branch','interestedInstitution','interestedCountry','quotations'])
+            ->with(['leadSource', 'counsellors','counsellors.user', 'followups', 'branch','interestedInstitution','interestedCountry','quotations'])
 
             ->allowedFilters([
                 AllowedFilter::exact('country', 'interestedCountry.name'),
