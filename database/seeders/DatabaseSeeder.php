@@ -48,16 +48,23 @@ class DatabaseSeeder extends Seeder
 
         RepresentingInstitution::factory(1)->create();
         Course::factory(5)->create();
-        Branch::factory(5)->create();
-        $counsellors = Counsellor::factory(5)->hasAttached(
-            RepresentingInstitution::factory(2)->create(),
-            [],
-            'institutions'
-        )->has(
-            Remark::factory(10)
-        )->has(
-            Target::factory(5)
-        )->create();
+        $branches = Branch::factory(5)->create();
+        $branches->each(function ($branch) {
+            // Assign counsellors to each branch
+            Counsellor::factory(5)
+                ->for($branch)
+                ->hasAttached(
+                    RepresentingInstitution::factory(2)->create(),
+                    [],
+                    'institutions'
+                )
+                ->has(Remark::factory(10))
+                ->has(Target::factory(5))
+                ->create();
+
+            // Associate counsellors with the branch
+        });
+
         FrontOffice::factory(10)->create();
         ProcessingOffice::factory(10)
             ->hasAttached(
@@ -68,7 +75,16 @@ class DatabaseSeeder extends Seeder
             ->create();
         Associate::factory(10)->create();
         LeadSource::factory(10)->create();
-        Lead::factory(50)->hasFollowups(4)->hasAttached($counsellors)->create();
+        $branches->each(function ($branch) {
+            Lead::factory(10)
+                ->for($branch)// Adjust the number of leads per branch
+                ->hasFollowups(4) // Add follow-ups to leads
+                ->create()
+                ->each(function ($lead) use ($branch) {
+                    // Attach counsellors from the specific branch
+                    $lead->counsellors()->attach($branch->counsellors);
+                });
+        });
         Task::factory(10)->create();
         TaskRemark::factory(10)->create();
         Quotation::factory(10)->create();

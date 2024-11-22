@@ -57,4 +57,12 @@ class Branch extends Model
     {
         return $this->hasMany(ProcessingOffice::class,'branch_id');
     }
+
+    public function counsellors(): HasMany
+    {
+        return $this->hasMany(
+            Counsellor::class,
+            'branch_id',
+        );
+    }
 }

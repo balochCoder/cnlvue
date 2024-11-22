@@ -14,12 +14,10 @@ class CounsellorFactory extends Factory
 
     public function definition(): array
     {
-        $branches = Branch::all()->pluck('id')->toArray();
         $user = User::factory()->create();
         $user->assignRole('counsellor');
         $isProcessingOfficer = $this->faker->randomElement([true, false]);
         return [
-            'branch_id' => $this->faker->randomElement($branches),
             'is_processing_officer' => $isProcessingOfficer,
             'user_id' => $user->id,
         ];
