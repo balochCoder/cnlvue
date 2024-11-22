@@ -71,4 +71,11 @@ class User extends Authenticatable
             'user_id',
         );
     }
+    public function counsellor(): HasOne
+    {
+        return $this->hasOne(
+            Counsellor::class,
+            'user_id',
+        )->with('branch');
+    }
 }

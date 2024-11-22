@@ -18,17 +18,22 @@ class CounsellorResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'isActive' => $this->resource->is_active,
-            'user' => UserResource::make($this->resource->user),
             'branch' => BranchResource::make($this->whenLoaded('branch')),
-            'isProcessingOfficer' => $this->resource->is_processing_officer,
-            'remarks'=> RemarkResource::collection($this->whenLoaded('remarks')),
-            'targets' => TargetResource::collection($this->whenLoaded('targets')),
-            'createdAt' => DateResource::make(
-                $this->resource->created_at
-            ),
-            'updatedAt' => DateResource::make(
-                $this->resource->updated_at
-            ),
+            'user' => UserResource::make($this->whenLoaded('user')),
+
+            $this->mergeWhen($request->routeIs('counsellors.*'), [
+                'isActive' => $this->resource->is_active,
+                'user' => UserResource::make($this->whenLoaded('user')),
+                'isProcessingOfficer' => $this->resource->is_processing_officer,
+                'remarks'=> RemarkResource::collection($this->whenLoaded('remarks')),
+                'targets' => TargetResource::collection($this->whenLoaded('targets')),
+                'createdAt' => DateResource::make(
+                    $this->resource->created_at
+                ),
+                'updatedAt' => DateResource::make(
+                    $this->resource->updated_at
+                ),
+            ])
         ];
     }
 }

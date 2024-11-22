@@ -32,7 +32,7 @@ class CounsellorController extends ApiController
     public function index()
     {
         $counsellors = QueryBuilder::for(Counsellor::class)
-            ->with(['branch', 'remarks', 'targets'])
+            ->with(['branch', 'remarks', 'targets', 'user'])
             ->allowedFilters([
                 AllowedFilter::exact('branch', 'branch_id'),
                 AllowedFilter::exact('email', 'user.email'),
@@ -66,7 +66,7 @@ class CounsellorController extends ApiController
 
         $counsellor = QueryBuilder::for(Counsellor::class)
             ->where('id', $counsellor->id)
-            ->with(['branch'])
+            ->with(['branch', 'user'])
             ->allowedIncludes(['remarks', 'targets'])
             ->firstOrFail();
 

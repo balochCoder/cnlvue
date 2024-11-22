@@ -86,7 +86,7 @@ class LeadController extends Controller
             ->with([
                 'branch',
                 'leadSource',
-                'counsellors',
+                'counsellors.user',
                 'followups',
                 'interestedCountry',
                 'interestedCountry.representingCountry',

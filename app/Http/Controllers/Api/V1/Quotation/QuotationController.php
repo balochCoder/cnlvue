@@ -6,14 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Quotation\StoreQuotationRequest;
 use App\Http\Requests\Api\V1\Quotation\UpdateQuotationRequest;
 use App\Http\Resources\Api\V1\QuotationResource;
+use App\Jobs\Quotations\CreateQuotation;
 use App\Models\Quotation;
 use App\Models\QuotationChoice;
 use App\Traits\ApiResponse;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class QuotationController extends Controller
 {
+    public function __construct(
+        private readonly Dispatcher $bus
+    )
+    {
+    }
+
     public function index()
     {
         $quotations = QueryBuilder::for(Quotation::class)
@@ -27,21 +35,15 @@ class QuotationController extends Controller
 
     public function store(StoreQuotationRequest $request)
     {
-        DB::beginTransaction();
+        $attributes = [
+            'storeData' => $request->storeData(),
+            'choices' => $request->choices,
+        ];
 
-        $quotation = Quotation::query()->create($request->storeData());
+        $this->bus->dispatch(
+            command: new CreateQuotation($attributes)
+        );
 
-        if ($request->choices) {
-            foreach ($request->choices as $choice) {
-                QuotationChoice::query()->create([
-                    'quotation_id' => $quotation->id,
-                    'country_id' => $choice['countryId'],
-                    'institution_id' => $choice['institutionId'],
-                    'course_id' => $choice['courseId'],
-                ]);
-            }
-        }
-        DB::commit();
         return $this->ok('Quotation generated successfully.');
     }
 
@@ -56,6 +58,8 @@ class QuotationController extends Controller
 
     public function update(UpdateQuotationRequest $request, Quotation $quotation)
     {
+
+
         DB::beginTransaction();
         $quotation->update($request->storeData());
 
