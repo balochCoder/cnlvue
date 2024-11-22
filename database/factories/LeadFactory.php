@@ -28,7 +28,7 @@ class LeadFactory extends Factory
         return [
             'student_first_name' => $this->faker->firstName(),
             'student_last_name' => $this->faker->lastName(),
-            'intake_of_interest_month' => $this->faker->month(),
+            'intake_of_interest_month' => $this->faker->monthName(),
             'intake_of_interest_year' => $this->faker->year(),
             'student_email' => $this->faker->unique()->safeEmail(),
             'student_phone' => $this->faker->phoneNumber(),
