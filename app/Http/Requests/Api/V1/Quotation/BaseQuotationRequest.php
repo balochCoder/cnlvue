@@ -51,8 +51,6 @@ class BaseQuotationRequest extends FormRequest
             $directory = Quotation::makeDirectory('student_image');
             $data['student_image'] = Storage::url('/') . $this->studentImage->store($directory);
         }
-
-
         if ($this->educationHistory) {
             foreach ($this->educationHistory as $index => $educationHistory) {
                 if ($this->hasFile("educationHistory.$index.file")) {
@@ -62,7 +60,6 @@ class BaseQuotationRequest extends FormRequest
             }
             $data['education_history'] = json_encode($data['education_history']);
         }
-
         if ($this->englishLanguage) {
             if ($this->hasFile("englishLanguage.ielts.file")) {
                 $directory = Quotation::makeDirectory('english_language/ielts');
@@ -87,7 +84,6 @@ class BaseQuotationRequest extends FormRequest
 
             $data['english_language'] = json_encode($data['english_language']);
         }
-
         if ($this->workExperience) {
             foreach ($this->workExperience as $index => $workExperience) {
                 if ($this->hasFile("workExperience.$index.file")) {
@@ -97,7 +93,6 @@ class BaseQuotationRequest extends FormRequest
             }
             $data['work_experience'] = json_encode($data['work_experience']);
         }
-
         if ($this->statementOfPurpose) {
 
             if ($this->hasFile("statementOfPurpose.file")) {
@@ -107,7 +102,6 @@ class BaseQuotationRequest extends FormRequest
 
             $data['statement_of_purpose'] = json_encode($data['statement_of_purpose']);
         }
-
         if ($this->additionalDocuments) {
             foreach ($this->additionalDocuments as $index => $additionalDocument) {
                 if ($this->hasFile("additionalDocuments.$index.file")) {
@@ -117,26 +111,18 @@ class BaseQuotationRequest extends FormRequest
             }
             $data['additional_documents'] = json_encode($data['additional_documents']);
         }
-
         if ($this->references) {
 
             $data['references'] = json_encode($this->references);
         }
-
-
         if ($this->permanentAddress) {
             $data['permanent_address'] = json_encode($this->permanentAddress);
         }
         if ($this->correspondenceAddress) {
             $data['correspondence_address'] = json_encode($this->correspondenceAddress);
         }
-
-
         $data['added_by'] = auth()->id();
         return $data;
-
     }
-
-
 
 }

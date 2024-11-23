@@ -133,7 +133,6 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'references.*.institution' => ['required_with:references', 'string'],
             'references.*.email' => ['required_with:references', 'string'],
             'references.*.phone' => ['required_with:references', 'string'],
-            'references.*.fax' => ['nullable', 'string'],
             'references.*.address' => ['required_with:references', 'string'],
             'references.*.city' => ['required_with:references', 'string'],
             'references.*.state' => ['nullable', 'string'],

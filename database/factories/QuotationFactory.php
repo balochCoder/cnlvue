@@ -90,7 +90,6 @@ class QuotationFactory extends Factory
                     'institution' => $this->faker->company(),
                     'email' => $this->faker->unique()->safeEmail(),
                     'phone' => $this->faker->phoneNumber(),
-                    'fax' => $this->faker->phoneNumber(),
                     'address' => $this->faker->address(),
                     'city' => $this->faker->city(),
                     'state' => $this->faker->city(),

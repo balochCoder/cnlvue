@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Quotation\StoreQuotationRequest;
 use App\Http\Requests\Api\V1\Quotation\UpdateQuotationRequest;
 use App\Http\Resources\Api\V1\QuotationResource;
 use App\Jobs\Quotations\CreateQuotation;
+use App\Jobs\Quotations\UpdateQuotation;
 use App\Models\Quotation;
 use App\Models\QuotationChoice;
 use App\Traits\ApiResponse;
@@ -59,23 +60,13 @@ class QuotationController extends Controller
     public function update(UpdateQuotationRequest $request, Quotation $quotation)
     {
 
-
-        DB::beginTransaction();
-        $quotation->update($request->storeData());
-
-        if ($request->choices) {
-            $quotation->quotationChoices()->delete();
-            foreach ($request->choices as $choice) {
-                QuotationChoice::query()->create([
-                    'quotation_id' => $quotation->id,
-                    'country_id' => $choice['countryId'],
-                    'institution_id' => $choice['institutionId'],
-                    'course_id' => $choice['courseId'],
-                ]);
-            }
-        }
-
-        DB::commit();
+        $attributes = [
+            'storeData' => $request->storeData(),
+            'choices' => $request->choices,
+        ];
+        $this->bus->dispatch(
+            command: new UpdateQuotation($attributes, $quotation)
+        );
         return $this->ok('Quotation updated successfully.');
     }
 }

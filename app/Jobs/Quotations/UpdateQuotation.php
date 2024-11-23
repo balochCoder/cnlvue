@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Quotations;
 
-use App\Models\Lead;
 use App\Models\Quotation;
 use App\Models\QuotationChoice;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +11,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CreateQuotation implements ShouldQueue
+class UpdateQuotation implements ShouldQueue
 {
     use Queueable;
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -22,6 +21,7 @@ class CreateQuotation implements ShouldQueue
      */
     public function __construct(
         protected array $attributes,
+        protected Quotation $quotation
     )
     {
         //
@@ -35,23 +35,13 @@ class CreateQuotation implements ShouldQueue
     ): void
     {
         $database->transaction(
-            callback: function ()  {
-                $quotation = Quotation::create($this->attributes['storeData']);
-
-                $lead = Lead::findOrFail($quotation->lead_id);
-                $lead?->update([
-                    'student_first_name' => $this->attributes['storeData']['student_first_name'],
-                    'student_last_name' => $this->attributes['storeData']['student_last_name'],
-                    'student_email' => $this->attributes['storeData']['student_email'],
-                    'student_phone' => $this->attributes['storeData']['student_phone'],
-                    'student_mobile' => $this->attributes['storeData']['student_mobile'],
-                    'student_skype' => $this->attributes['storeData']['student_skype'],
-                ]);
-
+            callback: function () {
+                $this->quotation->update($this->attributes['storeData']);
                 if ($this->attributes['choices']) {
+                    $this->quotation->quotationChoices()->delete();
                     foreach ($this->attributes['choices'] as $choice) {
                         QuotationChoice::create([
-                            'quotation_id' => $quotation->id,
+                            'quotation_id' => $this->quotation->id,
                             'country_id' => $choice['countryId'],
                             'institution_id' => $choice['institutionId'],
                             'course_id' => $choice['courseId'],
