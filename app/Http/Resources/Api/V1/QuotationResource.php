@@ -35,6 +35,10 @@ class QuotationResource extends JsonResource
             'isAccommodationRequired' => $this->resource->is_accommodation_required,
             'isMedicalRequired' => $this->resource->is_medical_required,
             'medicalHistory' => $this->resource->medical_history,
+            'isIELTS' => $this->resource->is_ielts,
+            'isTOEFL' => $this->resource->is_toefl,
+            'isPTE' => $this->resource->is_pte,
+            'isGMAT' => $this->resource->is_gmat,
             'additionalInformation' => $this->resource->additional_information,
             'addedBy' => $this->resource->addedBy->name,
             'createdAt' => DateResource::make(

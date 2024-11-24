@@ -52,6 +52,10 @@ class QuotationFactory extends Factory
                     'file' => $this->faker->imageUrl(),
                 ]
             ]),
+            'is_ielts' => true,
+            'is_toefl' => true,
+            'is_pte' => true,
+            'is_gmat' => true,
             'english_language' => json_encode([
                 'ielts' => [
                     'listening' => $this->faker->numberBetween(1, 8),

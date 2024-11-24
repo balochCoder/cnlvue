@@ -92,6 +92,7 @@ class LeadController extends Controller
                 'interestedCountry.representingCountry',
                 'interestedInstitution',
                 'associate',
+                'quotation',
             ])
             ->firstOrFail();
         return LeadResource::make($lead);

@@ -37,7 +37,7 @@ class QuotationController extends Controller
     public function store(StoreQuotationRequest $request)
     {
         $attributes = [
-            'storeData' => $request->storeData(),
+            'storeData' => $request->getData(),
             'choices' => $request->choices,
         ];
 

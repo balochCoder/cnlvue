@@ -38,6 +38,11 @@ return new class extends Migration
             $table->boolean('is_valid_passport')->default(false);
             $table->boolean('is_accommodation_required')->default(false);
             $table->boolean('is_medical_required')->default(false);
+            $table->boolean('is_ielts')->default(false);
+            $table->boolean('is_toefl')->default(false);
+            $table->boolean('is_pte')->default(false);
+            $table->boolean('is_gmat')->default(false);
+
 
             $table->foreignId('lead_id')
                 ->constrained('leads')

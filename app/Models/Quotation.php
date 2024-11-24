@@ -37,6 +37,10 @@ class Quotation extends Model
         'added_by',
         'additional_documents',
         'additional_information',
+        'is_ielts',
+        'is_toefl',
+        'is_pte',
+        'is_gmat',
     ];
 
     public function lead(): BelongsTo
@@ -101,6 +105,10 @@ class Quotation extends Model
             'is_medical_required' => 'boolean',
             'lead_id' => 'integer',
             'added_by' => 'integer',
+            'is_ielts' => 'boolean',
+            'is_toefl' => 'boolean',
+            'is_pte' => 'boolean',
+            'is_gmat' => 'boolean',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1\Quotation;
 
+use App\Models\Lead;
 use App\Models\Quotation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
@@ -32,6 +33,10 @@ class BaseQuotationRequest extends FormRequest
             'isMedicalRequired' => 'is_medical_required',
             'leadId' => 'lead_id',
             'choices' => 'choices',
+            'isIELTS' => 'is_ielts',
+            'isPTE'=> 'is_pte',
+            'isTOEFL'=> 'is_toefl',
+            'isGMAT'=> 'is_gmat',
 
         ], $otherAttributes);
         $attributesToUpdate = [];
@@ -121,6 +126,17 @@ class BaseQuotationRequest extends FormRequest
         if ($this->correspondenceAddress) {
             $data['correspondence_address'] = json_encode($this->correspondenceAddress);
         }
+
+        $lead = Lead::findOrFail($this->leadId);
+        $lead?->update([
+            'student_first_name' => $this->studentFirstName,
+            'student_last_name' => $this->studentLastName,
+            'student_email' => $this->studentEmail,
+            'student_phone' => $this->studentPhone,
+            'student_mobile' => $this->studentMobile,
+            'student_skype' => $this->studentSkype,
+            'date_of_birth' => $this->dateOfBirth
+        ]);
         $data['added_by'] = auth()->id();
         return $data;
     }

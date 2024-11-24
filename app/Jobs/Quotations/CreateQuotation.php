@@ -38,15 +38,6 @@ class CreateQuotation implements ShouldQueue
             callback: function ()  {
                 $quotation = Quotation::create($this->attributes['storeData']);
 
-                $lead = Lead::findOrFail($quotation->lead_id);
-                $lead?->update([
-                    'student_first_name' => $this->attributes['storeData']['student_first_name'],
-                    'student_last_name' => $this->attributes['storeData']['student_last_name'],
-                    'student_email' => $this->attributes['storeData']['student_email'],
-                    'student_phone' => $this->attributes['storeData']['student_phone'],
-                    'student_mobile' => $this->attributes['storeData']['student_mobile'],
-                    'student_skype' => $this->attributes['storeData']['student_skype'],
-                ]);
 
                 if ($this->attributes['choices']) {
                     foreach ($this->attributes['choices'] as $choice) {
