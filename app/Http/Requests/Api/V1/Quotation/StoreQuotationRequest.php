@@ -184,10 +184,10 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'isValidPassport' => filter_var($this->input('isValidPassport'), FILTER_VALIDATE_BOOLEAN),
             'isAccommodationRequired' => filter_var($this->input('isAccommodationRequired'), FILTER_VALIDATE_BOOLEAN),
             'isMedicalRequired' => filter_var($this->input('isMedicalRequired'), FILTER_VALIDATE_BOOLEAN),
-            'isIELTS' => filter_var($this->input('is_ielts'), FILTER_VALIDATE_BOOLEAN),
-            'isTOEFL' => filter_var($this->input('is_toefl'), FILTER_VALIDATE_BOOLEAN),
-            'isPTE' => filter_var($this->input('is_pte'), FILTER_VALIDATE_BOOLEAN),
-            'isGMAT' => filter_var($this->input('is_gmat'), FILTER_VALIDATE_BOOLEAN),
+            'isIELTS' => filter_var($this->input('isIELTS'), FILTER_VALIDATE_BOOLEAN),
+            'isTOEFL' => filter_var($this->input('isTOEFL'), FILTER_VALIDATE_BOOLEAN),
+            'isPTE' => filter_var($this->input('isPTE'), FILTER_VALIDATE_BOOLEAN),
+            'isGMAT' => filter_var($this->input('isGMAT'), FILTER_VALIDATE_BOOLEAN),
         ]);
     }
 }

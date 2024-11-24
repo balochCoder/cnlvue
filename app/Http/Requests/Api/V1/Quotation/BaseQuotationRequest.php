@@ -32,11 +32,12 @@ class BaseQuotationRequest extends FormRequest
             'isAccommodationRequired' => 'is_accommodation_required',
             'isMedicalRequired' => 'is_medical_required',
             'leadId' => 'lead_id',
-            'choices' => 'choices',
             'isIELTS' => 'is_ielts',
             'isPTE'=> 'is_pte',
             'isTOEFL'=> 'is_toefl',
             'isGMAT'=> 'is_gmat',
+            'choices' => 'choices',
+
 
         ], $otherAttributes);
         $attributesToUpdate = [];
