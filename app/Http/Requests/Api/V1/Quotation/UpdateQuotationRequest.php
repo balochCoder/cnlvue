@@ -27,7 +27,7 @@ class UpdateQuotationRequest extends BaseQuotationRequest
             'studentPhone' => ['nullable', 'string'],
             'studentEmail' => ['nullable', 'email', 'string'],
             'studentMobile' => ['nullable', 'string'],
-            'studentImage' => ['sometimes','nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'studentImage' => ['sometimes', 'nullable'],
 //            Permanent Address
             'permanentAddress' => ['nullable', 'array', 'required_array_keys:address,city,state,country', function ($attribute, $value, $fail) {
                 $allowedKeys = ['address', 'city', 'state', 'country'];
@@ -54,7 +54,7 @@ class UpdateQuotationRequest extends BaseQuotationRequest
             'educationHistory.*.qualification' => ['sometimes', 'nullable', 'string'],
             'educationHistory.*.year' => ['sometimes', 'nullable', 'integer'],
             'educationHistory.*.grade' => ['sometimes', 'nullable','string'],
-            'educationHistory.*.file' => ['sometimes', 'nullable', 'file'],
+            'educationHistory.*.file' => ['sometimes', 'nullable'],
 
             //English Language
             'englishLanguage' => ['nullable', 'array'],
@@ -131,7 +131,7 @@ class UpdateQuotationRequest extends BaseQuotationRequest
             'workExperience.*.position' => ['sometimes','nullable', 'string'],
             'workExperience.*.period' => ['sometimes','nullable', 'string'],
             'workExperience.*.responsibilities' => ['sometimes','nullable', 'string'],
-            'workExperience.*.file' => ['sometimes','nullable', 'file'],
+            'workExperience.*.file' => ['sometimes','nullable'],
 
             //References
             'references' => ['nullable', 'array'],
@@ -169,7 +169,7 @@ class UpdateQuotationRequest extends BaseQuotationRequest
             //Additional Documents
             'additionalDocuments' => ['nullable', 'array'],
             'additionalDocuments.*.title' => ['nullable', 'string'],
-            'additionalDocuments.*.file' => ['sometimes','nullable', 'file'],
+            'additionalDocuments.*.file' => ['sometimes','nullable'],
             //Lead Id
             'leadId' => ['required', 'exists:leads,id'],
 
