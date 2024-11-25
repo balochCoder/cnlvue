@@ -37,8 +37,6 @@ class CreateQuotation implements ShouldQueue
         $database->transaction(
             callback: function ()  {
                 $quotation = Quotation::create($this->attributes['storeData']);
-
-
                 if ($this->attributes['choices']) {
                     foreach ($this->attributes['choices'] as $choice) {
                         QuotationChoice::create([

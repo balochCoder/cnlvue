@@ -126,11 +126,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::patch('/tasks/{task}', [V1\Task\TaskController::class, 'update'])->name('/tasks.update');
 
-//    Applications
+//    Quotations
     Route::get('quotations', [ V1\Quotation\QuotationController::class, 'index'])->name('quotations.index');
     Route::get('quotations/{quotation}', [V1\Quotation\QuotationController::class, 'show'])->name('quotations.show');
     Route::post('quotations', [V1\Quotation\QuotationController::class, 'store'])->name('quotations.store');
-    Route::patch('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
+    Route::put('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
 
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');

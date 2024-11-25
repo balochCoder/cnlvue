@@ -16,6 +16,7 @@ class QuotationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'=> $this->resource->id,
             'lead' => LeadResource::make($this->whenLoaded('lead')),
             'studentImage' => $this->resource->student_image,
             'studentTitle' => $this->resource->student_title,

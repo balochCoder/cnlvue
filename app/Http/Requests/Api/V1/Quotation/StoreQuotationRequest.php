@@ -117,6 +117,7 @@ class StoreQuotationRequest extends BaseQuotationRequest
             'englishLanguage.gmat.date' => ['required_if:isGMAT,true', 'nullable', 'date'],
             'englishLanguage.gmat.additional' => ['required_if:isGMAT,true', 'nullable', 'string'],
             'englishLanguage.gmat.file' => ['required_if:isGMAT,true', 'nullable', 'file'],
+
             //English Language OTHERS
             'englishLanguage.others' => ['nullable', 'array'],
             'englishLanguage.others.info' => ['nullable', 'string'],
@@ -178,16 +179,4 @@ class StoreQuotationRequest extends BaseQuotationRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'isValidPassport' => filter_var($this->input('isValidPassport'), FILTER_VALIDATE_BOOLEAN),
-            'isAccommodationRequired' => filter_var($this->input('isAccommodationRequired'), FILTER_VALIDATE_BOOLEAN),
-            'isMedicalRequired' => filter_var($this->input('isMedicalRequired'), FILTER_VALIDATE_BOOLEAN),
-            'isIELTS' => filter_var($this->input('isIELTS'), FILTER_VALIDATE_BOOLEAN),
-            'isTOEFL' => filter_var($this->input('isTOEFL'), FILTER_VALIDATE_BOOLEAN),
-            'isPTE' => filter_var($this->input('isPTE'), FILTER_VALIDATE_BOOLEAN),
-            'isGMAT' => filter_var($this->input('isGMAT'), FILTER_VALIDATE_BOOLEAN),
-        ]);
-    }
 }

@@ -61,7 +61,7 @@ class QuotationController extends Controller
     {
 
         $attributes = [
-            'storeData' => $request->storeData(),
+            'storeData' => $request->getData(),
             'choices' => $request->choices,
         ];
         $this->bus->dispatch(
