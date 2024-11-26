@@ -81,7 +81,7 @@ class Quotation extends Model
         return Attribute::make(
             get: function ($value) {
                 if ($value == null) {
-                    return Storage::url('files/quotations/no_image_available.png');
+                    return Storage::url('files/quotation/no_image_available.png');
                 }
 
                 return $value;

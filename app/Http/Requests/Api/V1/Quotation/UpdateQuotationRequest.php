@@ -65,13 +65,13 @@ class UpdateQuotationRequest extends BaseQuotationRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.ielts.listening' => ['required_if:isIELTS, true','nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.speaking' => ['required_if:isIELTS, true','nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.reading' => ['required_if:isIELTS, true','nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.writing' => ['required_if:isIELTS, true','nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.score' => ['required_if:isIELTS, true','nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.date' => ['required_if:isIELTS, true','nullable', 'date'],
-            'englishLanguage.ielts.additional' => ['required_if:isIELTS, true','nullable', 'string'],
+            'englishLanguage.ielts.listening' => ['required_if:isIELTS, true', 'decimal:0,1'],
+            'englishLanguage.ielts.speaking' => ['required_if:isIELTS, true', 'decimal:0,1'],
+            'englishLanguage.ielts.reading' => ['required_if:isIELTS, true', 'decimal:0,1'],
+            'englishLanguage.ielts.writing' => ['required_if:isIELTS, true', 'decimal:0,1'],
+            'englishLanguage.ielts.score' => ['required_if:isIELTS, true', 'decimal:0,1'],
+            'englishLanguage.ielts.date' => ['required_if:isIELTS, true', 'date'],
+            'englishLanguage.ielts.additional' => ['required_if:isIELTS, true', 'string'],
             'englishLanguage.ielts.file' => ['sometimes', 'nullable'],
 
             //English Language TOEFL
@@ -81,13 +81,13 @@ class UpdateQuotationRequest extends BaseQuotationRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.toefl.listening' => ['required_if:isTOEFL, true','nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.speaking' => ['required_if:isTOEFL, true','nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.reading' => ['required_if:isTOEFL, true','nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.writing' => ['required_if:isTOEFL, true','nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.score' => ['required_if:isTOEFL, true','nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.date' => ['required_if:isTOEFL, true','nullable', 'date'],
-            'englishLanguage.toefl.additional' => ['required_if:isTOEFL, true','nullable', 'string'],
+            'englishLanguage.toefl.listening' => ['required_if:isTOEFL, true', 'decimal:0,1'],
+            'englishLanguage.toefl.speaking' => ['required_if:isTOEFL, true', 'decimal:0,1'],
+            'englishLanguage.toefl.reading' => ['required_if:isTOEFL, true', 'decimal:0,1'],
+            'englishLanguage.toefl.writing' => ['required_if:isTOEFL, true', 'decimal:0,1'],
+            'englishLanguage.toefl.score' => ['required_if:isTOEFL, true', 'decimal:0,1'],
+            'englishLanguage.toefl.date' => ['required_if:isTOEFL, true', 'date'],
+            'englishLanguage.toefl.additional' => ['required_if:isTOEFL, true', 'string'],
             'englishLanguage.toefl.file' => ['sometimes','nullable'],
             //English Language PTE
             'englishLanguage.pte' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
@@ -96,13 +96,13 @@ class UpdateQuotationRequest extends BaseQuotationRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.pte.listening' => ['required_if:isPTE, true','nullable', 'decimal:0,1'],
-            'englishLanguage.pte.speaking' => ['required_if:isPTE, true','nullable', 'decimal:0,1'],
-            'englishLanguage.pte.reading' => ['required_if:isPTE, true','nullable', 'decimal:0,1'],
-            'englishLanguage.pte.writing' => ['required_if:isPTE, true','nullable', 'decimal:0,1'],
-            'englishLanguage.pte.score' => ['required_if:isPTE, true','nullable', 'decimal:0,1'],
-            'englishLanguage.pte.date' => ['required_if:isPTE, true','nullable', 'date'],
-            'englishLanguage.pte.additional' => ['required_if:isPTE, true','nullable', 'string'],
+            'englishLanguage.pte.listening' => ['required_if:isPTE, true', 'decimal:0,1'],
+            'englishLanguage.pte.speaking' => ['required_if:isPTE, true', 'decimal:0,1'],
+            'englishLanguage.pte.reading' => ['required_if:isPTE, true', 'decimal:0,1'],
+            'englishLanguage.pte.writing' => ['required_if:isPTE, true', 'decimal:0,1'],
+            'englishLanguage.pte.score' => ['required_if:isPTE, true', 'decimal:0,1'],
+            'englishLanguage.pte.date' => ['required_if:isPTE, true', 'date'],
+            'englishLanguage.pte.additional' => ['required_if:isPTE, true', 'string'],
             'englishLanguage.pte.file' => ['sometimes', 'nullable'],
 //            English Language GMAT
             'englishLanguage.gmat' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
@@ -111,13 +111,13 @@ class UpdateQuotationRequest extends BaseQuotationRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.gmat.listening' => ['required_if:isGMAT, true','nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.speaking' => ['required_if:isGMAT, true','nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.reading' => ['required_if:isGMAT, true','nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.writing' => ['required_if:isGMAT, true','nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.score' => ['required_if:isGMAT, true','nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.date' => ['required_if:isGMAT, true','nullable', 'date'],
-            'englishLanguage.gmat.additional' => ['required_if:isGMAT, true','nullable', 'string'],
+            'englishLanguage.gmat.listening' => ['required_if:isGMAT, true', 'decimal:0,1'],
+            'englishLanguage.gmat.speaking' => ['required_if:isGMAT, true', 'decimal:0,1'],
+            'englishLanguage.gmat.reading' => ['required_if:isGMAT, true', 'decimal:0,1'],
+            'englishLanguage.gmat.writing' => ['required_if:isGMAT, true', 'decimal:0,1'],
+            'englishLanguage.gmat.score' => ['required_if:isGMAT, true', 'decimal:0,1'],
+            'englishLanguage.gmat.date' => ['required_if:isGMAT, true', 'date'],
+            'englishLanguage.gmat.additional' => ['required_if:isGMAT, true', 'string'],
             'englishLanguage.gmat.file' => ['sometimes', 'nullable'],
 
             //English Language OTHERS
