@@ -30,6 +30,7 @@ class CourseController extends ApiController
             ->with(['representingInstitution', 'representingInstitution.representingCountry', 'currency'])
             ->allowedFilters([
                 AllowedFilter::exact('country', 'representingInstitution.representingCountry.id'),
+                AllowedFilter::exact('institution', 'representing_institution_id'),
                 AllowedFilter::partial('category', 'course_category'),
                 AllowedFilter::partial('intake'),
                 AllowedFilter::exact('level'),
