@@ -42,6 +42,7 @@ class QuotationResource extends JsonResource
             'isGMAT' => $this->resource->is_gmat,
             'additionalInformation' => $this->resource->additional_information,
             'addedBy' => $this->resource->addedBy->name,
+            'choices' => QuotationChoiceResource::collection($this->whenLoaded('quotationChoices')),
             'createdAt' => DateResource::make(
                 $this->resource->created_at,
             ),

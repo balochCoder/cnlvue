@@ -47,16 +47,6 @@ class LeadController extends Controller
                 END');
                 },
             ])
-//            ->addSelect([
-//                'is_duplicated' => function ($query) {
-//                    $query->selectRaw('CASE
-//                    WHEN (SELECT COUNT(*) FROM leads AS duplicates WHERE duplicates.student_email = leads.student_email) > 1
-//                         AND leads.id = (SELECT MAX(duplicates.id) FROM leads AS duplicates WHERE duplicates.student_email = leads.student_email)
-//                    THEN true
-//                    ELSE false
-//                END');
-//                },
-//            ])
             ->with(['leadSource', 'counsellors','counsellors.user', 'followups', 'branch','interestedInstitution','interestedCountry','quotation'])
 
             ->allowedFilters([
@@ -93,6 +83,7 @@ class LeadController extends Controller
                 'interestedInstitution',
                 'associate',
                 'quotation',
+                'quotation.quotationChoices'
             ])
             ->firstOrFail();
         return LeadResource::make($lead);

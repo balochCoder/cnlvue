@@ -59,7 +59,6 @@ class QuotationController extends Controller
 
     public function update(UpdateQuotationRequest $request, Quotation $quotation)
     {
-
         $attributes = [
             'storeData' => $request->getData(),
             'choices' => $request->choices,
