@@ -18,7 +18,7 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
-            $this->mergeWhen($request->routeIs('courses.*'),[
+            $this->mergeWhen($request->routeIs('courses.*') || $request->routeIs('representingInstitutions.courses'),[
                 'level' => [
                     'value' => $this->level,
                     'label'=> $this->level->getLabel(),
