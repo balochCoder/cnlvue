@@ -24,4 +24,28 @@ class QuotationChoice extends Model
         );
     }
 
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(
+            RepresentingInstitution::class,
+            'institution_id',
+        );
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(
+            RepresentingCountry::class,
+            'country_id',
+        );
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(
+            Course::class,
+            'course_id',
+        );
+    }
+
 }

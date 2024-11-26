@@ -83,7 +83,10 @@ class LeadController extends Controller
                 'interestedInstitution',
                 'associate',
                 'quotation',
-                'quotation.quotationChoices'
+                'quotation.quotationChoices',
+                'quotation.quotationChoices.country',
+                'quotation.quotationChoices.institution',
+                'quotation.quotationChoices.course',
             ])
             ->firstOrFail();
         return LeadResource::make($lead);

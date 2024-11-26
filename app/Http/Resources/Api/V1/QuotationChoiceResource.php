@@ -15,9 +15,9 @@ class QuotationChoiceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'countryId' => $this->resource->country_id,
-            'institutionId' => $this->resource->institution_id,
-            'courseId' => $this->resource->course_id,
+            'country' => RepresentingCountryResource::make($this->whenLoaded('country')),
+            'institution' => RepresentingInstitutionResource::make($this->whenLoaded('institution')),
+            'course' => CourseResource::make($this->whenLoaded('course')),
         ];
     }
 }
