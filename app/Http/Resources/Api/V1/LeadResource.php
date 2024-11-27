@@ -44,6 +44,7 @@ class LeadResource extends JsonResource
                 'additionalInfo' => $this->resource->additional_info,
                 'courseCategory' => json_decode($this->resource->course_category),
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
+                'followupsCount' => $this->followupsCountByMode ?? [],
                 'quotation' => QuotationResource::make($this->whenLoaded('quotation')),
                 'addedBy' => $this->addedBy->name,
                 'createdAt' => DateResource::make(

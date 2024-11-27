@@ -100,6 +100,15 @@ class LeadController extends Controller
                 'quotation.quotationChoices.course',
             ])
             ->firstOrFail();
+
+        // Calculate follow-ups count grouped by follow_up_mode
+        $followupsCountByMode = $lead->followups()
+            ->selectRaw('follow_up_mode, COUNT(*) as count')
+            ->groupBy('follow_up_mode')
+            ->pluck('count', 'follow_up_mode')
+            ->toArray();
+
+        $lead->setRelation('followupsCountByMode', $followupsCountByMode);
         return LeadResource::make($lead);
     }
 
