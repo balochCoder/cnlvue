@@ -66,6 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::patch('courses/{course}/status', [V1\Course\CourseController::class, 'status']);
 
+    Route::get('courses/{course}/pdf',[V1\Course\CourseController::class, 'pdf']);
     //Branch
     Route::apiResource('branches', V1\Branch\BranchController::class)
         ->except(['destroy']);

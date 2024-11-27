@@ -47,7 +47,19 @@ class LeadController extends Controller
                 END');
                 },
             ])
-            ->with(['leadSource', 'counsellors','counsellors.user', 'followups', 'branch','interestedInstitution','interestedCountry','quotation'])
+            ->with([
+                'leadSource',
+                'counsellors',
+                'counsellors.user',
+                'followups',
+                'branch',
+                'interestedInstitution',
+                'interestedCountry',
+                'quotation',
+                'quotation.quotationChoices.country.country',
+                'quotation.quotationChoices.institution',
+                'quotation.quotationChoices.course',
+            ])
 
             ->allowedFilters([
                 AllowedFilter::exact('country', 'interestedCountry.name'),
@@ -83,8 +95,7 @@ class LeadController extends Controller
                 'interestedInstitution',
                 'associate',
                 'quotation',
-                'quotation.quotationChoices',
-                'quotation.quotationChoices.country',
+                'quotation.quotationChoices.country.country',
                 'quotation.quotationChoices.institution',
                 'quotation.quotationChoices.course',
             ])

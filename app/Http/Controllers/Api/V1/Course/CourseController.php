@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api\V1\Course;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Jobs\Courses\CreateCourse;
 use App\Jobs\Courses\UpdateCourse;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
 use App\Http\Resources\Api\V1\CourseResource;
-use App\Models\{Course};
+use App\Models\{Course, Quotation};
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -80,4 +81,12 @@ class CourseController extends ApiController
         ]);
         return $this->ok('Course status updated successfully');
     }
+
+    public function pdf(Quotation $course)
+    {
+        $pdf = Pdf::loadView('course.pdf', compact('course'));
+
+        return $pdf->download('course.pdf');
+    }
 }
+
