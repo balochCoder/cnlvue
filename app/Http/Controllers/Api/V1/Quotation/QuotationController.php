@@ -11,6 +11,7 @@ use App\Jobs\Quotations\UpdateQuotation;
 use App\Models\Quotation;
 use App\Models\QuotationChoice;
 use App\Traits\ApiResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -67,5 +68,10 @@ class QuotationController extends Controller
             command: new UpdateQuotation($attributes, $quotation)
         );
         return $this->ok('Quotation updated successfully.');
+    }
+    public function pdf(Quotation $quotation)
+    {
+        $pdf = Pdf::loadView('quotation.pdf', compact('quotation'));
+        return $pdf->download('quotation.pdf');
     }
 }

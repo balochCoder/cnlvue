@@ -134,6 +134,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('quotations/{quotation}', [V1\Quotation\QuotationController::class, 'show'])->name('quotations.show');
     Route::post('quotations', [V1\Quotation\QuotationController::class, 'store'])->name('quotations.store');
     Route::put('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
+    Route::get('quotations/{quotation}/pdf',[V1\Quotation\QuotationController::class, 'pdf']);
+
 
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');

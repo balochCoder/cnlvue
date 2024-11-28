@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/courses/{course}/pdf', function (\App\Models\Quotation $course) {
+Route::get('/courses/{course}/pdf', function (\App\Models\Course $course) {
     return view('course.pdf')->with('course', $course);
 });
 Route::get('/leads/{lead}/pdf', function (\App\Models\Lead $lead) {

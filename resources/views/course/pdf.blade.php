@@ -76,7 +76,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Student Quotation / Course Comparison</h1>
+    <h1>Course Details</h1>
     <div class="image">
         <!-- Placeholder for the institution logo -->
         <img src="{{public_path('cnl.png')}}" alt="Institution Logo">
@@ -84,147 +84,146 @@
 
     <table class="table">
         <tr>
-
             <th>Institution Name</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->institution->name}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->representingInstitution->name}}</td>
+
         </tr>
         <tr>
             <th>Course Title</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->title}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->title}}</td>
+
 
         </tr>
         <tr>
             <th>Course Duration</th>
-            @foreach($course->quotationChoices as $index=> $choice)
 
-                @php
-                    $data = json_decode($choice->course->duration, true);
-                    $year = $data['year'];
-                    $months = $data['month'];
-                    $weeks = $data['weeks'];
 
-                    $months_to_years = $months / 12;
-                    $weeks_to_years = $weeks / 52;
+            @php
+                $data = json_decode($course->duration, true);
+                $year = $data['year'];
+                $months = $data['month'];
+                $weeks = $data['weeks'];
 
-                    // Calculate total years
-                    $total_years = $year + $months_to_years + $weeks_to_years;
+                $months_to_years = $months / 12;
+                $weeks_to_years = $weeks / 52;
 
-                    // Round down to the nearest whole number
-                    $total_years_whole = floor($total_years);
-                @endphp
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$total_years_whole}} {{\Illuminate\Support\Str::plural('year', $total_years_whole)}}</td>
-            @endforeach
+                // Calculate total years
+                $total_years = $year + $months_to_years + $weeks_to_years;
+
+                // Round down to the nearest whole number
+                $total_years_whole = floor($total_years);
+            @endphp
+            <td style="background-color: #B8DAFF;">{{$total_years_whole}} {{\Illuminate\Support\Str::plural('year', $total_years_whole)}}</td>
+
 
         </tr>
         <tr>
             <th>Course Level</th>
-            @foreach($course->quotationChoices as $index=> $choice)
 
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{\App\Enums\CourseLevel::tryFrom($choice->course->level)->getLabel()}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{\App\Enums\CourseLevel::tryFrom($course->level)->getLabel()}}</td>
+
 
         </tr>
         <tr>
             <th>Course Fee</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->fee}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->currency->symbol ?? $course->currency->code}}{{$course->fee}}</td>
+
 
         </tr>
         <tr>
             <th>Application Fee</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->application_fee}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->currency->symbol ?? $course->currency->code}}{{$course->application_fee}}</td>
+
 
         </tr>
         <tr>
             <th>Course Benefits</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->course_benefits}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->course_benefits}}</td>
+
         </tr>
         <tr>
             <th>Campus</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->campus}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->campus}}</td>
+
         </tr>
         <tr>
             <th>Awarding Body</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->awarding_body}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->awarding_body}}</td>
+
         </tr>
         <tr>
             <th>General Eligibility</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">
-                    {{$choice->course->general_eligibility}}
-                </td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">
+                {{$course->general_eligibility}}
+            </td>
+
         </tr>
         <tr>
             <th>Language Requirements</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">
-                    {{$choice->course->language_requirements}}
-                </td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">
+                {{$course->language_requirements}}
+            </td>
+
 
         </tr>
         <tr>
             <th>Monthly Living Cost</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->monthly_living_cost}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->currency->symbol ?? $course->currency->code}}{{$course->monthly_living_cost}}</td>
+
 
         </tr>
         <tr>
             <th>Funds Requirement for Visa</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->representingInstitution->funds_required}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->currency->symbol ?? $course->currency->code}}{{$course->representingInstitution->funds_required}}</td>
+
         </tr>
         <tr>
             <th>Part-Time Work</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->part_time_work_details}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->part_time_work_details}}</td>
+
         </tr>
         <tr>
             <th>Institutional Benefits</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->institutional_benefits}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->representingInstitution->institutional_benefits}}</td>
+
         </tr>
         <tr>
             <th>Visa Requirement</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->representingCountry->visa_requirements}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->representingInstitution->representingCountry->visa_requirements}}</td>
+
 
         </tr>
         <tr>
             <th>Country Benefits</th>
-            @foreach($course->quotationChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->representingCountry->country_benefits}}</td>
-            @endforeach
+
+            <td style="background-color: #B8DAFF;">{{$course->representingInstitution->representingCountry->country_benefits}}</td>
+
 
         </tr>
         <tr>
             <th>Course Intake</th>
-            @foreach($course->quotationChoices as $index=> $choice)
 
-                @php
-                    $intakes = json_decode($choice->course->intake, true);
-                @endphp
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{implode(', ', $intakes)}}</td>
-            @endforeach
+
+            @php
+                $intakes = json_decode($course->intake, true);
+            @endphp
+            <td style="background-color: #B8DAFF;">{{implode(', ', $intakes)}}</td>
+
 
         </tr>
     </table>

@@ -82,7 +82,7 @@ class CourseController extends ApiController
         return $this->ok('Course status updated successfully');
     }
 
-    public function pdf(Quotation $course)
+    public function pdf(Course $course)
     {
         $pdf = Pdf::loadView('course.pdf', compact('course'));
 
