@@ -15,6 +15,7 @@
 
         .container {
             max-width: 800px;
+
             margin: auto;
             background: #fff;
             border-radius: 8px;
@@ -123,7 +124,7 @@
             <th>Course Level</th>
             @foreach($course->quotationChoices as $index=> $choice)
 
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{\App\Enums\CourseLevel::getLabelBlade($choice->course->level)}}</td>
+                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{\App\Enums\CourseLevel::tryFrom($choice->course->level)->getLabel()}}</td>
             @endforeach
 
         </tr>

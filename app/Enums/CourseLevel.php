@@ -39,22 +39,4 @@ enum CourseLevel: string
         };
     }
 
-    public static function getLabelBlade($value): string
-    {
-        return match ($value) {
-            self::AdvancedDiploma => __('Advanced Diploma'),
-            self::AppliedDegree => __('Applied Degrees'),
-            self::UG => __('Bachelors/UG'),
-            self::Certificate => __('Certificate'),
-            self::Coaching => __('Coaching/Preparing Courses'),
-            self::Diploma => __('Diploma'),
-            self::Foundation => __('Foundation'),
-            self::GraduateCertificate => __('Graduate Certificate'),
-            self::Masters => __('Masters/PG'),
-            self::PHD => __('Phd/Doctorate'),
-            self::PostDoctorate => __('Post-Doctorate'),
-            self::SummerSchool => __('Summer School'),
-            self::Others => __('Others'),
-        };
-    }
 }

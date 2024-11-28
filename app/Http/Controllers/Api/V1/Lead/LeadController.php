@@ -14,6 +14,7 @@ use App\Jobs\Leads\CreateLead;
 use App\Jobs\Leads\UpdateLead;
 use App\Models\Lead;
 use App\Traits\ApiResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -148,5 +149,18 @@ class LeadController extends Controller
             command: new UpdateLead($attributes, $lead)
         );
         return $this->ok('Lead updated successfully.');
+    }
+
+    public function pdf(Lead $lead)
+    {
+        $followupsCountByMode = $lead->followups()
+            ->selectRaw('follow_up_mode, COUNT(*) as count')
+            ->groupBy('follow_up_mode')
+            ->pluck('count', 'follow_up_mode')
+            ->toArray();
+
+        $lead->setRelation('followupsCountByMode', $followupsCountByMode);
+        $pdf = Pdf::loadView('lead.report', compact('lead'));
+        return $pdf->download('report.pdf');
     }
 }

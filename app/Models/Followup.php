@@ -39,7 +39,6 @@ class Followup extends Model
     protected function casts(): array
     {
         return [
-            'lead_type' => LeadStatus::class,
             'follow_up_mode' => FollowUpMode::class,
             'follow_up_date' => 'date',
             'time' => 'object',

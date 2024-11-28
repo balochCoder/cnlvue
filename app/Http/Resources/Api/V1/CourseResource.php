@@ -19,10 +19,7 @@ class CourseResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             $this->mergeWhen($request->routeIs('courses.*') || $request->routeIs('representingInstitutions.courses'),[
-                'level' => [
-                    'value' => $this->level,
-                    'label'=> $this->level->getLabel(),
-                ],
+                'level' => $this->level,
                 'representingInstitution' => RepresentingInstitutionResource::make($this->whenLoaded('representingInstitution')),
                 'duration' => json_decode($this->resource->duration),
                 'startDate' => $this->resource->start_date,

@@ -60,7 +60,6 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_active' => 'boolean',
             'last_login' => 'datetime',
-            'download_csv' => DownloadCSV::class,
         ];
     }
 

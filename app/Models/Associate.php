@@ -78,7 +78,6 @@ class Associate extends Model
     protected function casts(): array
     {
         return [
-            'category' => AssociateCategories::class,
             'is_active' => 'boolean',
             'country_id' => 'integer',
             'branch_id' => 'integer',

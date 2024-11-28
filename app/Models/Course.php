@@ -55,7 +55,6 @@ class Course extends Model
     protected function casts(): array
     {
         return [
-            'level' => CourseLevel::class,
             'duration' => 'object',
             'course_category' => 'array',
             'modules' => 'array',

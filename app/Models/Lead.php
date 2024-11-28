@@ -121,7 +121,6 @@ class Lead extends Model
     protected function casts(): array
     {
         return [
-            'course_level_of_interest' => CourseLevel::class,
             'course_category' => 'array',
             'date_of_birth' => 'date',
             'is_country_preferred' => 'boolean',
@@ -133,7 +132,6 @@ class Lead extends Model
             'intake_of_interest_month' => 'string',
             'intake_of_interest_year' => 'integer',
             'is_application_generated' => 'boolean',
-            'status' => LeadStatus::class
         ];
     }
 }

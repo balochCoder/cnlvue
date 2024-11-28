@@ -70,7 +70,6 @@ class Task extends Model
     protected function casts(): array
     {
         return [
-            'status' => TaskStatus::class,
             'assigned_to' => 'integer',
             'assigned_by' => 'integer',
             'start_date' => 'date',

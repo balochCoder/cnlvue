@@ -115,6 +115,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::apiResource('followups', V1\Followup\FollowupController::class)
         ->only(['store', 'index']);
+    Route::get('leads/{lead}/pdf',[V1\Lead\LeadController::class, 'pdf']);
+
 
     //Tasks
     Route::get('tasks',[V1\Task\TaskController::class, 'index'])
