@@ -35,7 +35,9 @@ class FollowupController extends Controller
         $followups = QueryBuilder::for(
             Followup::class
         )
-            ->with(['lead'])
+            ->whereHas('followupable', function ($query) {
+                $query->where('followupable_type', Lead::class);
+            })
             ->getEloquentBuilder()
             ->get();
         return FollowupResource::collection($followups);
