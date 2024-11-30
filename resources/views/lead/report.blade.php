@@ -164,7 +164,7 @@
             @endif
         </div>
         <div class="info-row">
-            <div>Lead Source: {{$lead->leadSource->source_name}}</div>
+            <div>Lead Source: {{\Illuminate\Support\Str::ucfirst($lead->leadSource->source_name)}}</div>
             <div>Lead Type: {{\App\Enums\LeadStatus::tryFrom($lead->status)?->getLabel()}}</div>
         </div>
         <div class="info-row">
@@ -213,11 +213,11 @@
     <div class="additional-info">
         <div class="info-item">
             <strong>Country of Interest:</strong>
-            <span>{{$lead->interestedCountry->name}}</span>
+            <span>{{$lead->interestedCountry->name ?? '-'}}</span>
         </div>
         <div class="info-item">
             <strong>Interested Institution:</strong>
-            <span>{{$lead->interestedInstitution->name ?? null}}</span>
+            <span>{{$lead->interestedInstitution->name ?? "-"}}</span>
         </div>
         <div class="info-item">
             <strong>Intake of Interest:</strong>
@@ -225,7 +225,7 @@
         </div>
         <div class="info-item">
             <strong>Budget:</strong>
-            <span>{{$lead->estimated_budget}}</span>
+            <span>{{$lead->estimated_budget ?? "-"}}</span>
         </div>
         <div class="info-item">
             <strong>Field of Interest:</strong>
