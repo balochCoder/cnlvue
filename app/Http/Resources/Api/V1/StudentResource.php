@@ -6,7 +6,7 @@ use App\Http\Resources\Api\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuotationResource extends JsonResource
+class StudentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -42,7 +42,7 @@ class QuotationResource extends JsonResource
             'isGMAT' => $this->resource->is_gmat,
             'additionalInformation' => $this->resource->additional_information,
             'addedBy' => $this->resource->addedBy->name,
-            'choices' => QuotationChoiceResource::collection($this->whenLoaded('quotationChoices')),
+            'choices' => StudentChoiceResource::collection($this->whenLoaded('studentChoices')),
             'createdAt' => DateResource::make(
                 $this->resource->created_at,
             ),

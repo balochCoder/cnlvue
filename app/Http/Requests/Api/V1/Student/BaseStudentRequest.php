@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Quotation;
+namespace App\Http\Requests\Api\V1\Student;
 
 use App\Models\Lead;
-use App\Models\Quotation;
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
 
-class BaseQuotationRequest extends FormRequest
+class BaseStudentRequest extends FormRequest
 {
     public function mappedAttributes(array $otherAttributes = []): array
     {
@@ -54,13 +54,13 @@ class BaseQuotationRequest extends FormRequest
         $data = $this->mappedAttributes();
 
         if ($this->hasFile('studentImage')) {
-            $directory = Quotation::makeDirectory('student_image');
+            $directory = Student::makeDirectory('student_image');
             $data['student_image'] = Storage::url('/') . $this->studentImage->store($directory);
         }
         if ($this->educationHistory) {
             foreach ($this->educationHistory as $index => $educationHistory) {
                 if ($this->hasFile("educationHistory.$index.file")) {
-                    $directory = Quotation::makeDirectory('education_history');
+                    $directory = Student::makeDirectory('education_history');
                     $data['education_history'][$index]["file"] = Storage::url('/') . $educationHistory['file']->store($directory);
                 }
             }
@@ -68,23 +68,23 @@ class BaseQuotationRequest extends FormRequest
         }
         if ($this->englishLanguage) {
             if ($this->hasFile("englishLanguage.ielts.file")) {
-                $directory = Quotation::makeDirectory('english_language/ielts');
+                $directory = Student::makeDirectory('english_language/ielts');
                 $data['english_language']['ielts']['file'] = Storage::url('/') . $this->englishLanguage['ielts']['file']->store($directory);
             }
             if ($this->hasFile("englishLanguage.toefl.file")) {
-                $directory = Quotation::makeDirectory('english_language/toefl');
+                $directory = Student::makeDirectory('english_language/toefl');
                 $data['english_language']['toefl']['file'] = Storage::url('/') . $this->englishLanguage['toefl']['file']->store($directory);
             }
             if ($this->hasFile("englishLanguage.pte.file")) {
-                $directory = Quotation::makeDirectory('english_language/pte');
+                $directory = Student::makeDirectory('english_language/pte');
                 $data['english_language']['pte']['file'] = Storage::url('/') . $this->englishLanguage['pte']['file']->store($directory);
             }
             if ($this->hasFile("englishLanguage.gmat.file")) {
-                $directory = Quotation::makeDirectory('english_language/gmat');
+                $directory = Student::makeDirectory('english_language/gmat');
                 $data['english_language']['gmat']['file'] = Storage::url('/') . $this->englishLanguage['gmat']['file']->store($directory);
             }
             if ($this->hasFile("englishLanguage.others.file")) {
-                $directory = Quotation::makeDirectory('english_language/others');
+                $directory = Student::makeDirectory('english_language/others');
                 $data['english_language']['others']['file'] = Storage::url('/') . $this->englishLanguage['others']['file']->store($directory);
             }
 
@@ -93,7 +93,7 @@ class BaseQuotationRequest extends FormRequest
         if ($this->workExperience) {
             foreach ($this->workExperience as $index => $workExperience) {
                 if ($this->hasFile("workExperience.$index.file")) {
-                    $directory = Quotation::makeDirectory('work_experience');
+                    $directory = Student::makeDirectory('work_experience');
                     $data['work_experience'][$index]['file'] = Storage::url('/') . $workExperience['file']->store($directory);
                 }
             }
@@ -102,7 +102,7 @@ class BaseQuotationRequest extends FormRequest
         if ($this->statementOfPurpose) {
 
             if ($this->hasFile("statementOfPurpose.file")) {
-                $directory = Quotation::makeDirectory('statement_of_purpose');
+                $directory = Student::makeDirectory('statement_of_purpose');
                 $data['statement_of_purpose']['file'] = Storage::url('/') . $this->statementOfPurpose['file']->store($directory);
             }
 
@@ -111,7 +111,7 @@ class BaseQuotationRequest extends FormRequest
         if ($this->additionalDocuments) {
             foreach ($this->additionalDocuments as $index => $additionalDocument) {
                 if ($this->hasFile("additionalDocuments.$index.file")) {
-                    $directory = Quotation::makeDirectory('additional_document');
+                    $directory = Student::makeDirectory('additional_document');
                     $data['additional_documents'][$index]['file'] = Storage::url('/') . $additionalDocument['file']->store($directory);
                 }
             }

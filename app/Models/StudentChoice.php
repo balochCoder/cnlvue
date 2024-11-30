@@ -6,21 +6,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class QuotationChoice extends Model
+class StudentChoice extends Model
 {
     protected $fillable = [
-        'quotation_id',
+        'student_id',
         'country_id',
         'institution_id',
         'course_id',
     ];
     public $timestamps = false;
 
-    public function quotation(): BelongsTo
+    public function student(): BelongsTo
     {
         return $this->belongsTo(
-            Quotation::class,
-            'quotation_id',
+            Student::class,
+            'student_id',
         );
     }
 

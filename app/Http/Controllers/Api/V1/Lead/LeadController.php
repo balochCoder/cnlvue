@@ -56,10 +56,10 @@ class LeadController extends Controller
                 'branch',
                 'interestedInstitution',
                 'interestedCountry',
-                'quotation',
-                'quotation.quotationChoices.country.country',
-                'quotation.quotationChoices.institution',
-                'quotation.quotationChoices.course',
+                'student',
+                'student.studentChoices.country.country',
+                'student.studentChoices.institution',
+                'student.studentChoices.course',
             ])
 
             ->allowedFilters([
@@ -95,10 +95,10 @@ class LeadController extends Controller
                 'interestedCountry.representingCountry',
                 'interestedInstitution',
                 'associate',
-                'quotation',
-                'quotation.quotationChoices.country.country',
-                'quotation.quotationChoices.institution',
-                'quotation.quotationChoices.course',
+                'student',
+                'student.studentChoices.country.country',
+                'student.studentChoices.institution',
+                'student.studentChoices.course',
             ])
             ->firstOrFail();
 

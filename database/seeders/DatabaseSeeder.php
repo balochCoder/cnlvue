@@ -10,7 +10,7 @@ use App\Models\FrontOffice;
 use App\Models\Lead;
 use App\Models\LeadSource;
 use App\Models\ProcessingOffice;
-use App\Models\Quotation;
+use App\Models\Student;
 use App\Models\Remark;
 use App\Models\RepresentingCountry;
 
@@ -87,6 +87,6 @@ class DatabaseSeeder extends Seeder
         });
         Task::factory(10)->create();
         TaskRemark::factory(10)->create();
-        Quotation::factory(10)->create();
+        Student::factory(10)->create();
     }
 }

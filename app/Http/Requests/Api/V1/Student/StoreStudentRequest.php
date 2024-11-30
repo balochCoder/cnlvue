@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Quotation;
+namespace App\Http\Requests\Api\V1\Student;
 
 
-class StoreQuotationRequest extends BaseQuotationRequest
+class StoreStudentRequest extends BaseStudentRequest
 {
 
     public function authorize(): bool

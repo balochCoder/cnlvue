@@ -101,10 +101,10 @@ class Lead extends Model
         );
     }
 
-    public function quotation(): HasOne
+    public function student(): HasOne
     {
         return $this->hasOne(
-            Quotation::class,
+            Student::class,
             'lead_id',
         );
     }

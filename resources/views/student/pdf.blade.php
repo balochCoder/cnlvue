@@ -76,7 +76,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Student Quotation / Course Comparison</h1>
+    <h1>Student Student / Course Comparison</h1>
     <div class="image">
         <!-- Placeholder for the institution logo -->
         <img src="{{public_path('cnl.png')}}" alt="Institution Logo">
@@ -86,20 +86,20 @@
         <tr>
 
             <th>Institution Name</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->institution->name}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Course Title</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->title}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Course Duration</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
 
                 @php
                     $data = json_decode($choice->course->duration, true);
@@ -122,7 +122,7 @@
         </tr>
         <tr>
             <th>Course Level</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
 
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{\App\Enums\CourseLevel::tryFrom($choice->course->level)->getLabel()}}</td>
             @endforeach
@@ -130,39 +130,39 @@
         </tr>
         <tr>
             <th>Course Fee</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->fee}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Application Fee</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->application_fee}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Course Benefits</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->course_benefits}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Campus</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->campus}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Awarding Body</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->awarding_body}}</td>
             @endforeach
         </tr>
         <tr>
             <th>General Eligibility</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">
                     {{$choice->course->general_eligibility}}
                 </td>
@@ -170,7 +170,7 @@
         </tr>
         <tr>
             <th>Language Requirements</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">
                     {{$choice->course->language_requirements}}
                 </td>
@@ -179,46 +179,46 @@
         </tr>
         <tr>
             <th>Monthly Living Cost</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->monthly_living_cost}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Funds Requirement for Visa</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->representingInstitution->funds_required}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Part-Time Work</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->part_time_work_details}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Institutional Benefits</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->institutional_benefits}}</td>
             @endforeach
         </tr>
         <tr>
             <th>Visa Requirement</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->representingCountry->visa_requirements}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Country Benefits</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
                 <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->representingInstitution->representingCountry->country_benefits}}</td>
             @endforeach
 
         </tr>
         <tr>
             <th>Course Intake</th>
-            @foreach($quotation->quotationChoices as $index=> $choice)
+            @foreach($student->studentChoices as $index=> $choice)
 
                 @php
                     $intakes = json_decode($choice->course->intake, true);

@@ -129,12 +129,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::patch('/tasks/{task}', [V1\Task\TaskController::class, 'update'])->name('/tasks.update');
 
-//    Quotations
-    Route::get('quotations', [ V1\Quotation\QuotationController::class, 'index'])->name('quotations.index');
-    Route::get('quotations/{quotation}', [V1\Quotation\QuotationController::class, 'show'])->name('quotations.show');
-    Route::post('quotations', [V1\Quotation\QuotationController::class, 'store'])->name('quotations.store');
-    Route::put('quotations/{quotation}',[V1\Quotation\QuotationController::class,'update'])->name('quotations.update');
-    Route::get('quotations/{quotation}/pdf',[V1\Quotation\QuotationController::class, 'pdf']);
+//    Students
+    Route::get('students', [ V1\Student\StudentController::class, 'index'])->name('students.index');
+    Route::get('students/{student}', [V1\Student\StudentController::class, 'show'])->name('students.show');
+    Route::post('students', [V1\Student\StudentController::class, 'store'])->name('students.store');
+    Route::put('students/{student}',[V1\Student\StudentController::class,'update'])->name('students.update');
+    Route::get('students/{student}/pdf',[V1\Student\StudentController::class, 'pdf']);
 
 
 //    Roles

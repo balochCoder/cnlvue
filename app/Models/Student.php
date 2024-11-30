@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
-class Quotation extends Model
+class Student extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -51,11 +51,11 @@ class Quotation extends Model
         );
     }
 
-    public function quotationChoices(): HasMany
+    public function studentChoices(): HasMany
     {
         return $this->hasMany(
-            QuotationChoice::class,
-            'quotation_id',
+            StudentChoice::class,
+            'student_id',
         );
     }
 
@@ -69,7 +69,7 @@ class Quotation extends Model
 
     public static function makeDirectory($folder): string
     {
-        $subFolder = 'files/quotation/' . $folder;
+        $subFolder = 'files/student/' . $folder;
 
         Storage::makeDirectory($subFolder);
 
@@ -81,7 +81,7 @@ class Quotation extends Model
         return Attribute::make(
             get: function ($value) {
                 if ($value == null) {
-                    return Storage::url('files/quotation/no_image_available.png');
+                    return Storage::url('files/student/no_image_available.png');
                 }
 
                 return $value;

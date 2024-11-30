@@ -11,7 +11,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\Api\V1\Course\{StoreCourseRequest, UpdateCourseRequest};
 use App\Http\Resources\Api\V1\CourseResource;
-use App\Models\{Course, Quotation};
+use App\Models\{Course, Student};
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
