@@ -20,8 +20,14 @@ class StudentFactory extends Factory
         $users = User::role('counsellor')->pluck('id')->toArray();
         return [
             'lead_id' => $this->faker->randomElement($leads),
+            'student_first_name' => $this->faker->firstName(),
+            'student_last_name' => $this->faker->lastName(),
             'student_gender' => $this->faker->randomElement(['Male', 'Female']),
             'student_title' => $this->faker->randomElement(['Mr', 'Mrs', 'Ms', 'Miss']),
+            'student_email' => $this->faker->unique()->safeEmail(),
+            'student_phone' => $this->faker->phoneNumber(),
+            'student_mobile' => $this->faker->phoneNumber(),
+            'date_of_birth' => $this->faker->date(),
             'student_nationality' => $this->faker->country(),
             'is_valid_passport' => $valid = $this->faker->boolean(),
             'student_passport' => $valid ? $this->faker->randomNumber() : null,

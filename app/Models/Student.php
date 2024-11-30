@@ -16,6 +16,13 @@ class Student extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'student_first_name',
+        'student_last_name',
+        'student_email',
+        'student_phone',
+        'student_mobile',
+        'student_skype',
+        'date_of_birth',
         'student_nationality',
         'student_passport',
         'student_image',
@@ -109,6 +116,7 @@ class Student extends Model
             'is_toefl' => 'boolean',
             'is_pte' => 'boolean',
             'is_gmat' => 'boolean',
+            'date_of_birth' => 'date',
         ];
     }
 }

@@ -12,6 +12,13 @@ class BaseStudentRequest extends FormRequest
     public function mappedAttributes(array $otherAttributes = []): array
     {
         $attributeMap = array_merge([
+            'studentFirstName' => 'student_first_name',
+            'studentLastName' => 'student_last_name',
+            'studentEmail' => 'student_email',
+            'studentPhone' => 'student_phone',
+            'studentMobile' => 'student_mobile',
+            'studentSkype' => 'student_skype',
+            'dateOfBirth' => 'date_of_birth',
             'studentNationality' => 'student_nationality',
             'studentPassport' => 'student_passport',
             'studentImage' => 'student_image',
@@ -33,10 +40,11 @@ class BaseStudentRequest extends FormRequest
             'isMedicalRequired' => 'is_medical_required',
             'leadId' => 'lead_id',
             'isIELTS' => 'is_ielts',
-            'isPTE'=> 'is_pte',
-            'isTOEFL'=> 'is_toefl',
-            'isGMAT'=> 'is_gmat',
+            'isPTE' => 'is_pte',
+            'isTOEFL' => 'is_toefl',
+            'isGMAT' => 'is_gmat',
             'choices' => 'choices',
+
 
 
         ], $otherAttributes);
@@ -128,16 +136,18 @@ class BaseStudentRequest extends FormRequest
             $data['correspondence_address'] = json_encode($this->correspondenceAddress);
         }
 
-        $lead = Lead::findOrFail($this->leadId);
-        $lead?->update([
-            'student_first_name' => $this->studentFirstName,
-            'student_last_name' => $this->studentLastName,
-            'student_email' => $this->studentEmail,
-            'student_phone' => $this->studentPhone,
-            'student_mobile' => $this->studentMobile,
-            'student_skype' => $this->studentSkype,
-            'date_of_birth' => $this->dateOfBirth
-        ]);
+//        if ($this->leadId) {
+//            $lead = Lead::findOrFail($this->leadId);
+//            $lead?->update([
+//                'student_first_name' => $this->studentFirstName,
+//                'student_last_name' => $this->studentLastName,
+//                'student_email' => $this->studentEmail,
+//                'student_phone' => $this->studentPhone,
+//                'student_mobile' => $this->studentMobile,
+//                'student_skype' => $this->studentSkype,
+//                'date_of_birth' => $this->dateOfBirth
+//            ]);
+//        }
         $data['added_by'] = auth()->id();
         return $data;
     }

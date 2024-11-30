@@ -37,7 +37,7 @@ class CreateStudent implements ShouldQueue
         $database->transaction(
             callback: function ()  {
                 $student = Student::create($this->attributes['storeData']);
-                if ($this->attributes['choices']) {
+                if ($this->attributes['choices'][0]['countryId'] != null) {
                     foreach ($this->attributes['choices'] as $choice) {
                         StudentChoice::create([
                             'student_id' => $student->id,

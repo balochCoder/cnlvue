@@ -18,6 +18,14 @@ class StudentResource extends JsonResource
         return [
             'id'=> $this->resource->id,
             'lead' => LeadResource::make($this->whenLoaded('lead')),
+            'studentFirstName' => $this->resource->student_first_name,
+            'studentLastName' => $this->resource->student_last_name,
+            'studentEmail' => $this->resource->student_email,
+            'studentPhone' => $this->resource->student_phone,
+            'studentMobile' => $this->resource->student_mobile,
+            'studentSkype' => $this->resource->student_skype,
+            'dateOfBirth' => $this->resource->date_of_birth ? ['date' => $this->resource->date_of_birth, 'age' => $this->resource->date_of_birth->age] : null,
+
             'studentImage' => $this->resource->student_image,
             'studentTitle' => $this->resource->student_title,
             'studentGender' => $this->resource->student_gender,

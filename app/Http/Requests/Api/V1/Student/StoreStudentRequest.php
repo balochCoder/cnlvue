@@ -174,8 +174,8 @@ class StoreStudentRequest extends BaseStudentRequest
             //CountryId, CourseId, InstitutionId
             'choices' => ['nullable', 'array'],
             'choices.*.countryId' => ['nullable', 'exists:representing_countries,id'],
-            'choices.*.institutionId' => ['required_with:choices.*.countryId', 'exists:representing_institutions,id'],
-            'choices.*.courseId' => ['required_with:choices.*.countryId', 'exists:courses,id'],
+            'choices.*.institutionId' => ['required_with:choices.*.countryId', 'nullable','exists:representing_institutions,id'],
+            'choices.*.courseId' => ['required_with:choices.*.countryId', 'nullable','exists:courses,id'],
         ];
     }
 
