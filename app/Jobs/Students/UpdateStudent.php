@@ -37,15 +37,18 @@ class UpdateStudent implements ShouldQueue
         $database->transaction(
             callback: function () {
                 $this->student->update($this->attributes['storeData']);
-                if ($this->attributes['choices'][0]['countryId'] != null) {
+                if ($this->attributes['choices']) {
                     $this->student->studentChoices()->delete();
                     foreach ($this->attributes['choices'] as $choice) {
-                        StudentChoice::create([
-                            'student_id' => $this->student->id,
-                            'country_id' => $choice['countryId'],
-                            'institution_id' => $choice['institutionId'],
-                            'course_id' => $choice['courseId'],
-                        ]);
+                        if($choice['countryId'] != null && $choice['courseId'] != null && $choice['institutionId'] != null) {
+
+                            StudentChoice::create([
+                                'student_id' => $this->student->id,
+                                'country_id' => $choice['countryId'],
+                                'institution_id' => $choice['institutionId'],
+                                'course_id' => $choice['courseId'],
+                            ]);
+                        }
                     }
                 }
             },

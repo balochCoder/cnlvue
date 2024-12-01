@@ -90,7 +90,7 @@ class LeadController extends Controller
                 'branch',
                 'leadSource',
                 'counsellors.user',
-                'followups',
+                'followups' => fn($query) => $query->latest('id'),
                 'interestedCountry',
                 'interestedCountry.representingCountry',
                 'interestedInstitution',
