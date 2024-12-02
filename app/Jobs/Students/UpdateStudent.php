@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 class UpdateStudent implements ShouldQueue
 {
@@ -29,6 +30,7 @@ class UpdateStudent implements ShouldQueue
 
     /**
      * Execute the job.
+     * @throws Throwable
      */
     public function handle(
         DatabaseManager $database
