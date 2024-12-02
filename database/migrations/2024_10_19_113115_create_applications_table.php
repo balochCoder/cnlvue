@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
 
-            $table->string('student_reference');
+            $table->string('student_reference')->unique();
             $table->string('student_first_name');
             $table->string('student_last_name')->nullable();
             $table->string('student_email')->nullable();
