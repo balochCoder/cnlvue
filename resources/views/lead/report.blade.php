@@ -231,7 +231,12 @@
             <strong>Field of Interest:</strong>
             @php
                 // Map the selected categories to their labels
-                $categoryLabels = array_map(fn($category) => \App\Enums\CourseCategories::tryFrom($category)?->getLabel(), json_decode($lead->course_category));
+                $categoryLabels = $categoryLabels = $lead->course_category
+    ? array_map(
+        fn($category) => \App\Enums\CourseCategories::tryFrom($category)?->getLabel(),
+        json_decode($lead->course_category)
+      )
+    : ["-"];;
                 // Convert the array of labels to a comma-separated string
                 $commaSeparatedLabels = implode(', ', $categoryLabels);
             @endphp
