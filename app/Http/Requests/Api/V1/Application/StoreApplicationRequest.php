@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Student;
+namespace App\Http\Requests\Api\V1\Application;
 
 
-class StoreStudentRequest extends BaseStudentRequest
+class StoreApplicationRequest extends BaseApplicationRequest
 {
 
     public function authorize(): bool
@@ -15,29 +15,46 @@ class StoreStudentRequest extends BaseStudentRequest
     public function rules(): array
     {
         return [
-            'studentGender' => ['required', 'string', 'in:Male,Female'],
-            'studentTitle' => ['required', 'string', 'in:Mr,Mrs,Ms,Miss'],
             'studentFirstName' => ['required', 'string', 'min:2', 'max:255'],
             'studentLastName' => ['required', 'string', 'min:2', 'max:255'],
-            'studentSkype' => ['nullable', 'string'],
+            'studentEmail' => ['nullable', 'email', 'string'],
+            'studentPhone' => ['nullable', 'string'],
+            'studentMobile' => ['nullable', 'string'],
+
+            'studentNationality' => ['required', 'string'],
+            'studentPassport' => ['required_if:isValidPassport,true', 'nullable', 'string'],
+            'studentImage' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'intakeMonth' => ['nullable', 'string'],
+            'intakeYear' => ['nullable', 'string'],
+
+            'applicationPaymentMethod' => ['nullable', 'string'],
+            'applicationPaymentReference' => ['nullable', 'string'],
+            'scholarshipOffered' => ['nullable', 'numeric'],
+            'scholarshipProof' => ['nullable', 'file', 'max:2048'],
+            'feePaymentMethod' => ['nullable', 'string'],
+            'feePaymentReference' => ['nullable', 'string'],
 
             'dateOfBirth' => ['required', 'date'],
-            'studentMaritalStatus' => ['required', 'string', 'in:Married,Single'],
-            'studentNationality' => ['required', 'string'],
-            'isValidPassport' => ['required', 'boolean'],
-            'studentPassport' => ['required_if:isValidPassport,true', 'nullable', 'string'],
-            'studentPhone' => ['nullable', 'string'],
-            'studentEmail' => ['nullable', 'email', 'string'],
-            'studentMobile' => ['nullable', 'string'],
-            'studentImage' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
-//            Permanent Address
+            'applicationPaymentDate' => ['nullable', 'date'],
+            'feePaymentDate' => ['nullable', 'date'],
+
+            'medicalHistory' => ['required_if:isMedicalRequired,true', 'nullable', 'string'],
+            'additionalInformation' => ['nullable', 'string'],
+
+            'applicationFee' => ['nullable', 'numeric'],
+            'totalTuitionFeeToBePaid' => ['nullable', 'numeric'],
+            'feePaidSoFar' => ['nullable', 'numeric'],
+            'firstYearFeeDue' => ['nullable', 'numeric'],
+            'totalFeeDue' => ['nullable', 'numeric'],
+
+            //Permanent Address
             'permanentAddress' => ['nullable', 'array', 'required_array_keys:address,city,state,country', function ($attribute, $value, $fail) {
                 $allowedKeys = ['address', 'city', 'state', 'country'];
                 if (array_diff(array_keys($value), $allowedKeys)) {
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-//            Correspondance Address
+            //Correspondance Address
             'correspondenceAddress' => ['nullable', 'array', 'required_array_keys:address,city,state,country', function ($attribute, $value, $fail) {
                 $allowedKeys = ['address', 'city', 'state', 'country'];
                 if (array_diff(array_keys($value), $allowedKeys)) {
@@ -52,11 +69,6 @@ class StoreStudentRequest extends BaseStudentRequest
             'educationHistory.*.grade' => ['nullable', 'string'],
             'educationHistory.*.file' => ['nullable', 'file'],
 
-            'isIELTS' => ['nullable', 'boolean'],
-            'isTOEFL' => ['nullable', 'boolean'],
-            'isPTE' => ['nullable', 'boolean'],
-            'isGMAT' => ['nullable', 'boolean'],
-
             //English Language
             'englishLanguage' => ['nullable', 'array'],
             //English Language IELTS
@@ -66,14 +78,14 @@ class StoreStudentRequest extends BaseStudentRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.ielts.listening' => ['required_if:isIELTS,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.speaking' => ['required_if:isIELTS,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.reading' => ['required_if:isIELTS,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.writing' => ['required_if:isIELTS,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.score' => ['required_if:isIELTS,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.ielts.date' => ['required_if:isIELTS,true', 'nullable', 'date'],
-            'englishLanguage.ielts.additional' => ['required_if:isIELTS,true', 'nullable', 'string'],
-            'englishLanguage.ielts.file' => ['required_if:isIELTS,true', 'nullable', 'file'],
+            'englishLanguage.ielts.listening' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.ielts.speaking' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.ielts.reading' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.ielts.writing' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.ielts.score' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.ielts.date' => [ 'nullable', 'date'],
+            'englishLanguage.ielts.additional' => [ 'nullable', 'string'],
+            'englishLanguage.ielts.file' => [ 'nullable', 'file'],
             //English Language TOEFL
             'englishLanguage.toefl' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -81,14 +93,14 @@ class StoreStudentRequest extends BaseStudentRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.toefl.listening' => ['required_if:isTOEFL,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.speaking' => ['required_if:isTOEFL,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.reading' => ['required_if:isTOEFL,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.writing' => ['required_if:isTOEFL,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.score' => ['required_if:isTOEFL,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.toefl.date' => ['required_if:isTOEFL,true', 'nullable', 'date'],
-            'englishLanguage.toefl.additional' => ['required_if:isTOEFL,true', 'nullable', 'string'],
-            'englishLanguage.toefl.file' => ['required_if:isTOEFL,true', 'nullable', 'file'],
+            'englishLanguage.toefl.listening' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.toefl.speaking' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.toefl.reading' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.toefl.writing' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.toefl.score' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.toefl.date' => [ 'nullable', 'date'],
+            'englishLanguage.toefl.additional' => [ 'nullable', 'string'],
+            'englishLanguage.toefl.file' => [ 'nullable', 'file'],
             //English Language PTE
             'englishLanguage.pte' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -96,34 +108,34 @@ class StoreStudentRequest extends BaseStudentRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.pte.listening' => ['required_if:isPTE,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.pte.speaking' => ['required_if:isPTE,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.pte.reading' => ['required_if:isPTE,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.pte.writing' => ['required_if:isPTE,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.pte.score' => ['required_if:isPTE,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.pte.date' => ['required_if:isPTE,true', 'nullable', 'date'],
-            'englishLanguage.pte.additional' => ['required_if:isPTE,true', 'nullable', 'string'],
-            'englishLanguage.pte.file' => ['required_if:isPTE,true', 'nullable', 'file'],
-//            English Language GMAT
+            'englishLanguage.pte.listening' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.speaking' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.reading' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.writing' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.score' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.date' => [ 'nullable', 'date'],
+            'englishLanguage.pte.additional' => [ 'nullable', 'string'],
+            'englishLanguage.pte.file' => [ 'nullable', 'file'],
+            //English Language GMAT
             'englishLanguage.gmat' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
                 if (array_diff(array_keys($value), $allowedKeys)) {
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.gmat.listening' => ['required_if:isGMAT,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.speaking' => ['required_if:isGMAT,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.reading' => ['required_if:isGMAT,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.writing' => ['required_if:isGMAT,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.score' => ['required_if:isGMAT,true', 'nullable', 'decimal:0,1'],
-            'englishLanguage.gmat.date' => ['required_if:isGMAT,true', 'nullable', 'date'],
-            'englishLanguage.gmat.additional' => ['required_if:isGMAT,true', 'nullable', 'string'],
-            'englishLanguage.gmat.file' => ['required_if:isGMAT,true', 'nullable', 'file'],
+            'englishLanguage.gmat.listening' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.gmat.speaking' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.gmat.reading' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.gmat.writing' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.gmat.score' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.gmat.date' => [ 'nullable', 'date'],
+            'englishLanguage.gmat.additional' => [ 'nullable', 'string'],
+            'englishLanguage.gmat.file' => [ 'nullable', 'file'],
 
             //English Language OTHERS
             'englishLanguage.others' => ['nullable', 'array'],
             'englishLanguage.others.info' => ['nullable', 'string'],
-                'englishLanguage.others.file' => ['required_with:englishLanguage.others.info', 'nullable', 'file'],
+            'englishLanguage.others.file' => ['required_with:englishLanguage.others.info', 'nullable', 'file'],
 
             //Work Experience
             'workExperience' => ['nullable', 'array'],
@@ -156,28 +168,25 @@ class StoreStudentRequest extends BaseStudentRequest
             'statementOfPurpose.sop' => ['nullable', 'string'],
             'statementOfPurpose.file' => ['nullable', 'file'],
 
-            //Is Accomodation Required
-            'isAccommodationRequired' => ['required', 'boolean'],
-
-            //Is Medica lRequired
-            'isMedicalRequired' => ['required', 'boolean'],
-            'medicalHistory' => ['required_if:isMedicalRequired,true', 'nullable', 'string'],
-
-            //Additional Information
-            'additionalInformation' => ['nullable', 'string'],
-
             //Additional Documents
             'additionalDocuments' => ['nullable', 'array'],
             'additionalDocuments.*.title' => ['nullable', 'string'],
             'additionalDocuments.*.file' => ['nullable', 'file'],
 
-            'leadId' => ['required', 'exists:leads,id'],
+            'studentGender' => ['required', 'string', 'in:Male,Female'],
+            'studentTitle' => ['required', 'string', 'in:Mr,Mrs,Ms,Miss'],
+            'studentMaritalStatus' => ['required', 'string', 'in:Married,Single'],
+            'isValidPassport' => ['required', 'boolean'],
+            //Is Accomodation Required
+            'isAccommodationRequired' => ['required', 'boolean'],
+            //Is Medical Required
+            'isMedicalRequired' => ['required', 'boolean'],
 
-            //CountryId, CourseId, InstitutionId
-            'choices' => ['nullable', 'array'],
-            'choices.*.countryId' => ['nullable', 'exists:representing_countries,id'],
-            'choices.*.institutionId' => ['required_with:choices.*.countryId', 'nullable','exists:representing_institutions,id'],
-            'choices.*.courseId' => ['required_with:choices.*.countryId', 'nullable','exists:courses,id'],
+
+            'studentId' => ['nullable', 'integer', 'exists:students,id'],
+            'courseId' => ['nullable', 'integer', 'exists:courses,id'],
+            'currencyId' => ['nullable', 'integer', 'exists:currencies,id'],
+            'leadSourceId' => ['nullable', 'integer', 'exists:lead_sources,id'],
         ];
     }
 

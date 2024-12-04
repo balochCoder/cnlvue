@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Application;
 use App\Models\Associate;
 use App\Models\Branch;
 use App\Models\Counsellor;
@@ -88,5 +89,6 @@ class DatabaseSeeder extends Seeder
         Task::factory(10)->create();
         TaskRemark::factory(10)->create();
         Student::factory(10)->create();
+        Application::factory(10)->create();
     }
 }

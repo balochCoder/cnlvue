@@ -136,6 +136,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('students/{student}',[V1\Student\StudentController::class,'update'])->name('students.update');
     Route::get('students/{student}/pdf',[V1\Student\StudentController::class, 'pdf']);
 
+//    Applications
+    Route::post('applications', [V1\Application\ApplicationController::class, 'store'])->name('applications.store');
 
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
