@@ -21,9 +21,11 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'studentPhone' => ['nullable', 'string'],
             'studentMobile' => ['nullable', 'string'],
 
+            'applicationRemarks' => ['nullable', 'string'],
+
             'studentNationality' => ['required', 'string'],
             'studentPassport' => ['required_if:isValidPassport,true', 'nullable', 'string'],
-            'studentImage' => ['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'studentImage' => ['sometimes', 'nullable'],
             'intakeMonth' => ['nullable', 'string'],
             'intakeYear' => ['nullable', 'string'],
 
@@ -37,6 +39,8 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'dateOfBirth' => ['required', 'date'],
             'applicationPaymentDate' => ['nullable', 'date'],
             'feePaymentDate' => ['nullable', 'date'],
+            'passportIssueDate' => ['nullable', 'date'],
+            'passportExpiryDate' => ['nullable', 'date'],
 
             'medicalHistory' => ['required_if:isMedicalRequired,true', 'nullable', 'string'],
             'additionalInformation' => ['nullable', 'string'],
@@ -67,7 +71,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'educationHistory.*.qualification' => ['nullable', 'string'],
             'educationHistory.*.year' => ['nullable', 'integer'],
             'educationHistory.*.grade' => ['nullable', 'string'],
-            'educationHistory.*.file' => ['nullable', 'file'],
+            'educationHistory.*.file' => ['nullable', 'sometimes'],
 
             //English Language
             'englishLanguage' => ['nullable', 'array'],
@@ -85,7 +89,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'englishLanguage.ielts.score' => [ 'nullable', 'decimal:0,1'],
             'englishLanguage.ielts.date' => [ 'nullable', 'date'],
             'englishLanguage.ielts.additional' => [ 'nullable', 'string'],
-            'englishLanguage.ielts.file' => [ 'nullable', 'file'],
+            'englishLanguage.ielts.file' => [ 'nullable', 'sometimes'],
             //English Language TOEFL
             'englishLanguage.toefl' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -100,7 +104,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'englishLanguage.toefl.score' => [ 'nullable', 'decimal:0,1'],
             'englishLanguage.toefl.date' => [ 'nullable', 'date'],
             'englishLanguage.toefl.additional' => [ 'nullable', 'string'],
-            'englishLanguage.toefl.file' => [ 'nullable', 'file'],
+            'englishLanguage.toefl.file' => [ 'nullable', 'sometimes'],
             //English Language PTE
             'englishLanguage.pte' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -115,7 +119,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'englishLanguage.pte.score' => [ 'nullable', 'decimal:0,1'],
             'englishLanguage.pte.date' => [ 'nullable', 'date'],
             'englishLanguage.pte.additional' => [ 'nullable', 'string'],
-            'englishLanguage.pte.file' => [ 'nullable', 'file'],
+            'englishLanguage.pte.file' => [ 'nullable', 'sometimes'],
             //English Language GMAT
             'englishLanguage.gmat' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -130,7 +134,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'englishLanguage.gmat.score' => [ 'nullable', 'decimal:0,1'],
             'englishLanguage.gmat.date' => [ 'nullable', 'date'],
             'englishLanguage.gmat.additional' => [ 'nullable', 'string'],
-            'englishLanguage.gmat.file' => [ 'nullable', 'file'],
+            'englishLanguage.gmat.file' => [ 'nullable', 'sometimes'],
 
             //English Language OTHERS
             'englishLanguage.others' => ['nullable', 'array'],
@@ -143,7 +147,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'workExperience.*.position' => ['nullable', 'string'],
             'workExperience.*.period' => ['nullable', 'string'],
             'workExperience.*.responsibilities' => ['nullable', 'string'],
-            'workExperience.*.file' => ['nullable', 'file'],
+            'workExperience.*.file' => ['nullable', 'sometimes'],
 
             //References
             'references' => ['nullable', 'array'],
@@ -166,12 +170,12 @@ class StoreApplicationRequest extends BaseApplicationRequest
                 }
             }],
             'statementOfPurpose.sop' => ['nullable', 'string'],
-            'statementOfPurpose.file' => ['nullable', 'file'],
+            'statementOfPurpose.file' => ['nullable', 'sometimes'],
 
             //Additional Documents
             'additionalDocuments' => ['nullable', 'array'],
             'additionalDocuments.*.title' => ['nullable', 'string'],
-            'additionalDocuments.*.file' => ['nullable', 'file'],
+            'additionalDocuments.*.file' => ['nullable', 'sometimes'],
 
             'studentGender' => ['required', 'string', 'in:Male,Female'],
             'studentTitle' => ['required', 'string', 'in:Mr,Mrs,Ms,Miss'],

@@ -32,10 +32,13 @@ class UpdateApplicationRequest extends BaseApplicationRequest
             'scholarshipProof' => ['sometimes', 'nullable'],
             'feePaymentMethod' => ['nullable', 'string'],
             'feePaymentReference' => ['nullable', 'string'],
+            'applicationRemarks' => ['nullable', 'string'],
 
             'dateOfBirth' => ['required', 'date'],
             'applicationPaymentDate' => ['nullable', 'date'],
             'feePaymentDate' => ['nullable', 'date'],
+            'passportIssueDate' => ['nullable', 'date'],
+            'passportExpiryDate' => ['nullable', 'date'],
 
             'medicalHistory' => ['required_if:isMedicalRequired,true', 'nullable','string'],
             'additionalInformation' => ['nullable', 'string'],

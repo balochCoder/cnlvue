@@ -24,6 +24,11 @@ class BaseApplicationRequest extends FormRequest
             'intakeMonth' => 'intake_month',
             'intakeYear' => 'intake_year',
 
+            'passportIssueDate' => 'passport_issue_date',
+            'passportExpiryDate' => 'passport_expiry_date',
+
+            'applicationRemarks' => 'application_remarks',
+
             'applicationPaymentMethod' => 'application_payment_method',
             'applicationPaymentReference' => 'application_payment_reference',
             'scholarshipOffered' => 'scholarship_offered',

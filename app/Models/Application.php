@@ -64,6 +64,9 @@ class Application extends Model
         'currency_id',
         'lead_source_id',
         'added_by',
+        'application_remarks',
+        'passport_issue_date',
+        'passport_expiry_date',
     ];
 
     public static function makeDirectory($folder): string
@@ -173,6 +176,10 @@ class Application extends Model
             'fee_paid_so_far' => 'float',
             'first_year_fee_due' => 'float',
             'total_fee_due' => 'float',
+            'passport_issue_date' => 'date',
+            'passport_expiry_date' => 'date',
+            'application_payment_date' => 'date',
+            'fee_payment_date' => 'date',
         ];
     }
 }

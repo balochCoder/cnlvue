@@ -34,9 +34,13 @@ return new class extends Migration {
             $table->string('fee_payment_method')->nullable();
             $table->string('fee_payment_reference')->nullable();
 
+            $table->text('application_remarks')->nullable();
+
             $table->date('date_of_birth');
             $table->date('application_payment_date')->nullable();
             $table->date('fee_payment_date')->nullable();
+            $table->date('passport_issue_date')->nullable();
+            $table->date('passport_expiry_date')->nullable();
 
 
             $table->text('medical_history')->nullable();
