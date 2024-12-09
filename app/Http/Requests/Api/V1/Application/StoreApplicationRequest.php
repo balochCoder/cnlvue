@@ -139,7 +139,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
             //English Language OTHERS
             'englishLanguage.others' => ['nullable', 'array'],
             'englishLanguage.others.info' => ['nullable', 'string'],
-            'englishLanguage.others.file' => ['required_with:englishLanguage.others.info', 'nullable', 'file'],
+            'englishLanguage.others.file' => ['required_with:englishLanguage.others.info', 'nullable', 'sometimes'],
 
             //Work Experience
             'workExperience' => ['nullable', 'array'],
