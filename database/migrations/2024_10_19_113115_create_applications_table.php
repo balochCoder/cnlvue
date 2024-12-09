@@ -89,6 +89,10 @@ return new class extends Migration {
                 ->constrained('lead_sources')
                 ->cascadeOnDelete();
 
+            $table->foreignId('counsellor_id')
+                ->constrained('counsellors')
+                ->cascadeOnDelete();
+
             $table->foreignId('added_by')
                 ->constrained('users')
                 ->cascadeOnDelete();

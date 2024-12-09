@@ -96,6 +96,7 @@ class LeadController extends Controller
                 'interestedInstitution',
                 'associate',
                 'student',
+                'student.application',
                 'student.studentChoices.country.country',
                 'student.studentChoices.institution',
                 'student.studentChoices.course',

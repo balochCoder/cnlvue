@@ -67,6 +67,7 @@ class Application extends Model
         'application_remarks',
         'passport_issue_date',
         'passport_expiry_date',
+        'counsellor_id'
     ];
 
     public static function makeDirectory($folder): string
@@ -166,6 +167,7 @@ class Application extends Model
             'is_accommodation_required' => 'boolean',
             'is_medical_required' => 'boolean',
             'student_id' => 'integer',
+            'counsellor_id' => 'integer',
             'added_by' => 'integer',
             'date_of_birth' => 'date',
             'course_id' => 'integer',

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,6 +56,14 @@ class Student extends Model
         return $this->belongsTo(
             Lead::class,
             'lead_id',
+        );
+    }
+
+    public function application(): HasOne
+    {
+        return $this->hasOne(
+            Application::class,
+            'student_id',
         );
     }
 

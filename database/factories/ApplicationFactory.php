@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Counsellor;
 use App\Models\Course;
 use App\Models\Currency;
 use App\Models\LeadSource;
@@ -24,6 +25,7 @@ class ApplicationFactory extends Factory
         $courses = Course::pluck('id')->toArray();
         $currencies = Currency::pluck('id')->toArray();
         $leadSources = LeadSource::pluck('id')->toArray();
+        $counsellors = Counsellor::pluck('id')->toArray();
         return [
             'lead_source_id' => $this->faker->randomElement($leadSources),
             'currency_id' => $this->faker->randomElement($currencies),
@@ -130,7 +132,8 @@ class ApplicationFactory extends Factory
                     'file' => $this->faker->imageUrl(),
                 ]
             ]),
-            'added_by' => $this->faker->randomElement($users)
+            'added_by' => $this->faker->randomElement($users),
+            'counsellor_id' => $this->faker->randomElement($counsellors),
         ];
     }
 }

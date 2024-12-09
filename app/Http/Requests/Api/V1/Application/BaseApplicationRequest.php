@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Application;
 
 use App\Models\Application;
+use App\Models\Counsellor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -163,7 +164,8 @@ class BaseApplicationRequest extends FormRequest
         if ($this->correspondenceAddress) {
             $data['correspondence_address'] = json_encode($this->correspondenceAddress);
         }
-
+        $counsellor = Counsellor::where('user_id', auth()->user()->id)->first();
+        $data['counsellor_id'] = $counsellor->id;
         $data['added_by'] = auth()->id();
         return $data;
     }
