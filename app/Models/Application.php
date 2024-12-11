@@ -67,9 +67,17 @@ class Application extends Model
         'application_remarks',
         'passport_issue_date',
         'passport_expiry_date',
-        'counsellor_id'
+        'counsellor_id',
+        'associate_id'
     ];
 
+    public function counsellor(): BelongsTo
+    {
+        return $this->belongsTo(
+            Counsellor::class,
+            'counsellor_id',
+        );
+    }
     public static function makeDirectory($folder): string
     {
         $subFolder = 'files/application/' . $folder;
@@ -79,18 +87,26 @@ class Application extends Model
         return $subFolder;
     }
 
-    protected function studentImage(): Attribute
+    public function associate(): BelongsTo
     {
-        return Attribute::make(
-            get: function ($value) {
-                if ($value == null) {
-                    return Storage::url('files/application/no_image_available.png');
-                }
-
-                return $value;
-            },
+        return $this->belongsTo(
+            Associate::class,
+            'associate_id',
         );
     }
+
+//    protected function studentImage(): Attribute
+//    {
+//        return Attribute::make(
+//            get: function ($value) {
+//                if ($value == null) {
+//                    return Storage::url('files/application/no_image_available.png');
+//                }
+//
+//                return $value;
+//            },
+//        );
+//    }
 
     public function addedBy(): BelongsTo
     {
@@ -167,6 +183,7 @@ class Application extends Model
             'is_accommodation_required' => 'boolean',
             'is_medical_required' => 'boolean',
             'student_id' => 'integer',
+            'associate_id' => 'integer',
             'counsellor_id' => 'integer',
             'added_by' => 'integer',
             'date_of_birth' => 'date',

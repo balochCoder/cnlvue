@@ -18,9 +18,10 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
+            'representingInstitution' => RepresentingInstitutionResource::make($this->whenLoaded('representingInstitution')),
+
             $this->mergeWhen($request->routeIs('courses.*') || $request->routeIs('representingInstitutions.courses'),[
                 'level' => $this->level,
-                'representingInstitution' => RepresentingInstitutionResource::make($this->whenLoaded('representingInstitution')),
                 'duration' => json_decode($this->resource->duration),
                 'startDate' => $this->resource->start_date,
                 'endDate' => $this->resource->end_date,

@@ -52,7 +52,7 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $student = QueryBuilder::for(Student::class)
-            ->where('student.id', $student->id)
+            ->where('id', $student->id)
             ->with(['lead'])
             ->firstOrFail();
         return StudentResource::make($student);
