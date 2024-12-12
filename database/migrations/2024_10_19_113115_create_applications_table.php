@@ -99,10 +99,6 @@ return new class extends Migration {
                 ->constrained('associates')
                 ->cascadeOnDelete();
 
-            $table->foreignId('application_process_id')
-                ->constrained('application_processes')
-                ->cascadeOnDelete();
-
             $table->foreignId('added_by')
                 ->constrained('users')
                 ->cascadeOnDelete();

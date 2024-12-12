@@ -165,10 +165,7 @@ class BaseApplicationRequest extends FormRequest
         if ($this->correspondenceAddress) {
             $data['correspondence_address'] = json_encode($this->correspondenceAddress);
         }
-        $course = Course::find($this->courseId);
-        $status = $course->representingInstitution->representingCountry->applicationProcesses()->first();
 
-        $data['application_process_id'] = $status->id;
         $counsellor = Counsellor::where('user_id', auth()->user()->id)->first();
         $data['counsellor_id'] = $counsellor->id;
         $data['added_by'] = auth()->id();

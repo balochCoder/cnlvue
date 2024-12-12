@@ -51,7 +51,6 @@ class DatabaseSeeder extends Seeder
         Course::factory(5)->create();
         $branches = Branch::factory(5)->create();
         $branches->each(function ($branch) {
-            // Assign counsellors to each branch
             Counsellor::factory(5)
                 ->for($branch)
                 ->hasAttached(
@@ -63,7 +62,6 @@ class DatabaseSeeder extends Seeder
                 ->has(Target::factory(5))
                 ->create();
 
-            // Associate counsellors with the branch
         });
 
         FrontOffice::factory(10)->create();
@@ -78,11 +76,10 @@ class DatabaseSeeder extends Seeder
         LeadSource::factory(10)->create();
         $branches->each(function ($branch) {
             Lead::factory(10)
-                ->for($branch)// Adjust the number of leads per branch
-                ->hasFollowups(4) // Add follow-ups to leads
+                ->for($branch)
+                ->hasFollowups(4)
                 ->create()
                 ->each(function ($lead) use ($branch) {
-                    // Attach counsellors from the specific branch
                     $lead->counsellors()->attach($branch->counsellors);
                 });
         });

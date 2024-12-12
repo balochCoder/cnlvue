@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -98,11 +100,11 @@ class Application extends Model
         );
     }
 
-    public function applicationProcess(): BelongsTo
+    public function applicationStatuses(): HasMany
     {
-        return $this->belongsTo(
-            ApplicationProcess::class,
-            'application_process_id',
+        return $this->hasMany(
+            ApplicationStatus::class,
+            'application_id',
         );
     }
 //    protected function studentImage(): Attribute

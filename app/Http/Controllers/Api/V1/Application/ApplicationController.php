@@ -8,7 +8,6 @@ use App\Http\Resources\Api\V1\ApplicationResource;
 use App\Jobs\Applications\CreateApplication;
 use App\Models\Application;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -31,7 +30,6 @@ class ApplicationController extends Controller
                 'course',
                 'course.representingInstitution',
                 'course.representingInstitution.representingCountry',
-                'applicationProcess'
             ])
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),

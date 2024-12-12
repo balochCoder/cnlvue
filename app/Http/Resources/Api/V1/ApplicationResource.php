@@ -24,7 +24,6 @@ class ApplicationResource extends JsonResource
                 'currency' => CurrencyResource::make($this->whenLoaded('currency')),
                 'leadSource' => LeadSourceResource::make($this->whenLoaded('leadSource')),
                 'counsellor' => CounsellorResource::make($this->whenLoaded('counsellor')),
-                'status' => ApplicationProcessResource::make($this->whenLoaded('applicationProcess')),
                 'studentReference' => $this->resource->student_reference,
                 'studentGender' => $this->resource->student_gender,
                 'studentTitle' => $this->resource->student_title,

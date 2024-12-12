@@ -3,6 +3,8 @@
 namespace App\Jobs\Applications;
 
 use App\Models\Application;
+use App\Models\ApplicationStatus;
+use App\Models\Course;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,7 +33,17 @@ class CreateApplication implements ShouldQueue
     public function handle(DatabaseManager $database): void
     {
         $database->transaction(
-            callback: fn() => Application::create($this->attributes),
+            callback: function () {
+                $application = Application::create($this->attributes);
+                $course = Course::find($this->attributes['course_id']);
+                $status = $course->representingInstitution->representingCountry->applicationProcesses()->first();
+               ApplicationStatus::query()->create(
+                   [
+                       'application_id' => $application->id,
+                       'application_process_id' => $status->id,
+                   ]
+               );
+            },
             attempts: 3
         );
     }
