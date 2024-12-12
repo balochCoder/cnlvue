@@ -20,11 +20,9 @@ class FollowupController extends Controller
         DB::beginTransaction();
         $lead = Lead::query()->findOrFail($request->leadId);
         $lead->followups()->create($request->storeData());
-
         $lead->update([
             'status' => $request->leadType
         ]);
-
         DB::commit();
 
         return $this->ok("Followup successfully added");
@@ -32,9 +30,7 @@ class FollowupController extends Controller
 
     public function index()
     {
-        $followups = QueryBuilder::for(
-            Followup::class
-        )
+        $followups = QueryBuilder::for(Followup::class)
             ->whereHas('followupable', function ($query) {
                 $query->where('followupable_type', Lead::class);
             })
