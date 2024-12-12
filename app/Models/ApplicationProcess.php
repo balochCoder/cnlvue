@@ -19,6 +19,14 @@ class ApplicationProcess extends Model
         'order'
     ];
 
+    public function application(): HasMany
+    {
+        return $this->hasMany(
+            Application::class,
+            'application_process_id',
+        );
+    }
+
     protected function casts(): array
     {
         return [

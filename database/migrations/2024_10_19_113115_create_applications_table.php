@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('student_mobile')->nullable();
             $table->string('student_skype')->nullable();
 
+
             $table->string('student_nationality');
             $table->string('student_passport')->nullable();
             $table->string('student_image')->nullable();
@@ -96,6 +97,10 @@ return new class extends Migration {
             $table->foreignId('associate_id')
                 ->nullable()
                 ->constrained('associates')
+                ->cascadeOnDelete();
+
+            $table->foreignId('application_process_id')
+                ->constrained('application_processes')
                 ->cascadeOnDelete();
 
             $table->foreignId('added_by')

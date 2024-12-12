@@ -16,6 +16,7 @@ class StudentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'application' => ApplicationResource::make($this->whenLoaded('application')),
             'id'=> $this->resource->id,
             'lead' => LeadResource::make($this->whenLoaded('lead')),
             'studentFirstName' => $this->resource->student_first_name,

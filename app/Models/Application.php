@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -25,6 +26,7 @@ class Application extends Model
         'student_mobile',
         'student_skype',
         'student_nationality',
+        'application_process_id',
         'student_passport',
         'student_image',
         'intake_month',
@@ -78,6 +80,7 @@ class Application extends Model
             'counsellor_id',
         );
     }
+
     public static function makeDirectory($folder): string
     {
         $subFolder = 'files/application/' . $folder;
@@ -95,6 +98,13 @@ class Application extends Model
         );
     }
 
+    public function applicationProcess(): BelongsTo
+    {
+        return $this->belongsTo(
+            ApplicationProcess::class,
+            'application_process_id',
+        );
+    }
 //    protected function studentImage(): Attribute
 //    {
 //        return Attribute::make(

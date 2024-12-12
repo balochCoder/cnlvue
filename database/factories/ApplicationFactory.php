@@ -26,6 +26,10 @@ class ApplicationFactory extends Factory
         $currencies = Currency::pluck('id')->toArray();
         $leadSources = LeadSource::pluck('id')->toArray();
         $counsellors = Counsellor::pluck('id')->toArray();
+
+        $course = Course::find($this->faker->randomElement($courses));
+        $status = $course->representingInstitution->representingCountry->applicationProcesses()->first();
+
         return [
             'lead_source_id' => $this->faker->randomElement($leadSources),
             'currency_id' => $this->faker->randomElement($currencies),
@@ -134,6 +138,7 @@ class ApplicationFactory extends Factory
             ]),
             'added_by' => $this->faker->randomElement($users),
             'counsellor_id' => $this->faker->randomElement($counsellors),
+            'application_process_id' => $status->id
         ];
     }
 }

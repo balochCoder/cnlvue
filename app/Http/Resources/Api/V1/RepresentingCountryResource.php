@@ -25,6 +25,7 @@ class RepresentingCountryResource extends JsonResource
             $this->mergeWhen(
                 $request->routeIs('representing-countries.*'),
                 [
+
                     "monthlyLivingCost" => $this->resource->monthly_living_cost,
 
                     "partTimeWorkDetails" => $this->resource->part_time_work_details,
