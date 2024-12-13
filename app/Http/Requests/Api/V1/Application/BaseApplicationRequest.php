@@ -71,6 +71,7 @@ class BaseApplicationRequest extends FormRequest
             'courseId'=> 'course_id',
             'currencyId'=> 'currency_id',
             'leadSourceId'=> 'lead_source_id',
+            'associateId' => 'associate_id',
 
 
         ], $otherAttributes);

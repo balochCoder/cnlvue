@@ -30,6 +30,10 @@ class ApplicationController extends Controller
                 'course',
                 'course.representingInstitution',
                 'course.representingInstitution.representingCountry',
+                'applicationStatuses',
+                'applicationStatuses.applicationProcess',
+                'applicationStatuses.subStatus',
+                'associate'
             ])
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
