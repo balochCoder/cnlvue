@@ -50,4 +50,29 @@ class ApplicationController extends Controller
             command: new CreateApplication($request->getData())
         );
     }
+
+    public function show(Application $application)
+    {
+        $application = QueryBuilder::for(Application::class)
+            ->where('id', $application->id)
+            ->with([
+                'student.lead',
+                'counsellor',
+                'currency',
+                'leadSource',
+                'course',
+                'course.representingInstitution',
+                'course.representingInstitution.representingCountry',
+                'applicationStatuses',
+                'applicationStatuses.applicationProcess',
+                'applicationStatuses.subStatus',
+                'associate'
+            ])
+            ->allowedFilters([
+                AllowedFilter::exact('counsellor', 'counsellor_id'),
+            ])
+            ->firstOrFail();
+
+        return ApplicationResource::make($application);
+    }
 }
