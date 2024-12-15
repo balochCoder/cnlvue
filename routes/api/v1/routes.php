@@ -143,5 +143,9 @@ Route::middleware('auth:sanctum')->group(function () {
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
     Route::get('roles/{role}/users',[V1\Role\RoleController::class, 'getUsers'])->name('roles.users');
+
+//    File Download
+    Route::get('/download/{filePath}', V1\FileDownload\FileDownloadController::class)
+        ->where('filePath', '.*'); ;
 });
 
