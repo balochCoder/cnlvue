@@ -129,7 +129,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::patch('/tasks/{task}', [V1\Task\TaskController::class, 'update'])->name('/tasks.update');
 
-//    Students
+//    Studentsapplication_statuses
     Route::get('students', [ V1\Student\StudentController::class, 'index'])->name('students.index');
     Route::get('students/{student}', [V1\Student\StudentController::class, 'show'])->name('students.show');
     Route::post('students', [V1\Student\StudentController::class, 'store'])->name('students.store');
@@ -146,6 +146,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //    File Download
     Route::get('/download/{filePath}', V1\FileDownload\FileDownloadController::class)
-        ->where('filePath', '.*'); ;
+        ->where('filePath', '.*');
 });
 
