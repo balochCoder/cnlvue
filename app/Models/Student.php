@@ -92,18 +92,18 @@ class Student extends Model
         return $subFolder;
     }
 
-    protected function studentImage(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value) {
-                if ($value == null) {
-                    return Storage::url('files/student/no_image_available.png');
-                }
-
-                return $value;
-            },
-        );
-    }
+//    protected function studentImage(): Attribute
+//    {
+//        return Attribute::make(
+//            get: function ($value) {
+//                if ($value == null) {
+//                    return Storage::url('files/student/no_image_available.png');
+//                }
+//
+//                return $value;
+//            },
+//        );
+//    }
 
     protected function casts(): array
     {

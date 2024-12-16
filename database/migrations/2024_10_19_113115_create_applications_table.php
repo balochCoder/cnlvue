@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
 
             $table->string('student_reference')->unique();
+            $table->string('institution_reference')->nullable();
             $table->string('student_first_name');
             $table->string('student_last_name')->nullable();
             $table->string('student_email')->nullable();

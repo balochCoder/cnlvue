@@ -72,7 +72,8 @@ class Application extends Model
         'passport_issue_date',
         'passport_expiry_date',
         'counsellor_id',
-        'associate_id'
+        'associate_id',
+        'institution_reference'
     ];
 
     public function counsellor(): BelongsTo
