@@ -91,18 +91,18 @@ class RepresentingInstitution extends Model
         return $subFolder;
     }
 
-    protected function logo(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value) {
-                if ($value == null) {
-                    return Storage::url('files/representingInstitutions/no_image_available.png');
-                }
-
-                return $value;
-            },
-        );
-    }
+//    protected function logo(): Attribute
+//    {
+//        return Attribute::make(
+//            get: function ($value) {
+//                if ($value == null) {
+//                    return Storage::url('files/representingInstitutions/no_image_available.png');
+//                }
+//
+//                return $value;
+//            },
+//        );
+//    }
 
     protected function contractCopy(): Attribute
     {

@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Jobs\ProcessingOffices\CreateProcessingOffice;
 use App\Jobs\ProcessingOffices\UpdateProcessingOffice;
 use App\Models\ProcessingOffice;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
@@ -74,6 +75,10 @@ class ProcessingOfficeController extends Controller
     public function status(ProcessingOffice $processingOffice, Request $request)
     {
         $processingOffice->update([
+            'is_active' => $request->isActive
+        ]);
+        $user = User::findOrFail($processingOffice->user_id);
+        $user->update([
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');

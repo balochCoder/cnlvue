@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
 
             $table->boolean('edit_leads')->default(false);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
+
 
             $table->foreignId('branch_id')->constrained('branches');
             $table->foreignId('user_id')->constrained('users');

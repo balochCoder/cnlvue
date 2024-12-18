@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\BranchResource;
 use App\Jobs\Branches\CreateBranch;
 use App\Jobs\Branches\UpdateBranch;
 use App\Models\Branch;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
@@ -72,6 +73,11 @@ class BranchController extends Controller
     public function status(Branch $branch, Request $request)
     {
         $branch->update([
+            'is_active' => $request->isActive
+        ]);
+
+        $user = User::findOrFail($branch->user_id);
+        $user->update([
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');

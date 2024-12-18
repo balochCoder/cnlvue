@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\AssociateResource;
 use App\Jobs\Associates\CreateAssociate;
 use App\Jobs\Associates\UpdateAssociate;
 use App\Models\Associate;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
@@ -73,6 +74,11 @@ public function __construct(
     public function status(Associate $associate, Request $request)
     {
         $associate->update([
+            'is_active' => $request->isActive
+        ]);
+
+        $user = User::findOrFail($associate->user_id);
+        $user->update([
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');

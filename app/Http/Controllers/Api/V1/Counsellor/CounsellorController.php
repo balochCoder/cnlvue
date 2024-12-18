@@ -10,6 +10,7 @@ use App\Http\Resources\Api\V1\RepresentingInstitutionResource;
 use App\Jobs\Counsellors\CreateCounsellor;
 use App\Jobs\Counsellors\UpdateCounsellor;
 use App\Models\Counsellor;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
@@ -89,6 +90,10 @@ class CounsellorController extends ApiController
     public function status(Counsellor $counsellor, Request $request)
     {
         $counsellor->update([
+            'is_active' => $request->isActive
+        ]);
+        $user = User::findOrFail($counsellor->user_id);
+        $user->update([
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.');

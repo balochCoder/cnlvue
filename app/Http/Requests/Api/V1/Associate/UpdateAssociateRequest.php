@@ -20,7 +20,7 @@ class UpdateAssociateRequest extends BaseAssociateRequest
     public function rules(): array
     {
         return [
-            'branchId' => ['required', Rule::exists('branches', 'id')->where('is_active', true)],
+            'branchId' => ['required', Rule::exists('branches', 'id')],
             'associateName' => ['required', Rule::unique('associates', 'associate_name')->ignore($this->associate->id)],
             'address' => ['required', 'string'],
             'city' => ['nullable', 'string'],

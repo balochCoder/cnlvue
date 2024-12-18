@@ -21,7 +21,8 @@ return new class extends Migration {
             $table->string('office_phone')->nullable();
 
 
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
+
 
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('time_zone_id')->nullable()->constrained('time_zones');

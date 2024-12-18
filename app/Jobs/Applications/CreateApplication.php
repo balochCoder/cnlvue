@@ -37,12 +37,12 @@ class CreateApplication implements ShouldQueue
                 $application = Application::create($this->attributes);
                 $course = Course::find($this->attributes['course_id']);
                 $status = $course->representingInstitution->representingCountry->applicationProcesses()->first();
-               ApplicationStatus::query()->create(
-                   [
-                       'application_id' => $application->id,
-                       'application_process_id' => $status->id,
-                   ]
-               );
+                ApplicationStatus::query()->create(
+                    [
+                        'application_id' => $application->id,
+                        'application_process_id' => $status->id,
+                    ]
+                );
             },
             attempts: 3
         );

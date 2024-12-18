@@ -21,7 +21,8 @@ return new class extends Migration {
             $table->string('branch_email')->nullable();
             $table->string('branch_phone')->nullable();
             $table->string('branch_website')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
+
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->softDeletes();
             $table->timestamps();

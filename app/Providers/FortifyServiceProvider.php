@@ -42,7 +42,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ->where('email', $request->email)
                 ->first();
 
-            if ($user && Hash::check($request->password, $user->password) && $user->hasRole($request->loginType)) {
+            if ($user && Hash::check($request->password, $user->password) && $user->hasRole($request->loginType) && !!$user->is_active) {
                 $user->update([
                     'last_login' => now(),
                 ]);

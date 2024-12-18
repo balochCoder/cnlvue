@@ -36,7 +36,6 @@ class UserSeeder extends Seeder
         ]);
 
         Branch::factory()->create([
-
             'user_id' => $user3->id,
         ]);
         $user1->assignRole('super admin');

@@ -15,7 +15,8 @@ return new class extends Migration {
 
             $table->string('source_name');
 
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
+
 
             $table->foreignId('added_by')
                 ->constrained('users')

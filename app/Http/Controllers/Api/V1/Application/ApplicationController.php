@@ -39,6 +39,7 @@ class ApplicationController extends Controller
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
             ])
             ->getEloquentBuilder()
+            ->latest('id')
             ->get();
 
         return ApplicationResource::collection($applications);

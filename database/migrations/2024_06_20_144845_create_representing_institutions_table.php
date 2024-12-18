@@ -55,7 +55,7 @@ return new class extends Migration
             $table->dateTime('contract_expiry')->nullable();
 
             $table->boolean('is_language')->default(false);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
 
             $table->foreignId('representing_country_id')
                 ->constrained('representing_countries')

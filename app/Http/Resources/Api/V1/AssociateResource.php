@@ -17,6 +17,7 @@ class AssociateResource extends JsonResource
     {
         return [
             'id'=> $this->resource->id,
+            'associateReference' => $this->resource->associate_reference,
             'associateName'=> $this->resource->associate_name,
             'branch' => BranchResource::make(
                 $this->whenLoaded('branch')

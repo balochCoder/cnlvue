@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\FrontOfficeResource;
 use App\Jobs\FrontOffices\CreateFrontOffice;
 use App\Jobs\FrontOffices\UpdateFrontOffice;
 use App\Models\FrontOffice;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
@@ -67,12 +68,18 @@ class FrontOfficeController extends Controller
         $this->bus->dispatch(
             command: new UpdateFrontOffice($request->updateData(), $frontOffice)
         );
+
+
         return $this->ok('Front Office updated successfully.', code: 201);
     }
 
     public function status(FrontOffice $frontOffice, Request $request)
     {
         $frontOffice->update([
+            'is_active' => $request->isActive
+        ]);
+        $user = User::findOrFail($frontOffice->user_id);
+        $user->update([
             'is_active' => $request->isActive
         ]);
         return $this->ok('Status updated successfully.', code: 201);

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('associates', function (Blueprint $table) {
             $table->id();
-
+            $table->string('associate_reference');
             $table->string('associate_name');
             $table->string('address');
             $table->string('city');
@@ -25,7 +25,7 @@ return new class extends Migration {
 
             $table->enum('category', ['silver', 'gold', 'platnium']);
 
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
 
             $table->foreignId('country_id')
                 ->constrained('countries')
