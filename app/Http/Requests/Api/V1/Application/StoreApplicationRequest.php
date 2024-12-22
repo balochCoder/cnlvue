@@ -3,6 +3,10 @@
 namespace App\Http\Requests\Api\V1\Application;
 
 
+use App\Enums\PaymentMethodEnum;
+use Illuminate\Validation\Rule;
+
+
 class StoreApplicationRequest extends BaseApplicationRequest
 {
 
@@ -29,11 +33,11 @@ class StoreApplicationRequest extends BaseApplicationRequest
             'intakeMonth' => ['nullable', 'string'],
             'intakeYear' => ['nullable', 'string'],
 
-            'applicationPaymentMethod' => ['nullable', 'string'],
+            'applicationPaymentMethod' => ['nullable', Rule::enum(PaymentMethodEnum::class)],
             'applicationPaymentReference' => ['nullable', 'string'],
             'scholarshipOffered' => ['nullable', 'numeric'],
             'scholarshipProof' => ['nullable', 'file', 'max:2048'],
-            'feePaymentMethod' => ['nullable', 'string'],
+            'feePaymentMethod' => ['nullable', Rule::enum(PaymentMethodEnum::class)],
             'feePaymentReference' => ['nullable', 'string'],
 
             'dateOfBirth' => ['required', 'date'],

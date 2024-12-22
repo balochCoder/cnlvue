@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/lead-statuses', [V1\Enum\EnumController::class, 'leadStatuses']);
     Route::get('enums/followup-modes', [V1\Enum\EnumController::class, 'followupModes']);
     Route::get('enums/task-statuses', [V1\Enum\EnumController::class, 'taskStatuses']);
+    Route::get('enums/payment-methods',[V1\Enum\EnumController::class, 'paymentMethods']);
 
     //Currency
     Route::get('currencies', V1\Currency\CurrencyController::class);

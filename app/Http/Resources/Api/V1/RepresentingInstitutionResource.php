@@ -23,6 +23,7 @@ class RepresentingInstitutionResource extends JsonResource
             'courses' => CourseResource::collection($this->whenLoaded('courses')),
             'institutionalBenefits' => $this->resource->institutional_benefits,
             'fundsRequired' => $this->resource->funds_required,
+            'institutionStatusNotes' => $this->resource->institution_status_notes,
 
             $this->mergeWhen($request->routeIs('representing-institutions.*'),[
 

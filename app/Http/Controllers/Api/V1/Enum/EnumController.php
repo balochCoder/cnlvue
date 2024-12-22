@@ -10,6 +10,7 @@ use App\Enums\DownloadCSV;
 use App\Enums\FollowupMode;
 use App\Enums\InstituteType;
 use App\Enums\LeadStatus;
+use App\Enums\PaymentMethodEnum;
 use App\Enums\TaskStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\EnumResource;
@@ -61,6 +62,12 @@ class EnumController extends Controller
     {
         $taskStatuses = TaskStatus::cases();
         return EnumResource::collection($taskStatuses);
+    }
+
+    public function paymentMethods()
+    {
+        $paymentMethods = PaymentMethodEnum::cases();
+        return EnumResource::collection($paymentMethods);
     }
 
 }

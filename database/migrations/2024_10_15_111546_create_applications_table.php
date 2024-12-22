@@ -29,11 +29,25 @@ return new class extends Migration {
             $table->string('intake_month')->nullable();
             $table->string('intake_year')->nullable();
 
-            $table->string('application_payment_method')->nullable();
+            $table->enum('application_payment_method',[
+                'bank_transfer',
+                'by_cheque',
+                'credit_card',
+                'debit_card',
+                'cash',
+                'demand_draft'
+            ])->nullable();
             $table->string('application_payment_reference')->nullable();
             $table->string('scholarship_offered')->nullable();
             $table->string('scholarship_proof')->nullable();
-            $table->string('fee_payment_method')->nullable();
+            $table->enum('fee_payment_method',[
+                'bank_transfer',
+                'by_cheque',
+                'credit_card',
+                'debit_card',
+                'cash',
+                'demand_draft'
+            ])->nullable();
             $table->string('fee_payment_reference')->nullable();
 
             $table->text('application_remarks')->nullable();
