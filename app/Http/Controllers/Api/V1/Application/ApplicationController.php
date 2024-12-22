@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Application\StoreApplicationRequest;
 use App\Http\Resources\Api\V1\ApplicationResource;
 use App\Jobs\Applications\CreateApplication;
 use App\Models\Application;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -75,5 +76,11 @@ class ApplicationController extends Controller
             ->firstOrFail();
 
         return ApplicationResource::make($application);
+    }
+
+    public function pdf(Application $application)
+    {
+        $pdf = Pdf::loadView('application.pdf', compact('application'));
+        return $pdf->download('application.pdf');
     }
 }

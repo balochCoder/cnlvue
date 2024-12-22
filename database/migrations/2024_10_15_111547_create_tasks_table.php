@@ -30,6 +30,11 @@ return new class extends Migration {
             $table->timestamp('start_date');
             $table->timestamp('due_date');
 
+            $table->foreignId('application_id')
+                ->nullable()
+                ->constrained('applications')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

@@ -9,11 +9,9 @@ use App\Http\Resources\Api\V1\StudentResource;
 use App\Jobs\Students\CreateStudent;
 use App\Jobs\Students\UpdateStudent;
 use App\Models\Student;
-use App\Models\StudentChoice;
 use App\Traits\ApiResponse;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class StudentController extends Controller

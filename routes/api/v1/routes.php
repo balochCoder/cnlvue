@@ -140,6 +140,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('applications', [V1\Application\ApplicationController::class, 'store'])->name('applications.store');
     Route::get('applications', [V1\Application\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('applications/{application}', [V1\Application\ApplicationController::class, 'show'])->name('applications.show');
+    Route::get('applications/{application}/pdf',[V1\Application\ApplicationController::class, 'pdf']);
+
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
     Route::get('roles/{role}/users',[V1\Role\RoleController::class, 'getUsers'])->name('roles.users');
