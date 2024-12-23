@@ -19,6 +19,7 @@ class ApplicationResource extends JsonResource
         return [
             'id' => $this->resource->id,
             $this->mergeWhen($request->routeIs('applications.*'), [
+                'followups' => FollowupResource::collection($this->whenLoaded('followups')),
                 'student' => StudentResource::make($this->whenLoaded('student')),
                 'course' => CourseResource::make($this->whenLoaded('course')),
                 'currency' => CurrencyResource::make($this->whenLoaded('currency')),
