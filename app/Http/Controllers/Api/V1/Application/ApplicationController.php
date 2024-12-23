@@ -91,4 +91,17 @@ class ApplicationController extends Controller
         $pdf = Pdf::loadView('application.pdf', compact('application'));
         return $pdf->download('application.pdf');
     }
+
+    public function report(Application $application)
+    {
+        $followupsCountByMode = $application->followups()
+            ->selectRaw('follow_up_mode, COUNT(*) as count')
+            ->groupBy('follow_up_mode')
+            ->pluck('count', 'follow_up_mode')
+            ->toArray();
+
+        $application->setRelation('followupsCountByMode', $followupsCountByMode);
+        $pdf = Pdf::loadView('application.report', compact('application'));
+        return $pdf->download('report.pdf');
+    }
 }

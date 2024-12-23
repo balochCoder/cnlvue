@@ -142,6 +142,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('applications', [V1\Application\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('applications/{application}', [V1\Application\ApplicationController::class, 'show'])->name('applications.show');
     Route::get('applications/{application}/pdf',[V1\Application\ApplicationController::class, 'pdf']);
+    Route::get('applications/{application}/report',[V1\Application\ApplicationController::class, 'report']);
 
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
