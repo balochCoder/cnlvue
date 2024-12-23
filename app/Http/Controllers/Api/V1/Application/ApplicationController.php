@@ -60,7 +60,7 @@ class ApplicationController extends Controller
             ->where('id', $application->id)
             ->with([
                 'student.lead',
-                'counsellor',
+                'counsellor', 'counsellor.user',
                 'currency',
                 'leadSource',
                 'course',
@@ -70,13 +70,19 @@ class ApplicationController extends Controller
                 'applicationStatuses.applicationProcess',
                 'applicationStatuses.subStatus',
                 'associate',
-                'followups'
+                'followups' => fn($query) => $query->latest('id'),
             ])
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
             ])
             ->firstOrFail();
+        $followupsCountByMode = $application->followups()
+            ->selectRaw('follow_up_mode, COUNT(*) as count')
+            ->groupBy('follow_up_mode')
+            ->pluck('count', 'follow_up_mode')
+            ->toArray();
 
+        $application->setRelation('followupsCountByMode', $followupsCountByMode);
         return ApplicationResource::make($application);
     }
 

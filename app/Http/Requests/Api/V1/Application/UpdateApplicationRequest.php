@@ -188,8 +188,8 @@ class UpdateApplicationRequest extends BaseApplicationRequest
 
             'courseId' => ['nullable', 'integer', 'exists:courses,id'],
             'currencyId' => ['nullable', 'integer', 'exists:currencies,id'],
-            'leadSourceId' => ['nullable', 'integer', 'exists:lead_sources,id'],
-
+            'leadSourceId' => ['required', 'integer', 'exists:lead_sources,id'],
+            'associateId' => ['required_if:leadSourceId,1', 'nullable','integer', 'exists:associates,id'],
         ];
     }
 
