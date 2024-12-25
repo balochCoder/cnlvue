@@ -12,7 +12,8 @@ class ApplicationStatus extends Model
             'application_process_id',
             'sub_status_id',
             'document',
-            'additional_notes'
+            'additional_notes',
+            'user_id',
         ];
 
     public function applicationProcess(): BelongsTo
@@ -28,6 +29,14 @@ class ApplicationStatus extends Model
         return $this->belongsTo(
             SubStatus::class,
             'sub_status_id',
-        )->whereNotNull('sub_status_id');
+        );
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'user_id',
+        );
     }
 }

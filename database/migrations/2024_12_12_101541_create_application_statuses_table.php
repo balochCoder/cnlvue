@@ -32,6 +32,10 @@ return new class extends Migration {
             $table->text('additional_notes')
                 ->nullable();
 
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

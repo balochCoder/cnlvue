@@ -5,6 +5,7 @@ namespace App\Jobs\Applications;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,7 +22,7 @@ class CreateApplication implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        protected array $attributes
+        protected array $attributes,
     )
     {
         //
@@ -41,6 +42,7 @@ class CreateApplication implements ShouldQueue
                     [
                         'application_id' => $application->id,
                         'application_process_id' => $status->id,
+                        'user_id' => $this->attributes['added_by'],
                     ]
                 );
             },
