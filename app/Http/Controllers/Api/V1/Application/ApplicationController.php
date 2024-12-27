@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Application\StoreApplicationRequest;
 use App\Http\Resources\Api\V1\ApplicationResource;
 use App\Jobs\Applications\CreateApplication;
 use App\Models\Application;
+use App\Traits\ApiResponse;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -14,6 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ApplicationController extends Controller
 {
+    use ApiResponse;
     public function __construct(
         private readonly Dispatcher $bus
     )
@@ -52,6 +54,7 @@ class ApplicationController extends Controller
         $this->bus->dispatch(
             command: new CreateApplication($request->getData())
         );
+        return $this->ok('Application created successfully');
     }
 
     public function show(Application $application)

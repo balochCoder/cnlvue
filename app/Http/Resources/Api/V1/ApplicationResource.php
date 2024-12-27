@@ -72,6 +72,7 @@ class ApplicationResource extends JsonResource
                 'statementOfPurpose' => json_decode($this->resource->statement_of_purpose),
                 'additionalDocuments' => json_decode($this->resource->additional_documents),
                 'isAccommodationRequired' => $this->resource->is_accommodation_required,
+                'institutionReference'=> $this->resource->institution_reference,
                 'addedBy' => $this->resource->addedBy->name,
                 'createdAt' => DateResource::make(
                     $this->resource->created_at,

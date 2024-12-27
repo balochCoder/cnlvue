@@ -22,6 +22,7 @@ class Task extends Model
         'assigned_by',
         'start_date',
         'due_date',
+        'application_id'
     ];
 
     public function assignedTo(): BelongsTo

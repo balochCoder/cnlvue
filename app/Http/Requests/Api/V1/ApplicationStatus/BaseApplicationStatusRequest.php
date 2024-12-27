@@ -47,6 +47,7 @@ class BaseApplicationStatusRequest extends FormRequest
 
             $task = Task::create([
                 'assigned_to' => $this->input('assignedTo'),
+                'application_id' => $this->input('applicationId'),
                 'title' => $this->input('title'),
                 'description' => $this->input('description'),
                 'start_date' => $this->input('startDate'),
