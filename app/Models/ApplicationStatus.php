@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationStatus extends Model
 {
@@ -14,6 +15,7 @@ class ApplicationStatus extends Model
             'document',
             'additional_notes',
             'user_id',
+            'is_task'
         ];
 
     public function applicationProcess(): BelongsTo
@@ -38,5 +40,14 @@ class ApplicationStatus extends Model
             User::class,
             'user_id',
         );
+    }
+
+    public static function makeDirectory($folder): string
+    {
+        $subFolder = 'files/applicationStatuses/' . $folder;
+
+        Storage::makeDirectory($subFolder);
+
+        return $subFolder;
     }
 }

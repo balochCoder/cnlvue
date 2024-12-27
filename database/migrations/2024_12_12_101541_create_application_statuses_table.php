@@ -32,6 +32,8 @@ return new class extends Migration {
             $table->text('additional_notes')
                 ->nullable();
 
+            $table->boolean('is_task')->default(false);
+
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();

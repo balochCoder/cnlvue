@@ -5,7 +5,6 @@ namespace App\Jobs\Applications;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
 use App\Models\Course;
-use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Bus\Dispatchable;

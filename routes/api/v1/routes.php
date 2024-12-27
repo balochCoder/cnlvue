@@ -151,5 +151,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //    File Download
     Route::get('/download/{filePath}', V1\FileDownload\FileDownloadController::class)
         ->where('filePath', '.*');
+//  Application Status
+    Route::post('application-statuses', V1\ApplicationStatus\ApplicationStatusController::class);
 });
 
