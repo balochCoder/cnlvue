@@ -53,7 +53,7 @@ class TaskController extends Controller
     {
         $task = QueryBuilder::for(Task::class)
             ->where('id', $task->id)
-            ->with(['assignedTo', 'assignedBy', 'remarks'])
+            ->with(['assignedTo', 'assignedBy', 'remarks', 'application'])
             ->firstOrFail();
         return TaskResource::make($task);
     }

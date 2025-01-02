@@ -17,6 +17,9 @@ class ApplicationResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'studentFirstName' => $this->resource->student_first_name,
+            'studentLastName' => $this->resource->student_last_name,
+            'studentReference' => $this->resource->student_reference,
             $this->mergeWhen($request->routeIs('applications.*'), [
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
                 'followupsCount' => $this->followupsCountByMode ?? [],
@@ -27,12 +30,9 @@ class ApplicationResource extends JsonResource
                 'counsellor' => CounsellorResource::make($this->whenLoaded('counsellor')),
                 'applicationStatuses' => ApplicationStatusResource::collection($this->whenLoaded('applicationStatuses')),
                 'associate' => AssociateResource::make($this->whenLoaded('associate')),
-                'studentReference' => $this->resource->student_reference,
                 'studentGender' => $this->resource->student_gender,
                 'studentTitle' => $this->resource->student_title,
                 'studentMaritalStatus' => $this->resource->student_marital_status,
-                'studentFirstName' => $this->resource->student_first_name,
-                'studentLastName' => $this->resource->student_last_name,
                 'studentEmail' => $this->resource->student_email,
                 'dateOfBirth' => $this->resource->date_of_birth,
                 'studentPhone' => $this->resource->student_phone,

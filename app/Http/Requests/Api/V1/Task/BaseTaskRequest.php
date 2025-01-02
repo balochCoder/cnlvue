@@ -18,6 +18,7 @@ class BaseTaskRequest extends FormRequest
             'title' => 'title',
             'description' => 'description',
             'file' => 'file',
+            'applicationId' => 'application_id',
         ], $otherAttributes);
         $attributesToUpdate = [];
         foreach ($attributeMap as $key => $attribute) {

@@ -42,7 +42,8 @@ class Lead extends Model
         'interested_country_id',
         'interested_institution_id',
         'added_by',
-        'institution_name'
+        'institution_name',
+        'is_application_generated'
     ];
 
     public function leadSource(): BelongsTo

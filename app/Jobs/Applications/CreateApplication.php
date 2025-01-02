@@ -5,6 +5,8 @@ namespace App\Jobs\Applications;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
 use App\Models\Course;
+use App\Models\Lead;
+use App\Models\Student;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -37,6 +39,14 @@ class CreateApplication implements ShouldQueue
                 $application = Application::create($this->attributes);
                 $course = Course::find($this->attributes['course_id']);
                 $status = $course->representingInstitution->representingCountry->applicationProcesses()->first();
+
+                if ($this->attributes['student_id']) {
+                    $student = Student::find($this->attributes['student_id']);
+                    $lead = Lead::find($student->lead_id);
+                    $lead->update([
+                        'is_application_generated' => true
+                    ]);
+                }
                 ApplicationStatus::query()->create(
                     [
                         'application_id' => $application->id,

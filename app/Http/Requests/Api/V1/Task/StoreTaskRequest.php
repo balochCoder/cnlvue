@@ -22,6 +22,7 @@ class StoreTaskRequest extends BaseTaskRequest
             'dueDate' => ['required', 'date', 'after_or_equal:startDate'],
             'file' => ['nullable', 'file'],
             'description' => ['required', 'string'],
+            'applicationId' => ['nullable', 'exists:applications,id'],
         ];
     }
 

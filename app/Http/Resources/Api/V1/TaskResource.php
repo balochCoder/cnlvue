@@ -20,6 +20,7 @@ class TaskResource extends JsonResource
             'title' => $this->resource->title,
             'file' => $this->resource->file,
             'description' => $this->resource->description,
+            'application' => ApplicationResource::make($this->whenLoaded('application')),
             'status' => $this->resource->status,
             'assignedTo' => UserResource::make($this->whenLoaded('assignedTo')),
             'assignedBy' => UserResource::make($this->whenLoaded('assignedBy')),

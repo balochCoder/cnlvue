@@ -33,6 +33,14 @@ class Task extends Model
         );
     }
 
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(
+            Application::class,
+            'application_id',
+        );
+    }
+
     public function assignedBy(): BelongsTo
     {
         return $this->belongsTo(
