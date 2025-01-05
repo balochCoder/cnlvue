@@ -20,6 +20,7 @@ class ApplicationResource extends JsonResource
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
             'studentReference' => $this->resource->student_reference,
+            'tasks'=>TaskResource::collection($this->whenLoaded('tasks')),
             $this->mergeWhen($request->routeIs('applications.*'), [
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
                 'followupsCount' => $this->followupsCountByMode ?? [],

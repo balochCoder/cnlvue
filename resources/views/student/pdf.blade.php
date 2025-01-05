@@ -138,7 +138,7 @@
         <tr>
             <th>Application Fee</th>
             @foreach($student->studentChoices as $index=> $choice)
-                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol ?? $choice->course->currency->code}}{{$choice->course->application_fee}}</td>
+                <td style="background-color: {{ $index % 2 == 0 ? '#B8DAFF' : '#BEE5EB' }}">{{$choice->course->currency->symbol && $choice->course->application_fee ?? $choice->course->currency->code}}{{$choice->course->application_fee}}</td>
             @endforeach
 
         </tr>

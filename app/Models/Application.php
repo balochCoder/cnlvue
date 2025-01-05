@@ -105,6 +105,14 @@ class Application extends Model
             'application_id',
         );
     }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(
+            Task::class,
+            'application_id',
+        );
+    }
 //    protected function studentImage(): Attribute
 //    {
 //        return Attribute::make(

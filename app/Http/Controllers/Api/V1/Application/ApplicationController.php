@@ -37,7 +37,11 @@ class ApplicationController extends Controller
                 'applicationStatuses.applicationProcess',
                 'applicationStatuses.subStatus',
                 'associate',
-                'followups'
+                'followups',
+                'tasks',
+                'tasks.remarks',
+                'tasks.assignedTo',
+                'tasks.assignedBy'
             ])
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
