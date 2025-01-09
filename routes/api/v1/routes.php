@@ -153,5 +153,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->where('filePath', '.*');
 //  Application Status
     Route::post('application-statuses', V1\ApplicationStatus\ApplicationStatusController::class);
+//    ApplicationAdminNote
+    Route::post('application-admin-notes',V1\ApplicationAdminNote\ApplicationAdminNoteController::class);
 });
 

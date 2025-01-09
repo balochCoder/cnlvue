@@ -41,7 +41,8 @@ class ApplicationController extends Controller
                 'tasks',
                 'tasks.remarks',
                 'tasks.assignedTo',
-                'tasks.assignedBy'
+                'tasks.assignedBy',
+                'adminNotes'
             ])
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
@@ -77,6 +78,7 @@ class ApplicationController extends Controller
                 'applicationStatuses.applicationProcess',
                 'applicationStatuses.subStatus',
                 'associate',
+                'adminNotes',
                 'followups' => fn($query) => $query->latest('id'),
             ])
             ->allowedFilters([

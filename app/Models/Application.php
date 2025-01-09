@@ -113,6 +113,14 @@ class Application extends Model
             'application_id',
         );
     }
+
+    public function adminNotes(): HasMany
+    {
+        return $this->hasMany(
+            ApplicationAdminNote::class,
+            'application_id',
+        );
+    }
 //    protected function studentImage(): Attribute
 //    {
 //        return Attribute::make(

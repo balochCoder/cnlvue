@@ -22,6 +22,7 @@ class ApplicationResource extends JsonResource
             'studentReference' => $this->resource->student_reference,
             'tasks'=>TaskResource::collection($this->whenLoaded('tasks')),
             $this->mergeWhen($request->routeIs('applications.*'), [
+                'adminNotes' => ApplicationAdminNoteResource::collection($this->whenLoaded('adminNotes')),
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
                 'followupsCount' => $this->followupsCountByMode ?? [],
                 'student' => StudentResource::make($this->whenLoaded('student')),
