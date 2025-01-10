@@ -4,7 +4,6 @@ namespace App\Http\Requests\Api\V1\Application;
 
 use App\Models\Application;
 use App\Models\Counsellor;
-use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
 

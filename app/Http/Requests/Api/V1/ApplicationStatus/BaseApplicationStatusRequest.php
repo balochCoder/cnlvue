@@ -32,7 +32,7 @@ class BaseApplicationStatusRequest extends FormRequest
     public function storeData(): array
     {
         $data = $this->mappedAttributes();
-        if ($this->input('institutionReference')) {
+        if ($this->input('institutionReference') || $this->input('institutionReference') == null) {
             $application = Application::findOrFail($this->input('applicationId'));
             $application->update([
                 'institution_reference' => $this->input('institutionReference'),
