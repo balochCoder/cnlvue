@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\V1\Application;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Application\StoreApplicationRequest;
+use App\Http\Requests\Api\V1\Application\UpdateApplicationRequest;
 use App\Http\Resources\Api\V1\ApplicationResource;
 use App\Jobs\Applications\CreateApplication;
+use App\Jobs\Applications\UpdateApplication;
 use App\Models\Application;
 use App\Traits\ApiResponse;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -112,5 +114,13 @@ class ApplicationController extends Controller
         $application->setRelation('followupsCountByMode', $followupsCountByMode);
         $pdf = Pdf::loadView('application.report', compact('application'));
         return $pdf->download('report.pdf');
+    }
+
+    public function update(Application $application,UpdateApplicationRequest $request)
+    {
+        $this->bus->dispatch(
+            command: new UpdateApplication($request->getData(), $application)
+        );
+        return $this->ok('Application updated successfully');
     }
 }

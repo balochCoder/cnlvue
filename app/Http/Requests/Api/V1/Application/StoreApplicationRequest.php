@@ -193,7 +193,7 @@ class StoreApplicationRequest extends BaseApplicationRequest
 
             'studentId' => ['nullable', 'integer', 'exists:students,id'],
             'courseId' => ['nullable', 'integer', 'exists:courses,id'],
-            'currencyId' => ['nullable', 'integer', 'exists:currencies,id'],
+            'currencyId' => ['required', 'integer', 'exists:currencies,id'],
             'leadSourceId' => ['required', 'integer', 'exists:lead_sources,id'],
             'associateId' => ['required_if:leadSourceId,1', 'nullable','integer', 'exists:associates,id'],
         ];
