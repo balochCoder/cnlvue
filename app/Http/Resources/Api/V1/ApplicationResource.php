@@ -54,7 +54,7 @@ class ApplicationResource extends JsonResource
                 'applicationPaymentReference' => $this->resource->application_payment_reference,
                 'scholarshipOffered' => $this->resource->scholarship_offered,
                 'scholarshipProof' => $this->resource->scholarship_proof,
-                'totalTutionFeeToBePaid' => $this->resource->total_tution_fee_to_be_paid,
+                'totalTuitionFeeToBePaid' => $this->resource->total_tuition_fee_to_be_paid,
                 'feePaidSoFar' => $this->resource->fee_paid_so_far,
                 'firstYearFeeDue' => $this->resource->first_year_fee_due,
                 'totalFeeDue' => $this->resource->total_fee_due,
