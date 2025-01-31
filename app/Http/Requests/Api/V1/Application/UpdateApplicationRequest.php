@@ -105,6 +105,7 @@ class UpdateApplicationRequest extends BaseApplicationRequest
             'englishLanguage.toefl.date' => ['nullable', 'date'],
             'englishLanguage.toefl.additional' => ['nullable', 'string'],
             'englishLanguage.toefl.file' => ['sometimes','nullable'],
+
             //English Language PTE
             'englishLanguage.pte' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
@@ -112,14 +113,14 @@ class UpdateApplicationRequest extends BaseApplicationRequest
                     $fail($attribute . ' contains invalid keys.');
                 }
             }],
-            'englishLanguage.pte.listening' => ['nullable', 'decimal:0,1'],
-            'englishLanguage.pte.speaking' => ['nullable', 'decimal:0,1'],
-            'englishLanguage.pte.reading' => ['nullable', 'decimal:0,1'],
-            'englishLanguage.pte.writing' => ['nullable', 'decimal:0,1'],
-            'englishLanguage.pte.score' => ['nullable', 'decimal:0,1'],
-            'englishLanguage.pte.date' => ['nullable', 'date'],
-            'englishLanguage.pte.additional' => ['nullable', 'string'],
-            'englishLanguage.pte.file' => ['sometimes', 'nullable'],
+            'englishLanguage.pte.listening' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.speaking' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.reading' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.writing' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.score' => [ 'nullable', 'decimal:0,1'],
+            'englishLanguage.pte.date' => [ 'nullable', 'date'],
+            'englishLanguage.pte.additional' => [ 'nullable', 'string'],
+            'englishLanguage.pte.file' => [ 'nullable', 'sometimes'],
             //English Language GMAT
             'englishLanguage.gmat' => ['array', 'required_array_keys:listening,reading,speaking,writing,score,date,additional,file', function ($attribute, $value, $fail) {
                 $allowedKeys = ['listening', 'reading', 'speaking', 'writing', 'score', 'date', 'additional', 'file'];
