@@ -3,8 +3,13 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Http\Resources\Api\DateResource;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ApplicationResource extends JsonResource
 {
@@ -20,7 +25,10 @@ class ApplicationResource extends JsonResource
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
             'studentReference' => $this->resource->student_reference,
-            'tasks'=>TaskResource::collection($this->whenLoaded('tasks')),
+            'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
+            'isDuplicate' => $this->hasDuplicates(),
+            'duplicates' => DuplicateApplicationResource::collection($this->getDuplicateApplications()),
+            'duplicateCount' => $this->hasDuplicates() ? count($this->getDuplicateApplications()) + 1 : 0,
             $this->mergeWhen($request->routeIs('applications.*'), [
                 'adminNotes' => ApplicationAdminNoteResource::collection($this->whenLoaded('adminNotes')),
                 'followups' => FollowupResource::collection($this->whenLoaded('followups')),
@@ -74,7 +82,7 @@ class ApplicationResource extends JsonResource
                 'statementOfPurpose' => json_decode($this->resource->statement_of_purpose),
                 'additionalDocuments' => json_decode($this->resource->additional_documents),
                 'isAccommodationRequired' => $this->resource->is_accommodation_required,
-                'institutionReference'=> $this->resource->institution_reference,
+                'institutionReference' => $this->resource->institution_reference,
                 'addedBy' => $this->resource->addedBy->name,
                 'createdAt' => DateResource::make(
                     $this->resource->created_at,
@@ -84,5 +92,35 @@ class ApplicationResource extends JsonResource
                 )
             ])
         ];
+    }
+
+
+    /**
+     * Check if the application has duplicates.
+     */
+    private function hasDuplicates(): bool
+    {
+        return Application::where('student_first_name', $this->resource->student_first_name)
+            ->where('student_last_name', $this->resource->student_last_name)
+            ->where('date_of_birth', $this->resource->date_of_birth)
+            ->where('id', '!=', $this->resource->id) // Exclude the current record
+            ->exists();
+    }
+
+    /**
+     * Retrieve all duplicate applications.
+     */
+    private function getDuplicateApplications() : Collection
+    {
+        return Application::query()
+
+            ->where('student_last_name', $this->resource->student_last_name)
+            ->where('date_of_birth', $this->resource->date_of_birth)
+            ->where('id', '!=', $this->resource->id)
+            ->with(['course', 'course.representingInstitution',
+                'course.representingInstitution.representingCountry',])
+            ->get();
+
+
     }
 }
