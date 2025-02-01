@@ -19,6 +19,7 @@ class DuplicateApplicationResource extends JsonResource
             'studentFirstName' => $this->resource->student_first_name,
             'studentLastName' => $this->resource->student_last_name,
             'studentReference' => $this->resource->student_reference,
+            'studentEmail' => $this->resource->student_email,
             'course' => CourseResource::make($this->whenLoaded('course')),
         ];
     }
