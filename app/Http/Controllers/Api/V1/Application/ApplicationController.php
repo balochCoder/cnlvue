@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Application;
 
+use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Application\StoreApplicationRequest;
 use App\Http\Requests\Api\V1\Application\UpdateApplicationRequest;
@@ -12,6 +13,8 @@ use App\Models\Application;
 use App\Traits\ApiResponse;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Exception;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -161,5 +164,14 @@ class ApplicationController extends Controller
             command: new UpdateApplication($request->getData(), $application)
         );
         return $this->ok('Application updated successfully');
+    }
+
+    /**
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function exportCsv()
+    {
+        return Excel::download(new ApplicationsExport, 'applications.csv');
     }
 }

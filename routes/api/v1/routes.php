@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('enums/lead-statuses', [V1\Enum\EnumController::class, 'leadStatuses']);
     Route::get('enums/followup-modes', [V1\Enum\EnumController::class, 'followupModes']);
     Route::get('enums/task-statuses', [V1\Enum\EnumController::class, 'taskStatuses']);
-    Route::get('enums/payment-methods',[V1\Enum\EnumController::class, 'paymentMethods']);
+    Route::get('enums/payment-methods', [V1\Enum\EnumController::class, 'paymentMethods']);
 
     //Currency
     Route::get('currencies', V1\Currency\CurrencyController::class);
@@ -67,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::patch('courses/{course}/status', [V1\Course\CourseController::class, 'status']);
 
-    Route::get('courses/{course}/pdf',[V1\Course\CourseController::class, 'pdf']);
+    Route::get('courses/{course}/pdf', [V1\Course\CourseController::class, 'pdf']);
     //Branch
     Route::apiResource('branches', V1\Branch\BranchController::class)
         ->except(['destroy']);
@@ -116,12 +116,12 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['destroy']);
     Route::apiResource('followups', V1\Followup\FollowupController::class)
         ->only(['store', 'index']);
-    Route::get('leads/{lead}/pdf',[V1\Lead\LeadController::class, 'pdf']);
+    Route::get('leads/{lead}/pdf', [V1\Lead\LeadController::class, 'pdf']);
 
 
     //Tasks
-    Route::get('tasks',[V1\Task\TaskController::class, 'index'])
-    ->name('tasks.index');
+    Route::get('tasks', [V1\Task\TaskController::class, 'index'])
+        ->name('tasks.index');
     Route::get('tasks/assigned-by-me', [V1\Task\TaskController::class, 'assignedByMe'])->name('tasks.assignedByMe');
     Route::get('/tasks/assigned-to-me', [V1\Task\TaskController::class, 'assignedToMe'])->name('tasks.assignedToMe');
 
@@ -131,24 +131,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/tasks/{task}', [V1\Task\TaskController::class, 'update'])->name('/tasks.update');
 
 //    Students
-    Route::get('students', [ V1\Student\StudentController::class, 'index'])->name('students.index');
+    Route::get('students', [V1\Student\StudentController::class, 'index'])->name('students.index');
     Route::get('students/{student}', [V1\Student\StudentController::class, 'show'])->name('students.show');
     Route::post('students', [V1\Student\StudentController::class, 'store'])->name('students.store');
-    Route::put('students/{student}',[V1\Student\StudentController::class,'update'])->name('students.update');
-    Route::get('students/{student}/pdf',[V1\Student\StudentController::class, 'pdf']);
+    Route::put('students/{student}', [V1\Student\StudentController::class, 'update'])->name('students.update');
+    Route::get('students/{student}/pdf', [V1\Student\StudentController::class, 'pdf']);
 
 //    Applications
     Route::post('applications', [V1\Application\ApplicationController::class, 'store'])->name('applications.store');
     Route::get('applications', [V1\Application\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('applications/export-csv', [V1\Application\ApplicationController::class, 'exportCsv'])->name('applications.exportCsv');
     Route::get('applications/{application}', [V1\Application\ApplicationController::class, 'show'])->name('applications.show');
-    Route::put('applications/{application}',[V1\Application\ApplicationController::class,'update'])->name('applications.update');
-    Route::get('applications/{application}/pdf',[V1\Application\ApplicationController::class, 'pdf']);
-    Route::get('applications/{application}/report',[V1\Application\ApplicationController::class, 'report']);
-    Route::get('/applications/{application}/duplicates',[V1\Application\ApplicationController::class, 'duplicateApplications'])->name('applications.duplicates');
+    Route::put('applications/{application}', [V1\Application\ApplicationController::class, 'update'])->name('applications.update');
+    Route::get('applications/{application}/pdf', [V1\Application\ApplicationController::class, 'pdf']);
+    Route::get('applications/{application}/report', [V1\Application\ApplicationController::class, 'report']);
+    Route::get('applications/{application}/duplicates', [V1\Application\ApplicationController::class, 'duplicateApplications'])->name('applications.duplicates');
 
 //    Roles
-    Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');
-    Route::get('roles/{role}/users',[V1\Role\RoleController::class, 'getUsers'])->name('roles.users');
+    Route::get('roles', [V1\Role\RoleController::class, 'index'])->name('roles.index');
+    Route::get('roles/{role}/users', [V1\Role\RoleController::class, 'getUsers'])->name('roles.users');
 
 //    File Download
     Route::get('/download/{filePath}', V1\FileDownload\FileDownloadController::class)
@@ -156,6 +157,6 @@ Route::middleware('auth:sanctum')->group(function () {
 //  Application Status
     Route::post('application-statuses', V1\ApplicationStatus\ApplicationStatusController::class);
 //    ApplicationAdminNote
-    Route::post('application-admin-notes',V1\ApplicationAdminNote\ApplicationAdminNoteController::class);
+    Route::post('application-admin-notes', V1\ApplicationAdminNote\ApplicationAdminNoteController::class);
 });
 
