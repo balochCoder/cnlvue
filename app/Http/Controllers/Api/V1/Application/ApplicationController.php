@@ -18,6 +18,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class ApplicationController extends Controller
 {
     use ApiResponse;
+
     public function __construct(
         private readonly Dispatcher $bus
     )
@@ -35,7 +36,7 @@ class ApplicationController extends Controller
                 'course',
                 'course.representingInstitution',
                 'course.representingInstitution.representingCountry',
-                'applicationStatuses'=> fn($query) => $query->latest('id'),
+                'applicationStatuses' => fn($query) => $query->latest('id'),
                 'applicationStatuses.applicationProcess',
                 'applicationStatuses.subStatus',
                 'associate',
@@ -49,6 +50,44 @@ class ApplicationController extends Controller
             ->allowedFilters([
                 AllowedFilter::exact('counsellor', 'counsellor_id'),
             ])
+            ->getEloquentBuilder()
+            ->latest('id')
+            ->get();
+
+        return ApplicationResource::collection($applications);
+    }
+
+    public function duplicateApplications(Application $application)
+    {
+        $applications = QueryBuilder::for(Application::class)
+            ->with([
+                'student.lead',
+                'counsellor',
+                'currency',
+                'leadSource',
+                'course',
+                'course.representingInstitution',
+                'course.representingInstitution.representingCountry',
+                'applicationStatuses' => fn($query) => $query->latest('id'),
+                'applicationStatuses.applicationProcess',
+                'applicationStatuses.subStatus',
+                'associate',
+                'followups',
+                'tasks',
+                'tasks.remarks',
+                'tasks.assignedTo',
+                'tasks.assignedBy',
+                'adminNotes'
+            ])
+            ->allowedFilters([
+                AllowedFilter::exact('counsellor', 'counsellor_id'),
+            ])
+            ->where(function ($query) use ($application) {
+                $query->where('student_first_name', $application->student_first_name)
+                    ->where('student_last_name', $application->student_last_name)
+                    ->where('date_of_birth', $application->date_of_birth);
+            })
+            ->orWhere('id', $application->id) // Ensure the original application is included
             ->getEloquentBuilder()
             ->latest('id')
             ->get();
@@ -76,7 +115,7 @@ class ApplicationController extends Controller
                 'course',
                 'course.representingInstitution',
                 'course.representingInstitution.representingCountry',
-                'applicationStatuses'=> fn($query) => $query->latest('id'),
+                'applicationStatuses' => fn($query) => $query->latest('id'),
                 'applicationStatuses.applicationProcess',
                 'applicationStatuses.subStatus',
                 'associate',
@@ -116,7 +155,7 @@ class ApplicationController extends Controller
         return $pdf->download('report.pdf');
     }
 
-    public function update(Application $application,UpdateApplicationRequest $request)
+    public function update(Application $application, UpdateApplicationRequest $request)
     {
         $this->bus->dispatch(
             command: new UpdateApplication($request->getData(), $application)

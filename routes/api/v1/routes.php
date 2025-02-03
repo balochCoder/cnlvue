@@ -144,6 +144,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('applications/{application}',[V1\Application\ApplicationController::class,'update'])->name('applications.update');
     Route::get('applications/{application}/pdf',[V1\Application\ApplicationController::class, 'pdf']);
     Route::get('applications/{application}/report',[V1\Application\ApplicationController::class, 'report']);
+    Route::get('/applications/{application}/duplicates',[V1\Application\ApplicationController::class, 'duplicateApplications'])->name('applications.duplicates');
 
 //    Roles
     Route::get('roles',[V1\Role\RoleController::class, 'index'])->name('roles.index');

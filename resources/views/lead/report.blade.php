@@ -21,15 +21,16 @@
         }
 
         .header .logo, .header .details {
-            display: inline-block;  /* Use inline-block for both elements */
+            display: inline-block; /* Use inline-block for both elements */
             vertical-align: middle;
-            margin-top: 30px;/* Align them vertically */
+            margin-top: 30px; /* Align them vertically */
             margin-left: 30px;
         }
 
         .header .details {
             text-align: right;
         }
+
         .header .logo img {
             width: 80px;
             height: 80px;
@@ -43,6 +44,7 @@
             font-size: 16px;
             color: #333;
         }
+
         .header h2 {
             color: #333;
             margin-right: 20px;
@@ -92,7 +94,7 @@
         .follow-up .icons {
             display: flex !important;
             justify-content: space-around !important;
-            flex-wrap: nowrap;  /* Ensures icons remain in a single line */
+            flex-wrap: nowrap; /* Ensures icons remain in a single line */
             width: 100%;
         }
 
@@ -101,7 +103,7 @@
             font-size: 12px;
             color: #555;
             width: 16%; /* Ensure icons are distributed evenly across the row */
-            display: inline-block;  /* Use inline-block to ensure horizontal alignment */
+            display: inline-block; /* Use inline-block to ensure horizontal alignment */
             margin-right: 10px;
         }
 
@@ -231,12 +233,12 @@
             <strong>Field of Interest:</strong>
             @php
                 // Map the selected categories to their labels
-                $categoryLabels = $categoryLabels = $lead->course_category
-    ? array_map(
-        fn($category) => \App\Enums\CourseCategories::tryFrom($category)?->getLabel(),
-        json_decode($lead->course_category)
-      )
-    : ["-"];;
+                $categoryLabels = $lead->course_category
+                        ? array_map(
+                            fn($category) => \App\Enums\CourseCategories::tryFrom($category)?->getLabel(),
+                            json_decode($lead->course_category)
+                          )
+                        : ["-"];
                 // Convert the array of labels to a comma-separated string
                 $commaSeparatedLabels = implode(', ', $categoryLabels);
             @endphp
